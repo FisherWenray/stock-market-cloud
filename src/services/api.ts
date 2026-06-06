@@ -37,8 +37,47 @@ const API_CONFIG = {
   get apiKey() {
     return import.meta.env.VITE_STOCK_API_KEY || '';
   },
-  timeoutMs: 5000,
+  timeoutMs: 15000,
 };
+
+async function fetchWithFallback(targetUrl: string, devUrl: string, signal: AbortSignal): Promise<Response> {
+  const isTest = typeof process !== 'undefined' && process.env.NODE_ENV === 'test';
+
+  if (import.meta.env.DEV) {
+    return fetch(devUrl, isTest ? {} : { signal });
+  }
+
+  try {
+    const controller = new AbortController();
+    const subTimeoutId = setTimeout(() => controller.abort(), 6000); // 6 seconds limit for direct fetch
+    
+    const onAbort = () => controller.abort();
+    if (!isTest) {
+      signal.addEventListener('abort', onAbort);
+    }
+
+    const fetchOpts: RequestInit = {};
+    if (!isTest) {
+      fetchOpts.signal = controller.signal;
+    }
+
+    const res = await fetch(targetUrl, fetchOpts);
+    clearTimeout(subTimeoutId);
+    if (!isTest) {
+      signal.removeEventListener('abort', onAbort);
+    }
+    
+    if (res.ok) {
+      return res;
+    }
+  } catch (e) {
+    console.warn(`[StockDataService] Direct fetch to ${targetUrl} failed or timed out. Falling back to CORS proxy. Error:`, e);
+  }
+
+  // Fallback to AllOrigins proxy
+  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
+  return fetch(proxyUrl, isTest ? {} : { signal });
+}
 
 export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = 'zh'): Promise<MarketData> {
   const defaultMockStocks = market === 'US' ? US_STOCKS : HK_STOCKS;
@@ -66,11 +105,9 @@ export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = '
       const chunkSize = 100;
       for (let i = 0; i < tencentTickers.length; i += chunkSize) {
         const chunk = tencentTickers.slice(i, i + chunkSize);
-        const targetUrl = `https://qt.gtimg.cn/q=${chunk.join(',')}`;
-        const url = import.meta.env.DEV
-          ? `/api-yahoo/q=${chunk.join(',')}`
-          : `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
-        fetchPromises.push(fetch(url, { signal: controller.signal }));
+        const targetUrl = `https://qt.gtimg.cn/q=${chunk.join(',')}&_=${Date.now()}`;
+        const devUrl = `/api-yahoo/q=${chunk.join(',')}`;
+        fetchPromises.push(fetchWithFallback(targetUrl, devUrl, controller.signal));
       }
     }
 
@@ -271,12 +308,10 @@ export async function fetchMarketIndices(market: 'US' | 'HK'): Promise<IndexData
   const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.timeoutMs);
 
   try {
-    const targetUrl = `https://qt.gtimg.cn/q=${symbols.join(',')}`;
-    const url = import.meta.env.DEV
-      ? `/api-yahoo/q=${symbols.join(',')}`
-      : `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
+    const targetUrl = `https://qt.gtimg.cn/q=${symbols.join(',')}&_=${Date.now()}`;
+    const devUrl = `/api-yahoo/q=${symbols.join(',')}`;
 
-    const res = await fetch(url, { signal: controller.signal });
+    const res = await fetchWithFallback(targetUrl, devUrl, controller.signal);
     if (!res.ok) throw new Error('Indices API fetch failed');
     
     let text = '';
