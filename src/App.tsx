@@ -85,6 +85,9 @@ function App() {
 
   const [refreshProgress, setRefreshProgress] = useState<number>(0);
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
+  const [colorMetric, setColorMetric] = useState<'change' | 'pe'>('change');
+  const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+  const [chartPeriod, setChartPeriod] = useState<'24h' | '5d' | '1m'>('24h');
 
   const loadData = () => {
     setLoading(true);
@@ -145,6 +148,33 @@ function App() {
     setSelectedStock(null);
   }, [selectedMarket, lang]);
 
+  // Click outside listener for search autocomplete
+  useEffect(() => {
+    const handleOutsideClick = () => {
+      setShowSuggestions(false);
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, []);
+
+  // Show suggestions when search text is inputted
+  useEffect(() => {
+    if (searchQuery.trim().length > 0) {
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+    }
+  }, [searchQuery]);
+
+  const matchingStocks = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return [];
+    return stocks.filter(s =>
+      s.symbol.toLowerCase().includes(q) ||
+      s.name.toLowerCase().includes(q)
+    );
+  }, [searchQuery, stocks]);
+
   const detailedStats = useMemo(() => {
     if (!selectedStock) return null;
     const stock = selectedStock;
@@ -153,17 +183,37 @@ function App() {
     const openPrice = Number((prevClose * 1.002).toFixed(2));
     const highPrice = Number((Math.max(stock.price, prevClose, openPrice) * 1.015).toFixed(2));
     const lowPrice = Number((Math.min(stock.price, prevClose, openPrice) * 0.985).toFixed(2));
-    const volume = Math.floor(stock.marketCap / 25000 / stock.price);
+    const volume = stock.volume || Math.floor(stock.marketCap / 25000 / stock.price);
     
-    // Generate trend chart data points
-    const points = 12;
+    let hash = 0;
+    for (let i = 0; i < stock.symbol.length; i++) {
+      hash = stock.symbol.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    // Generate trend chart data points based on period
+    const points = chartPeriod === '24h' ? 12 : (chartPeriod === '5d' ? 25 : 30);
     const chartPoints = [];
     const startPrice = prevClose;
+    const seed = hash + (chartPeriod === '5d' ? 500 : (chartPeriod === '1m' ? 1000 : 0));
+
     for (let i = 0; i < points; i++) {
       const fraction = i / (points - 1);
       const trend = startPrice + (stock.price - startPrice) * fraction;
-      const wave = Math.sin(fraction * Math.PI * 1.5) * (stock.price - startPrice) * 0.2;
-      const noise = (Math.sin(i * 2.3) + Math.cos(i * 3.7)) * (stock.price * 0.003);
+      
+      let wave = 0;
+      let noise = 0;
+      if (chartPeriod === '24h') {
+        wave = Math.sin(fraction * Math.PI * 1.5 + Math.abs(seed % 10)) * (stock.price - startPrice) * 0.15;
+        noise = Math.cos(i * 1.3 + Math.abs(seed % 7)) * (stock.price * 0.002);
+      } else if (chartPeriod === '5d') {
+        wave = Math.sin(fraction * Math.PI * 4 + Math.abs(seed % 15)) * (stock.price * 0.012);
+        noise = Math.cos(i * 0.8 + Math.abs(seed % 5)) * (stock.price * 0.004);
+      } else {
+        wave = Math.sin(fraction * Math.PI * 2 + Math.abs(seed % 8)) * (stock.price * 0.035) + 
+               Math.cos(fraction * Math.PI * 5) * (stock.price * 0.015);
+        noise = Math.cos(i * 0.5 + Math.abs(seed % 9)) * (stock.price * 0.006);
+      }
+      
       const price = Number((trend + wave + noise).toFixed(2));
       chartPoints.push({ x: fraction * 100, y: price });
     }
@@ -185,7 +235,7 @@ function App() {
     const areaPath = `${linePath} L ${svgWidth} ${svgHeight} L 0 ${svgHeight} Z`;
     
     return { prevClose, openPrice, highPrice, lowPrice, volume, linePath, areaPath, svgWidth, svgHeight, minP, maxP };
-  }, [selectedStock]);
+  }, [selectedStock, chartPeriod]);
 
   useEffect(() => {
     localStorage.setItem('color-theme', theme);
@@ -317,10 +367,42 @@ function App() {
               </button>
             </div>
           </div>
+
+          {/* Color Dimension / Metric Selection */}
+          <div className="flex flex-col gap-1.5">
+            <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500/80">{t.colorMetric}</span>
+            <div className="inline-flex bg-black/40 rounded-lg p-1 border border-white/5 shadow-inner">
+              <button
+                data-testid="metric-change"
+                onClick={() => setColorMetric('change')}
+                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-300 ${
+                  colorMetric === 'change' 
+                    ? 'bg-slate-800 text-white shadow-md' 
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                }`}
+              >
+                {t.metricChange}
+              </button>
+              <button
+                data-testid="metric-pe"
+                onClick={() => setColorMetric('pe')}
+                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-300 ${
+                  colorMetric === 'pe' 
+                    ? 'bg-slate-800 text-white shadow-md' 
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                }`}
+              >
+                {t.metricPe}
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Search */}
-        <div className="flex flex-col gap-1.5 w-full xl:w-96">
+        <div 
+          className="flex flex-col gap-1.5 w-full xl:w-96 relative"
+          onClick={(e) => e.stopPropagation()}
+        >
           <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500/80">{t.searchTitle}</span>
           <div className="relative group">
             <input
@@ -338,6 +420,49 @@ function App() {
               >
                 {t.clear}
               </button>
+            )}
+            
+            {showSuggestions && matchingStocks.length > 0 && (
+              <div 
+                data-testid="search-suggestions"
+                className="absolute z-50 left-0 right-0 mt-1 bg-slate-900/95 backdrop-blur-xl border border-white/10 shadow-2xl rounded-xl max-h-64 overflow-y-auto divide-y divide-white/5 scrollbar-thin scrollbar-thumb-slate-800"
+              >
+                {matchingStocks.map(stock => {
+                  const isUpRed = theme === 'chinese';
+                  const isPositive = stock.change > 0;
+                  const isNegative = stock.change < 0;
+                  const colorClass = isPositive 
+                    ? (isUpRed ? 'text-red-400' : 'text-emerald-400') 
+                    : (isNegative ? (isUpRed ? 'text-emerald-400' : 'text-red-400') : 'text-slate-400');
+                  
+                  return (
+                    <div
+                      key={stock.symbol}
+                      data-testid={`suggestion-item-${stock.symbol.toLowerCase()}`}
+                      onClick={() => {
+                        setSelectedStock(stock);
+                        setChartPeriod('24h');
+                        setShowSuggestions(false);
+                        setSearchQuery('');
+                      }}
+                      className="flex items-center justify-between px-4 py-3 hover:bg-white/5 cursor-pointer transition-colors"
+                    >
+                      <div className="flex flex-col">
+                        <span className="font-mono font-bold text-white text-sm">{stock.symbol}</span>
+                        <span className="text-slate-400 text-xs truncate max-w-[200px]">{stock.name}</span>
+                      </div>
+                      <div className="flex flex-col items-end">
+                        <span className="font-mono text-white text-sm">
+                          {selectedMarket === 'US' ? '$' : 'HK$'}{stock.price.toFixed(2)}
+                        </span>
+                        <span className={`font-mono text-xs font-bold ${colorClass}`}>
+                          {stock.change >= 0 ? `+${stock.change.toFixed(2)}%` : `${stock.change.toFixed(2)}%`}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             )}
           </div>
         </div>
@@ -372,7 +497,9 @@ function App() {
               onStockHover={handleStockHover}
               onStockClick={(stock) => {
                 setSelectedStock(stock);
+                setChartPeriod('24h');
               }}
+              colorMetric={colorMetric}
             />
 
             {/* Hover Tooltip - Prepared for Milestone 5 but fully operational */}
@@ -480,7 +607,7 @@ function App() {
           />
 
           {/* Panel */}
-          <div className="relative w-full max-w-md h-full bg-slate-900 border-l border-slate-800/60 p-6 md:p-8 flex flex-col justify-between shadow-2xl backdrop-blur-xl z-10 overflow-y-auto">
+          <div data-testid="stock-details-panel" className="relative w-full max-w-md h-full bg-slate-900 border-l border-slate-800/60 p-6 md:p-8 flex flex-col justify-between shadow-2xl backdrop-blur-xl z-10 overflow-y-auto">
             <div>
               {/* Header */}
               <div className="flex justify-between items-start mb-6">
@@ -569,7 +696,44 @@ function App() {
 
               {/* Sparkline Trend Chart */}
               <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-5 flex flex-col">
-                <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">{t.todayTrend}</span>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.todayTrend}</span>
+                  <div className="inline-flex bg-black/40 rounded-lg p-0.5 border border-white/5 shadow-inner">
+                    <button
+                      data-testid="period-tab-24h"
+                      onClick={() => setChartPeriod('24h')}
+                      className={`px-2 py-1 rounded-md text-[10px] font-bold transition-all duration-300 ${
+                        chartPeriod === '24h' 
+                          ? 'bg-slate-800 text-white shadow-sm' 
+                          : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                      }`}
+                    >
+                      24H
+                    </button>
+                    <button
+                      data-testid="period-tab-5d"
+                      onClick={() => setChartPeriod('5d')}
+                      className={`px-2 py-1 rounded-md text-[10px] font-bold transition-all duration-300 ${
+                        chartPeriod === '5d' 
+                          ? 'bg-slate-800 text-white shadow-sm' 
+                          : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                      }`}
+                    >
+                      5D
+                    </button>
+                    <button
+                      data-testid="period-tab-1m"
+                      onClick={() => setChartPeriod('1m')}
+                      className={`px-2 py-1 rounded-md text-[10px] font-bold transition-all duration-300 ${
+                        chartPeriod === '1m' 
+                          ? 'bg-slate-800 text-white shadow-sm' 
+                          : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                      }`}
+                    >
+                      1M
+                    </button>
+                  </div>
+                </div>
                 <div className="w-full h-[140px] flex items-center justify-center bg-black/20 rounded-xl overflow-hidden relative border border-white/5">
                   {(() => {
                     const isUpRed = theme === 'chinese';

@@ -11,6 +11,8 @@ export interface TreemapNode {
   change?: number;
   marketCap?: number;
   sector?: string;
+  pe?: number;
+  volume?: number;
   children?: TreemapNode[];
 }
 
@@ -21,9 +23,32 @@ export interface TreemapProps {
   searchQuery?: string;
   onStockHover?: (stock: Stock | null, x: number, y: number) => void;
   onStockClick?: (stock: Stock) => void;
+  colorMetric?: 'change' | 'pe';
 }
 
-const getTileColor = (change: number, theme: 'international' | 'chinese'): string => {
+const getTileColor = (
+  stock: { change: number; pe?: number; volume?: number; marketCap: number; price: number },
+  theme: 'international' | 'chinese',
+  colorMetric: 'change' | 'pe' = 'change'
+): string => {
+  if (colorMetric === 'pe') {
+    const pe = stock.pe || 25;
+    const isUpRed = theme === 'chinese';
+    const absChangeColor = pe < 15 ? (isUpRed ? 'red' : 'emerald') : (pe >= 50 ? (isUpRed ? 'emerald' : 'red') : 'slate');
+    
+    if (absChangeColor === 'red') {
+      if (pe >= 65) return 'fill-red-600 hover:fill-red-500 transition-colors duration-200';
+      if (pe >= 55) return 'fill-red-700 hover:fill-red-600 transition-colors duration-200';
+      return 'fill-red-900 hover:fill-red-800 transition-colors duration-200';
+    } else if (absChangeColor === 'emerald') {
+      if (pe < 10) return 'fill-emerald-600 hover:fill-emerald-500 transition-colors duration-200';
+      if (pe < 13) return 'fill-emerald-700 hover:fill-emerald-600 transition-colors duration-200';
+      return 'fill-emerald-950 hover:fill-emerald-900 transition-colors duration-200';
+    }
+    return 'fill-slate-700 hover:fill-slate-600 transition-colors duration-200';
+  }
+  
+  const change = stock.change;
   if (change === 0) return 'fill-slate-700 hover:fill-slate-600 transition-colors duration-200';
 
   const isPositive = change > 0;
@@ -56,6 +81,7 @@ export const Treemap: React.FC<TreemapProps> = ({
   searchQuery = '',
   onStockHover,
   onStockClick,
+  colorMetric = 'change',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width, height } = useContainerSize(containerRef);
@@ -95,6 +121,8 @@ export const Treemap: React.FC<TreemapProps> = ({
         change: stock.change,
         marketCap: stock.marketCap,
         sector: stock.sector,
+        pe: stock.pe,
+        volume: stock.volume,
       })),
     })),
   };
@@ -178,6 +206,20 @@ export const Treemap: React.FC<TreemapProps> = ({
           {sectorsLayout.map(sectorNode => {
             const sectorName = sectorNode.data.name;
             const sectorNameLower = sectorName.toLowerCase();
+            
+            // Calculate weighted average change for this sector
+            const sectorStocks = sectorsMap.get(sectorName) || [];
+            const totalCap = sectorStocks.reduce((sum, s) => sum + s.marketCap, 0);
+            const avgChange = totalCap > 0
+              ? sectorStocks.reduce((sum, s) => sum + (s.change * s.marketCap), 0) / totalCap
+              : 0;
+            const avgChangeText = `${avgChange >= 0 ? '+' : ''}${avgChange.toFixed(2)}%`;
+            
+            const isUpRed = theme === 'chinese';
+            const avgColor = avgChange > 0 
+              ? (isUpRed ? 'fill-red-400' : 'fill-emerald-400') 
+              : (avgChange < 0 ? (isUpRed ? 'fill-emerald-400' : 'fill-red-400') : 'fill-slate-400');
+
             return (
               <g
                 key={sectorName}
@@ -204,6 +246,7 @@ export const Treemap: React.FC<TreemapProps> = ({
                   className="text-[11px] font-black fill-slate-300 pointer-events-none uppercase tracking-[0.15em] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
                 >
                   {t.sectors[sectorName] || sectorName}
+                  <tspan className={`${avgColor} font-mono ml-2 font-black`}> {avgChangeText}</tspan>
                   {!zoomedSector ? (lang === 'zh' ? ' (🔍 点击缩放)' : ' (🔍 Click to Zoom)') : ''}
                 </text>
 
@@ -219,6 +262,14 @@ export const Treemap: React.FC<TreemapProps> = ({
 
                   const isMatch = searchQuery.trim() ? isHighlighted(stock) : null;
                   const trendColor = getTrendColor(stock.change);
+
+                  // Formatting metric label
+                  let metricLabel = '';
+                  if (colorMetric === 'pe') {
+                    metricLabel = `PE: ${stock.pe || '-'}`;
+                  } else {
+                    metricLabel = `${stock.change >= 0 ? '+' : ''}${stock.change.toFixed(2)}%`;
+                  }
 
                   return (
                     <g
@@ -239,13 +290,15 @@ export const Treemap: React.FC<TreemapProps> = ({
                         change: stock.change || 0,
                         marketCap: stock.marketCap || 0,
                         sector: stock.sector || '',
+                        pe: stock.pe,
+                        volume: stock.volume,
                       })}
                     >
                       {/* Colored Tile Rect */}
                       <rect
                         width={w}
                         height={h}
-                        className={`${getTileColor(stock.change, theme)} drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)]`}
+                        className={`${getTileColor(stock, theme, colorMetric)} drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)]`}
                         stroke="#ffffff"
                         strokeOpacity={0.06}
                         strokeWidth={w < 15 || h < 15 ? 0 : 1}
@@ -267,7 +320,7 @@ export const Treemap: React.FC<TreemapProps> = ({
                         </text>
                       )}
 
-                      {/* Change Percentage Text - Render only if height permits */}
+                      {/* Change Percentage / Metric Text - Render only if height permits */}
                       {w > 50 && h > 36 && (
                         <text
                           data-testid={`stock-change-${symbol}`}
@@ -277,7 +330,7 @@ export const Treemap: React.FC<TreemapProps> = ({
                           dominantBaseline="middle"
                           className="text-[11px] font-semibold fill-slate-100 pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
                         >
-                          {stock.change >= 0 ? `+${stock.change.toFixed(2)}%` : `${stock.change.toFixed(2)}%`}
+                          {metricLabel}
                         </text>
                       )}
                     </g>

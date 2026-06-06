@@ -7,6 +7,8 @@ export interface Stock {
   change: number;       // Change percentage, e.g., +1.5 or -0.8
   marketCap: number;    // Market cap in USD or HKD
   sector: string;       // Sector/Industry group, e.g., 'Technology'
+  pe?: number;          // P/E Ratio (valuation)
+  volume?: number;      // Trading volume
 }
 
 export interface MarketData {

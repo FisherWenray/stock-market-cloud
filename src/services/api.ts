@@ -17,6 +17,19 @@ export function getFluctuatedMockData(stocks: Stock[]): Stock[] {
   });
 }
 
+export function injectMockMetrics(stocks: Stock[]): Stock[] {
+  return stocks.map(s => {
+    let hash = 0;
+    for (let i = 0; i < s.symbol.length; i++) {
+      hash = s.symbol.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const pe = 10 + Math.abs(hash % 60);
+    const baseVolume = s.marketCap / s.price / 1000;
+    const volume = Math.floor(baseVolume * (0.5 + Math.abs(hash % 10) / 10)) || 1000;
+    return { ...s, pe, volume };
+  });
+}
+
 const API_CONFIG = {
   get baseUrl() {
     return import.meta.env.VITE_STOCK_API_URL || 'https://api.example.com/v1';
@@ -222,7 +235,7 @@ export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = '
 
     return {
       market,
-      stocks: mappedStocks,
+      stocks: injectMockMetrics(mappedStocks),
       isMock: false,
       lastUpdated: new Date().toISOString(),
     };
@@ -237,7 +250,7 @@ export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = '
 
     return {
       market,
-      stocks: getFluctuatedMockData(defaultMockStocks),
+      stocks: injectMockMetrics(getFluctuatedMockData(defaultMockStocks)),
       isMock: true,
       lastUpdated: new Date().toISOString(),
     };

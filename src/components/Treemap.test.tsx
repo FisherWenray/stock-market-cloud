@@ -227,4 +227,45 @@ describe('Treemap component', () => {
     fireEvent.mouseLeave(aaplTile);
     expect(handleHover).toHaveBeenLastCalledWith(null, 0, 0);
   });
+
+  it('renders sector header weighted average change percentage', () => {
+    render(<Treemap stocks={mockStocks} theme="international" lang="en" />);
+    triggerContainerResize(800, 600);
+
+    const techHeader = screen.getByTestId('treemap-sector-title-technology');
+    // Technology: AAPL (2T, +1.5%) and MSFT (1.5T, -2.5%) -> weighted average = -0.21%
+    expect(techHeader).toHaveTextContent('-0.21%');
+  });
+
+  it('colors tiles correctly by P/E ratio metric', () => {
+    const peStocks: Stock[] = [
+      { symbol: 'LOWPE', name: 'Low PE Corp', price: 100.0, change: 1.0, marketCap: 100000000, sector: 'Technology', pe: 10 },
+      { symbol: 'HIGHPE', name: 'High PE Corp', price: 100.0, change: 1.0, marketCap: 100000000, sector: 'Technology', pe: 60 },
+      { symbol: 'MIDPE', name: 'Mid PE Corp', price: 100.0, change: 1.0, marketCap: 100000000, sector: 'Technology', pe: 30 },
+    ];
+
+    // Under International Theme: low PE (<15) should be Emerald, high PE (>50) should be Red, mid PE should be Slate
+    const { rerender } = render(<Treemap stocks={peStocks} theme="international" lang="en" colorMetric="pe" />);
+    triggerContainerResize(800, 600);
+
+    const lowPeRect = screen.getByTestId('stock-tile-LOWPE').querySelector('rect');
+    const highPeRect = screen.getByTestId('stock-tile-HIGHPE').querySelector('rect');
+    const midPeRect = screen.getByTestId('stock-tile-MIDPE').querySelector('rect');
+
+    expect(lowPeRect?.className.baseVal).toContain('fill-emerald');
+    expect(highPeRect?.className.baseVal).toContain('fill-red');
+    expect(midPeRect?.className.baseVal).toContain('fill-slate-700');
+
+    // Under Chinese Theme: low PE (<15) should be Red, high PE (>50) should be Emerald
+    rerender(<Treemap stocks={peStocks} theme="chinese" lang="en" colorMetric="pe" />);
+    triggerContainerResize(800, 600);
+
+    const lowPeRectCN = screen.getByTestId('stock-tile-LOWPE').querySelector('rect');
+    const highPeRectCN = screen.getByTestId('stock-tile-HIGHPE').querySelector('rect');
+
+    expect(lowPeRectCN?.className.baseVal).toContain('fill-red');
+    expect(highPeRectCN?.className.baseVal).toContain('fill-emerald');
+  });
+
 });
+
