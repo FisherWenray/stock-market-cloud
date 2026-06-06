@@ -18,14 +18,18 @@ export const MarketIndices: React.FC<Props> = ({ indices, theme, lang }) => {
       {indices.map(idx => {
         const isPositive = idx.change > 0;
         const isNegative = idx.change < 0;
-        
+        const isUpRed = theme === 'chinese';
+        const upColor = isUpRed ? 'red' : 'emerald';
+        const downColor = isUpRed ? 'emerald' : 'red';
+        const activeColor = isPositive ? upColor : (isNegative ? downColor : 'slate');
+
         let colorClass = 'text-slate-400';
         let bgClass = 'bg-white/5 border-white/10';
 
-        if (isPositive) {
+        if (activeColor === 'red') {
           colorClass = 'text-red-400 drop-shadow-[0_0_8px_rgba(248,113,113,0.5)]';
           bgClass = 'bg-red-500/10 border-red-500/20';
-        } else if (isNegative) {
+        } else if (activeColor === 'emerald') {
           colorClass = 'text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.5)]';
           bgClass = 'bg-emerald-500/10 border-emerald-500/20';
         }

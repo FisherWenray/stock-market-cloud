@@ -9,6 +9,7 @@ interface DataStatusIndicatorProps {
   error: string | null;
   onRefresh?: () => void;
   lang: Language;
+  refreshProgress?: number;
 }
 
 export const DataStatusIndicator: React.FC<DataStatusIndicatorProps> = ({
@@ -18,6 +19,7 @@ export const DataStatusIndicator: React.FC<DataStatusIndicatorProps> = ({
   error,
   onRefresh,
   lang,
+  refreshProgress = 0,
 }) => {
   const t = translations[lang];
   const formattedTime = lastUpdated 
@@ -57,13 +59,39 @@ export const DataStatusIndicator: React.FC<DataStatusIndicatorProps> = ({
       </div>
 
       {onRefresh && (
-        <button
-          onClick={onRefresh}
-          disabled={loading}
-          className="px-3.5 py-1.5 text-xs font-medium text-slate-200 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 disabled:opacity-50 disabled:pointer-events-none rounded transition-all duration-200 hover:shadow"
-        >
-          {loading ? t.refreshing : t.refresh}
-        </button>
+        <div className="flex items-center gap-2.5">
+          {!loading && refreshProgress !== undefined && (
+            <div className="relative w-5 h-5 flex items-center justify-center" title="Auto-refresh countdown">
+              <svg className="w-5 h-5 transform -rotate-90">
+                <circle
+                  cx="10"
+                  cy="10"
+                  r="8"
+                  className="stroke-slate-700"
+                  strokeWidth="2"
+                  fill="none"
+                />
+                <circle
+                  cx="10"
+                  cy="10"
+                  r="8"
+                  className="stroke-emerald-500 transition-all duration-100"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeDasharray={2 * Math.PI * 8}
+                  strokeDashoffset={2 * Math.PI * 8 * (1 - refreshProgress / 100)}
+                />
+              </svg>
+            </div>
+          )}
+          <button
+            onClick={onRefresh}
+            disabled={loading}
+            className="px-3.5 py-1.5 text-xs font-medium text-slate-200 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 disabled:opacity-50 disabled:pointer-events-none rounded transition-all duration-200 hover:shadow"
+          >
+            {loading ? t.refreshing : t.refresh}
+          </button>
+        </div>
       )}
     </div>
   );

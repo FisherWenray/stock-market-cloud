@@ -61,13 +61,23 @@ export const Treemap: React.FC<TreemapProps> = ({
   const { width, height } = useContainerSize(containerRef);
   const t = translations[lang];
 
-  const hasStocks = stocks.length > 0;
+  const [zoomedSector, setZoomedSector] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    setZoomedSector(null);
+  }, [stocks]);
+
+  const displayedStocks = zoomedSector
+    ? stocks.filter(s => s.sector === zoomedSector)
+    : stocks;
+
+  const hasStocks = displayedStocks.length > 0;
   const hasDimensions = width > 0 && height > 0;
 
   // 1. Group stocks by sector
   const sectorsMap = new Map<string, Stock[]>();
   if (hasStocks) {
-    stocks.forEach(stock => {
+    displayedStocks.forEach(stock => {
       const list = sectorsMap.get(stock.sector) || [];
       list.push(stock);
       sectorsMap.set(stock.sector, list);
@@ -138,8 +148,18 @@ export const Treemap: React.FC<TreemapProps> = ({
   return (
     <div
       ref={containerRef}
-      className="w-full h-full min-h-[500px] bg-transparent overflow-hidden"
+      className="w-full h-full min-h-[500px] bg-transparent overflow-hidden relative"
     >
+      {zoomedSector && (
+        <button
+          onClick={() => setZoomedSector(null)}
+          className="absolute top-3 right-3 z-30 px-3.5 py-2 bg-slate-900/90 hover:bg-slate-800 text-xs font-bold text-emerald-400 hover:text-emerald-300 border border-slate-700/80 hover:border-emerald-500/50 rounded-lg shadow-xl backdrop-blur-md transition-all duration-300 flex items-center gap-1.5 transform hover:-translate-y-0.5"
+        >
+          <span>←</span>
+          <span>{lang === 'zh' ? '返回全部板块' : 'Back to All Sectors'}</span>
+        </button>
+      )}
+
       {!hasStocks ? (
         <div className="w-full h-full min-h-[490px] flex items-center justify-center bg-black/20 text-slate-400 border border-white/5 rounded-2xl">
           {t.noData}
@@ -163,6 +183,19 @@ export const Treemap: React.FC<TreemapProps> = ({
                 key={sectorName}
                 data-testid={`treemap-sector-${sectorNameLower}`}
               >
+                {/* Clickable header background rect */}
+                {!zoomedSector && (
+                  <rect
+                    x={sectorNode.x0}
+                    y={sectorNode.y0}
+                    width={sectorNode.x1 - sectorNode.x0}
+                    height={24}
+                    fill="rgba(255, 255, 255, 0.01)"
+                    className="cursor-zoom-in hover:fill-white/5 transition-colors duration-200"
+                    onClick={() => setZoomedSector(sectorName)}
+                  />
+                )}
+
                 {/* Sector header text */}
                 <text
                   data-testid={`treemap-sector-title-${sectorNameLower}`}
@@ -171,6 +204,7 @@ export const Treemap: React.FC<TreemapProps> = ({
                   className="text-[11px] font-black fill-slate-300 pointer-events-none uppercase tracking-[0.15em] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
                 >
                   {t.sectors[sectorName] || sectorName}
+                  {!zoomedSector ? (lang === 'zh' ? ' (🔍 点击缩放)' : ' (🔍 Click to Zoom)') : ''}
                 </text>
 
                 {/* Stock tiles inside the sector */}

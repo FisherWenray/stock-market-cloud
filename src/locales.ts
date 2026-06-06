@@ -66,7 +66,14 @@ export const translations = {
     upGreen: 'Up (Green)',
     downRed: 'Down (Red)',
     downGreen: 'Down (Green)',
-    flatGray: 'Flat (Gray)'
+    flatGray: 'Flat (Gray)',
+    openPrice: 'Open',
+    highPrice: 'High',
+    lowPrice: 'Low',
+    prevClose: 'Prev Close',
+    volume: 'Volume',
+    todayTrend: "Today's Trend",
+    closeDetail: 'Close Details'
   },
   zh: {
     appTitle: '股票行情云图',
@@ -133,6 +140,13 @@ export const translations = {
     upGreen: '上涨 (绿色)',
     downRed: '下跌 (红色)',
     downGreen: '下跌 (绿色)',
-    flatGray: '平盘 (灰色)'
+    flatGray: '平盘 (灰色)',
+    openPrice: '开盘价',
+    highPrice: '最高价',
+    lowPrice: '最低价',
+    prevClose: '昨收',
+    volume: '成交量',
+    todayTrend: '今日走势',
+    closeDetail: '关闭详情'
   }
 };

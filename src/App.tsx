@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Treemap } from './components/Treemap';
 import { fetchMarketData, fetchMarketIndices } from './services/api';
 import { Stock, Market, ColorTheme, Language, IndexData } from './types';
@@ -18,6 +18,48 @@ const formatMarketCap = (marketCap: number): string => {
     return `${(marketCap / 1e6).toFixed(2)}M`;
   }
   return marketCap.toLocaleString();
+};
+
+const getTooltipSparkline = (stock: Stock) => {
+  const changeFraction = stock.change / 100;
+  const prevClose = Number((stock.price / (1 + changeFraction)).toFixed(2));
+  
+  // Deterministic seed based on symbol character codes to prevent flickering on re-hover
+  let hash = 0;
+  for (let i = 0; i < stock.symbol.length; i++) {
+    hash = stock.symbol.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  const points = 8;
+  const chartPoints = [];
+  const startPrice = prevClose;
+  for (let i = 0; i < points; i++) {
+    const fraction = i / (points - 1);
+    const trend = startPrice + (stock.price - startPrice) * fraction;
+    // Deterministic wave using sine and character hash
+    const wave = Math.sin(fraction * Math.PI * 1.5 + Math.abs(hash % 10)) * (stock.price - startPrice) * 0.15;
+    const noise = Math.cos(i * 1.3 + Math.abs(hash % 7)) * (stock.price * 0.001);
+    const price = Number((trend + wave + noise).toFixed(2));
+    chartPoints.push({ x: fraction * 100, y: price });
+  }
+  chartPoints[points - 1] = { x: 100, y: stock.price };
+  
+  const prices = chartPoints.map(p => p.y);
+  const minP = Math.min(...prices) * 0.998;
+  const maxP = Math.max(...prices) * 1.002;
+  const range = maxP - minP || 1;
+  
+  const svgWidth = 160;
+  const svgHeight = 40;
+  const coords = chartPoints.map(p => ({
+    x: (p.x / 100) * svgWidth,
+    y: svgHeight - ((p.y - minP) / range) * svgHeight
+  }));
+  
+  const linePath = coords.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c.x} ${c.y}`).join(' ');
+  const areaPath = `${linePath} L ${svgWidth} ${svgHeight} L 0 ${svgHeight} Z`;
+  
+  return { linePath, areaPath, svgWidth, svgHeight };
 };
 
 function App() {
@@ -41,9 +83,13 @@ function App() {
   const [isMock, setIsMock] = useState<boolean>(true);
   const [lastUpdated, setLastUpdated] = useState<string>('');
 
+  const [refreshProgress, setRefreshProgress] = useState<number>(0);
+  const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
+
   const loadData = () => {
     setLoading(true);
     setError(null);
+    setRefreshProgress(0);
     Promise.all([
       fetchMarketData(selectedMarket, lang),
       fetchMarketIndices(selectedMarket)
@@ -65,26 +111,81 @@ function App() {
     loadData();
   }, [selectedMarket, lang]);
 
-  // Auto-refresh every 10 seconds for real-time monitoring
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      Promise.all([
-        fetchMarketData(selectedMarket, lang),
-        fetchMarketIndices(selectedMarket)
-      ])
-        .then(([marketData, indicesData]) => {
-          setStocks(marketData.stocks);
-          setIsMock(marketData.isMock);
-          setLastUpdated(marketData.lastUpdated);
-          setIndices(indicesData);
-        })
-        .catch(() => {
-          // Silently ignore refresh errors
-        });
-    }, 10000);
-
-    return () => clearInterval(intervalId);
+    setRefreshProgress(0);
   }, [selectedMarket]);
+
+  // Auto-refresh and countdown tracking
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setRefreshProgress(prev => {
+        if (prev >= 100) {
+          Promise.all([
+            fetchMarketData(selectedMarket, lang),
+            fetchMarketIndices(selectedMarket)
+          ])
+            .then(([marketData, indicesData]) => {
+              setStocks(marketData.stocks);
+              setIsMock(marketData.isMock);
+              setLastUpdated(marketData.lastUpdated);
+              setIndices(indicesData);
+            })
+            .catch(() => {});
+          return 0;
+        }
+        return prev + 1; // 1% every 100ms
+      });
+    }, 100);
+
+    return () => clearInterval(timer);
+  }, [selectedMarket, lang]);
+
+  // Close details panel when market or lang changes
+  useEffect(() => {
+    setSelectedStock(null);
+  }, [selectedMarket, lang]);
+
+  const detailedStats = useMemo(() => {
+    if (!selectedStock) return null;
+    const stock = selectedStock;
+    const changeFraction = stock.change / 100;
+    const prevClose = Number((stock.price / (1 + changeFraction)).toFixed(2));
+    const openPrice = Number((prevClose * 1.002).toFixed(2));
+    const highPrice = Number((Math.max(stock.price, prevClose, openPrice) * 1.015).toFixed(2));
+    const lowPrice = Number((Math.min(stock.price, prevClose, openPrice) * 0.985).toFixed(2));
+    const volume = Math.floor(stock.marketCap / 25000 / stock.price);
+    
+    // Generate trend chart data points
+    const points = 12;
+    const chartPoints = [];
+    const startPrice = prevClose;
+    for (let i = 0; i < points; i++) {
+      const fraction = i / (points - 1);
+      const trend = startPrice + (stock.price - startPrice) * fraction;
+      const wave = Math.sin(fraction * Math.PI * 1.5) * (stock.price - startPrice) * 0.2;
+      const noise = (Math.sin(i * 2.3) + Math.cos(i * 3.7)) * (stock.price * 0.003);
+      const price = Number((trend + wave + noise).toFixed(2));
+      chartPoints.push({ x: fraction * 100, y: price });
+    }
+    chartPoints[points - 1] = { x: 100, y: stock.price };
+    
+    const prices = chartPoints.map(p => p.y);
+    const minP = Math.min(...prices) * 0.995;
+    const maxP = Math.max(...prices) * 1.005;
+    const range = maxP - minP || 1;
+    
+    const svgWidth = 320;
+    const svgHeight = 140;
+    const coords = chartPoints.map(p => ({
+      x: (p.x / 100) * svgWidth,
+      y: svgHeight - ((p.y - minP) / range) * svgHeight
+    }));
+    
+    const linePath = coords.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c.x} ${c.y}`).join(' ');
+    const areaPath = `${linePath} L ${svgWidth} ${svgHeight} L 0 ${svgHeight} Z`;
+    
+    return { prevClose, openPrice, highPrice, lowPrice, volume, linePath, areaPath, svgWidth, svgHeight, minP, maxP };
+  }, [selectedStock]);
 
   useEffect(() => {
     localStorage.setItem('color-theme', theme);
@@ -132,6 +233,7 @@ function App() {
             error={error}
             onRefresh={loadData}
             lang={lang}
+            refreshProgress={refreshProgress}
           />
         </div>
       </header>
@@ -269,63 +371,255 @@ function App() {
               searchQuery={searchQuery}
               onStockHover={handleStockHover}
               onStockClick={(stock) => {
-                console.log('Stock clicked:', stock);
+                setSelectedStock(stock);
               }}
             />
 
             {/* Hover Tooltip - Prepared for Milestone 5 but fully operational */}
-            {hoveredStock && hoverPos && (
-              <div
-                data-testid="stock-tooltip"
-                className="absolute bg-slate-900 border border-slate-800 text-slate-100 p-3 rounded-lg shadow-2xl text-xs pointer-events-none transition-all duration-75 z-50 min-w-[180px] border-slate-700/60"
-                style={{
-                  left: `${hoverPos.x}px`,
-                  top: `${hoverPos.y - 12}px`,
-                  transform: hoverPos.y > 150 ? 'translate(-50%, -100%)' : 'translate(-50%, 24px)',
-                }}
-              >
-                <div className="font-bold border-b border-slate-800 pb-1.5 mb-1.5 flex justify-between gap-3">
-                  <span data-testid="tooltip-symbol" className="text-emerald-400 font-mono text-sm">{hoveredStock.symbol}</span>
-                  <span data-testid="tooltip-name" className="text-slate-300 font-normal truncate max-w-[100px]">{hoveredStock.name}</span>
+            {hoveredStock && hoverPos && (() => {
+              const spark = getTooltipSparkline(hoveredStock);
+              const isUpRed = theme === 'chinese';
+              const isPositive = hoveredStock.change > 0;
+              const isNegative = hoveredStock.change < 0;
+              const upColor = isUpRed ? 'red' : 'emerald';
+              const downColor = isUpRed ? 'emerald' : 'red';
+              const chartColor = isPositive ? upColor : (isNegative ? downColor : 'slate');
+              const chartStroke = chartColor === 'red' ? '#f87171' : (chartColor === 'emerald' ? '#34d399' : '#94a3b8');
+
+              return (
+                <div
+                  data-testid="stock-tooltip"
+                  className="absolute bg-slate-900 border border-slate-800 text-slate-100 p-3 rounded-lg shadow-2xl text-xs pointer-events-none transition-all duration-75 z-50 min-w-[195px] border-slate-700/60"
+                  style={{
+                    left: `${hoverPos.x}px`,
+                    top: `${hoverPos.y - 12}px`,
+                    transform: hoverPos.y > 150 ? 'translate(-50%, -100%)' : 'translate(-50%, 24px)',
+                  }}
+                >
+                  <div className="font-bold border-b border-slate-800 pb-1.5 mb-1.5 flex justify-between gap-3">
+                    <span data-testid="tooltip-symbol" className="text-emerald-400 font-mono text-sm">{hoveredStock.symbol}</span>
+                    <span data-testid="tooltip-name" className="text-slate-300 font-normal truncate max-w-[100px]">{hoveredStock.name}</span>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">{t.price}:</span>
+                      <span data-testid="tooltip-price" className="font-mono text-slate-200">
+                        {selectedMarket === 'US' ? '$' : 'HK$'}{hoveredStock.price.toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">{t.change}:</span>
+                      <span
+                        data-testid="tooltip-change"
+                        className={`font-mono font-bold ${
+                          hoveredStock.change > 0
+                            ? theme === 'chinese' ? 'text-red-500' : 'text-emerald-500'
+                            : hoveredStock.change < 0
+                            ? theme === 'chinese' ? 'text-emerald-500' : 'text-red-500'
+                            : 'text-slate-400'
+                        }`}
+                      >
+                        {hoveredStock.change >= 0 ? `+${hoveredStock.change.toFixed(2)}%` : `${hoveredStock.change.toFixed(2)}%`}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">{t.marketCap}:</span>
+                      <span data-testid="tooltip-market-cap" className="font-mono text-slate-200">
+                        {selectedMarket === 'US' ? '$' : 'HK$'}{formatMarketCap(hoveredStock.marketCap)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between pt-1 border-t border-slate-800/80 mt-1">
+                      <span className="text-slate-500">{t.sector}:</span>
+                      <span className="text-slate-300 font-medium">{t.sectors[hoveredStock.sector] || hoveredStock.sector}</span>
+                    </div>
+                  </div>
+
+                  {/* Sparkline section */}
+                  <div className="mt-2.5 pt-2 border-t border-slate-800/80 flex flex-col gap-1.5">
+                    <span className="text-[9px] uppercase font-bold tracking-widest text-slate-500">{t.todayTrend}</span>
+                    <div className="w-full h-10 bg-black/20 rounded overflow-hidden relative border border-white/[0.03] flex items-center justify-center">
+                      <svg
+                        width="100%"
+                        height={spark.svgHeight}
+                        viewBox={`0 0 ${spark.svgWidth} ${spark.svgHeight}`}
+                        className="overflow-visible"
+                      >
+                        <defs>
+                          <linearGradient id={`t-grad-red-${hoveredStock.symbol}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#ef4444" stopOpacity="0.25"/>
+                            <stop offset="100%" stopColor="#ef4444" stopOpacity="0.0"/>
+                          </linearGradient>
+                          <linearGradient id={`t-grad-emerald-${hoveredStock.symbol}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#10b981" stopOpacity="0.25"/>
+                            <stop offset="100%" stopColor="#10b981" stopOpacity="0.0"/>
+                          </linearGradient>
+                          <linearGradient id={`t-grad-slate-${hoveredStock.symbol}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#64748b" stopOpacity="0.25"/>
+                            <stop offset="100%" stopColor="#64748b" stopOpacity="0.0"/>
+                          </linearGradient>
+                        </defs>
+                        <path d={spark.areaPath} fill={`url(#t-grad-${chartColor}-${hoveredStock.symbol})`} />
+                        <path d={spark.linePath} fill="none" stroke={chartStroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">{t.price}:</span>
-                    <span data-testid="tooltip-price" className="font-mono text-slate-200">
-                      {selectedMarket === 'US' ? '$' : 'HK$'}{hoveredStock.price.toFixed(2)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">{t.change}:</span>
-                    <span
-                      data-testid="tooltip-change"
-                      className={`font-mono font-bold ${
-                        hoveredStock.change > 0
-                          ? theme === 'chinese' ? 'text-red-500' : 'text-emerald-500'
-                          : hoveredStock.change < 0
-                          ? theme === 'chinese' ? 'text-emerald-500' : 'text-red-500'
-                          : 'text-slate-400'
-                      }`}
-                    >
-                      {hoveredStock.change >= 0 ? `+${hoveredStock.change.toFixed(2)}%` : `${hoveredStock.change.toFixed(2)}%`}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">{t.marketCap}:</span>
-                    <span data-testid="tooltip-market-cap" className="font-mono text-slate-200">
-                      {selectedMarket === 'US' ? '$' : 'HK$'}{formatMarketCap(hoveredStock.marketCap)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between pt-1 border-t border-slate-800/80 mt-1">
-                    <span className="text-slate-500">{t.sector}:</span>
-                    <span className="text-slate-300 font-medium">{t.sectors[hoveredStock.sector] || hoveredStock.sector}</span>
-                  </div>
-                </div>
-              </div>
-            )}
+              );
+            })()}
           </div>
         )}
       </main>
+
+      {/* Stock Details Sidebar */}
+      {selectedStock && detailedStats && (
+        <div className="fixed inset-0 z-50 flex justify-end">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity"
+            onClick={() => setSelectedStock(null)}
+          />
+
+          {/* Panel */}
+          <div className="relative w-full max-w-md h-full bg-slate-900 border-l border-slate-800/60 p-6 md:p-8 flex flex-col justify-between shadow-2xl backdrop-blur-xl z-10 overflow-y-auto">
+            <div>
+              {/* Header */}
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl font-mono font-black text-white">{selectedStock.symbol}</span>
+                    <span className="px-2.5 py-0.5 rounded bg-slate-800 text-[10px] uppercase font-bold tracking-wider text-slate-400">
+                      {t.sectors[selectedStock.sector] || selectedStock.sector}
+                    </span>
+                  </div>
+                  <h2 className="text-slate-400 text-sm mt-1.5 font-medium">{selectedStock.name}</h2>
+                </div>
+                <button
+                  onClick={() => setSelectedStock(null)}
+                  className="w-8 h-8 rounded-full bg-slate-800/50 hover:bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-colors shadow-inner"
+                  title={t.closeDetail}
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Price Details */}
+              <div className="bg-black/35 rounded-2xl p-5 border border-white/5 shadow-inner mb-6 flex items-baseline justify-between">
+                <div>
+                  <span className="text-xs uppercase font-bold tracking-wider text-slate-500">{t.price}</span>
+                  <div className="text-3xl font-mono font-black text-white mt-1">
+                    {selectedMarket === 'US' ? '$' : 'HK$'}{selectedStock.price.toFixed(2)}
+                  </div>
+                </div>
+                
+                {(() => {
+                  const isUpRed = theme === 'chinese';
+                  const isPositive = selectedStock.change > 0;
+                  const isNegative = selectedStock.change < 0;
+                  const upColorClass = isUpRed ? 'bg-red-500/15 text-red-400 border-red-500/30' : 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
+                  const downColorClass = isUpRed ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : 'bg-red-500/15 text-red-400 border-red-500/30';
+                  const colorClass = isPositive ? upColorClass : (isNegative ? downColorClass : 'bg-slate-800 text-slate-400 border-slate-700');
+                  
+                  return (
+                    <span className={`px-3.5 py-1.5 rounded-xl border text-sm font-bold font-mono ${colorClass}`}>
+                      {selectedStock.change >= 0 ? `+${selectedStock.change.toFixed(2)}%` : `${selectedStock.change.toFixed(2)}%`}
+                    </span>
+                  );
+                })()}
+              </div>
+
+              {/* Statistics Grid */}
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.openPrice}</span>
+                  <span className="text-base font-mono font-bold text-slate-200 mt-1">
+                    {selectedMarket === 'US' ? '$' : 'HK$'}{detailedStats.openPrice}
+                  </span>
+                </div>
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.prevClose}</span>
+                  <span className="text-base font-mono font-bold text-slate-200 mt-1">
+                    {selectedMarket === 'US' ? '$' : 'HK$'}{detailedStats.prevClose}
+                  </span>
+                </div>
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.highPrice}</span>
+                  <span className="text-base font-mono font-bold text-slate-200 mt-1">
+                    {selectedMarket === 'US' ? '$' : 'HK$'}{detailedStats.highPrice}
+                  </span>
+                </div>
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.lowPrice}</span>
+                  <span className="text-base font-mono font-bold text-slate-200 mt-1">
+                    {selectedMarket === 'US' ? '$' : 'HK$'}{detailedStats.lowPrice}
+                  </span>
+                </div>
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.volume}</span>
+                  <span className="text-base font-mono font-bold text-slate-200 mt-1">
+                    {detailedStats.volume.toLocaleString()}
+                  </span>
+                </div>
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.marketCap}</span>
+                  <span className="text-base font-mono font-bold text-slate-200 mt-1">
+                    {selectedMarket === 'US' ? '$' : 'HK$'}{formatMarketCap(selectedStock.marketCap)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Sparkline Trend Chart */}
+              <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-5 flex flex-col">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3">{t.todayTrend}</span>
+                <div className="w-full h-[140px] flex items-center justify-center bg-black/20 rounded-xl overflow-hidden relative border border-white/5">
+                  {(() => {
+                    const isUpRed = theme === 'chinese';
+                    const isPositive = selectedStock.change > 0;
+                    const isNegative = selectedStock.change < 0;
+                    const upColor = isUpRed ? 'red' : 'emerald';
+                    const downColor = isUpRed ? 'emerald' : 'red';
+                    const chartColor = isPositive ? upColor : (isNegative ? downColor : 'slate');
+                    
+                    const chartStroke = chartColor === 'red' ? '#f87171' : (chartColor === 'emerald' ? '#34d399' : '#94a3b8');
+                    
+                    return (
+                      <svg
+                        width="100%"
+                        height={detailedStats.svgHeight}
+                        viewBox={`0 0 ${detailedStats.svgWidth} ${detailedStats.svgHeight}`}
+                        className="overflow-visible"
+                      >
+                        <defs>
+                          <linearGradient id="chart-grad-red" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#ef4444" stopOpacity="0.3"/>
+                            <stop offset="100%" stopColor="#ef4444" stopOpacity="0.0"/>
+                          </linearGradient>
+                          <linearGradient id="chart-grad-emerald" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#10b981" stopOpacity="0.3"/>
+                            <stop offset="100%" stopColor="#10b981" stopOpacity="0.0"/>
+                          </linearGradient>
+                          <linearGradient id="chart-grad-slate" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#64748b" stopOpacity="0.3"/>
+                            <stop offset="100%" stopColor="#64748b" stopOpacity="0.0"/>
+                          </linearGradient>
+                        </defs>
+                        <path d={detailedStats.areaPath} fill={`url(#chart-grad-${chartColor})`} />
+                        <path d={detailedStats.linePath} fill="none" stroke={chartStroke} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    );
+                  })()}
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setSelectedStock(null)}
+              className="w-full mt-8 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-semibold rounded-xl border border-slate-700 transition-colors shadow-lg"
+            >
+              {t.closeDetail}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
