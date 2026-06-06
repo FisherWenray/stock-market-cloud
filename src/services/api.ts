@@ -117,6 +117,8 @@ export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = '
             allJsonResults.push(...jsonPayload.quoteResponse.result);
           } else if (Array.isArray(jsonPayload)) {
             allJsonResults.push(...jsonPayload);
+          } else if (jsonPayload.stocks && Array.isArray(jsonPayload.stocks)) {
+            allJsonResults.push(...jsonPayload.stocks);
           }
         }
       }
@@ -208,15 +210,6 @@ export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = '
             sector: sectorMap.get(symbol) || String(stockItem.sector || 'Other'),
           };
         });
-      } else if (typeof data !== 'undefined' && data !== null && Array.isArray(data.stocks)) {
-        mappedStocks = data.stocks.map((stockItem: any) => ({
-          symbol: String(stockItem.symbol),
-          name: String(stockItem.name || stockItem.symbol),
-          price: Number(stockItem.price),
-          change: Number(stockItem.change),
-          marketCap: Number(stockItem.marketCap),
-          sector: String(stockItem.sector),
-        }));
       } else {
         throw new Error('Invalid schema format from API response payload');
       }
