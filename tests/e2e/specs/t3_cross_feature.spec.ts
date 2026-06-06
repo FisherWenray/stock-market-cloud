@@ -5,8 +5,8 @@ test.describe('Tier 3 - Cross-Feature Combinations', () => {
   let pageObj: StockMarketPage;
   const stocksList = [
     { symbol: 'AAPL', name: 'Apple', regularMarketPrice: 150.0, regularMarketChangePercent: 1.5, marketCap: 3000000000000, sector: 'Technology' },
-    { symbol: 'JPM', name: 'JPMorgan', regularMarketPrice: 170.0, regularMarketChangePercent: -1.2, marketCap: 50000000000, sector: 'Finance' },
-    { symbol: '0700.HK', name: 'Tencent', regularMarketPrice: 300.0, regularMarketChangePercent: -2.0, marketCap: 4000000000000, sector: 'Technology' }
+    { symbol: 'JPM', name: 'JPMorgan', regularMarketPrice: 170.0, regularMarketChangePercent: -1.2, marketCap: 500000000000, sector: 'Finance' },
+    { symbol: '00700.HK', name: 'Tencent', regularMarketPrice: 300.0, regularMarketChangePercent: -2.0, marketCap: 4000000000000, sector: 'Technology' }
   ];
 
   test.beforeEach(async ({ page }) => {
@@ -57,7 +57,7 @@ test.describe('Tier 3 - Cross-Feature Combinations', () => {
     await pageObj.search('Tencent');
     await pageObj.selectHkMarket();
     // In HK, Tencent should be highlighted, and sector Technology visible
-    expect(await pageObj.getHighlightedState('0700.HK')).toBe('true');
+    expect(await pageObj.getHighlightedState('00700.HK')).toBe('true');
     await expect(pageObj.getSectorContainer('technology')).toBeVisible();
   });
 

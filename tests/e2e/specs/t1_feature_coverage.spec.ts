@@ -9,9 +9,9 @@ test.describe('Tier 1 - Feature Coverage', () => {
     // Standard mock for successful API calls
     await page.route(url => url.href.includes('yahoo') || url.href.includes('finnhub'), async route => {
       const reqUrl = route.request().url();
-      const isHk = reqUrl.includes('type=HK') || reqUrl.toLowerCase().includes('hk');
+      const isHk = reqUrl.includes('type=HK') || reqUrl.includes('hk0');
       const stocksList = isHk ? [
-        { symbol: '0700.HK', name: 'Tencent', regularMarketPrice: 380.0, regularMarketChangePercent: 1.85, marketCap: 3580000000000, sector: 'Technology' },
+        { symbol: '00700.HK', name: 'Tencent', regularMarketPrice: 380.0, regularMarketChangePercent: 1.85, marketCap: 3580000000000, sector: 'Technology' },
         { symbol: '9988.HK', name: 'Alibaba', regularMarketPrice: 78.0, regularMarketChangePercent: -0.9, marketCap: 1620000000000, sector: 'Technology' },
         { symbol: '0005.HK', name: 'HSBC', regularMarketPrice: 68.0, regularMarketChangePercent: 0.5, marketCap: 1280000000000, sector: 'Finance' },
         { symbol: '9633.HK', name: 'Nongfu', regularMarketPrice: 42.0, regularMarketChangePercent: -1.15, marketCap: 470000000000, sector: 'Consumer' },
@@ -54,14 +54,14 @@ test.describe('Tier 1 - Feature Coverage', () => {
 
   // T1.1-1.5: Treemap Render
   test('T1.1: Render sectors', async () => {
-    for (const sector of ['technology', 'finance', 'consumer', 'healthcare', 'energy']) {
+    for (const sector of ['information technology', 'financials', 'consumer staples', 'health care', 'energy']) {
       const container = pageObj.getSectorContainer(sector);
       await expect(container).toBeVisible();
     }
   });
 
   test('T1.2: Verify sector grouping headings are displayed', async () => {
-    for (const sector of ['technology', 'finance', 'consumer', 'healthcare', 'energy']) {
+    for (const sector of ['information technology', 'financials', 'consumer staples', 'health care', 'energy']) {
       const header = pageObj.getSectorHeader(sector);
       await expect(header).toBeVisible();
       const text = await header.textContent();
@@ -120,7 +120,7 @@ test.describe('Tier 1 - Feature Coverage', () => {
   // T1.6-1.10: Dual Market
   test('T1.6: Switch from US to HK', async () => {
     await pageObj.selectHkMarket();
-    // HK market tab should be active/selected, and HK stocks visible (e.g. 0700.HK)
+    // HK market tab should be active/selected, and HK stocks visible (e.g. 00700.HK)
     await expect(pageObj.hkMarketTab).toHaveAttribute('data-active', 'true');
   });
 
@@ -151,8 +151,8 @@ test.describe('Tier 1 - Feature Coverage', () => {
 
   test('T1.10: Verify correct symbols are displayed for HK', async () => {
     await pageObj.selectHkMarket();
-    // In HK market, check for HK symbols like 0700.HK or 9988.HK
-    await expect(pageObj.getStockTile('0700.HK')).toBeVisible();
+    // In HK market, check for HK symbols like 00700.HK or 9988.HK
+    await expect(pageObj.getStockTile('00700.HK')).toBeVisible();
   });
 
   // T1.11-1.15: Data API & Fallback
@@ -214,7 +214,7 @@ test.describe('Tier 1 - Feature Coverage', () => {
 
   test('T1.17: Hover over HK tile and verify tooltip appears', async () => {
     await pageObj.selectHkMarket();
-    await pageObj.hoverStock('0700.HK');
+    await pageObj.hoverStock('00700.HK');
     await expect(pageObj.tooltipContainer).toBeVisible();
   });
 

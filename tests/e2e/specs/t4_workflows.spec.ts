@@ -28,7 +28,7 @@ test.describe('Tier 4 - Real-World Application Scenarios (Workflows)', () => {
     await pageObj.navigate();
     
     // views US Tech sector
-    await expect(pageObj.getSectorContainer('technology')).toBeVisible();
+    await expect(pageObj.getSectorContainer('information technology')).toBeVisible();
     await expect(pageObj.getStockTile('NVDA')).toBeVisible();
 
     // toggles color theme to Chinese
@@ -54,7 +54,8 @@ test.describe('Tier 4 - Real-World Application Scenarios (Workflows)', () => {
     let hkCallCount = 0;
     
     await page.route(url => url.href.includes('yahoo') || url.href.includes('finnhub'), async route => {
-      if (route.request().url().toLowerCase().includes('0700.hk') || hkCallCount > 0 || route.request().url().toLowerCase().includes('market=hk') || route.request().url().toLowerCase().includes('type=hk') || route.request().url().toLowerCase().includes('hk')) {
+      const reqUrlLower = route.request().url().toLowerCase();
+      if (reqUrlLower.includes('00700.hk') || hkCallCount > 0 || reqUrlLower.includes('market=hk') || reqUrlLower.includes('type=hk') || reqUrlLower.includes('q=hk')) {
         hkCallCount++;
         // Simulate API failure for HK market
         await route.fulfill({ status: 500 });
@@ -88,8 +89,8 @@ test.describe('Tier 4 - Real-World Application Scenarios (Workflows)', () => {
     await pageObj.search('Tencent');
 
     // hover to view details in HKD
-    // Assuming HK fallback has 0700.HK (Tencent)
-    await pageObj.hoverStock('0700.HK');
+    // Assuming HK fallback has 00700.HK (Tencent)
+    await pageObj.hoverStock('00700.HK');
     await expect(pageObj.tooltipContainer).toBeVisible();
     const priceText = await pageObj.getTooltipField('price').innerText();
     expect(priceText).toContain('HK$');

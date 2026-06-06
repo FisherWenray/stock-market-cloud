@@ -143,7 +143,7 @@ test.describe('Tier 2 - Boundary & Corner Cases', () => {
           quoteResponse: {
             result: [
               { symbol: 'AAPL', name: 'Apple', regularMarketPrice: 150.0, regularMarketChangePercent: 1.0, marketCap: 1000000, sector: 'Technology' },
-              { symbol: '0700.HK', name: 'Tencent', regularMarketPrice: 300.0, regularMarketChangePercent: -1.0, marketCap: 5000000, sector: 'Technology' }
+              { symbol: '00700.HK', name: 'Tencent', regularMarketPrice: 300.0, regularMarketChangePercent: -1.0, marketCap: 5000000, sector: 'Technology' }
             ]
           }
         })
@@ -199,7 +199,7 @@ test.describe('Tier 2 - Boundary & Corner Cases', () => {
           quoteResponse: {
             result: [
               { symbol: 'AAPL', regularMarketPrice: 150.0, regularMarketChangePercent: 1.0, marketCap: 1000000, sector: 'Technology' },
-              { symbol: '0700.HK', regularMarketPrice: 300.0, regularMarketChangePercent: -1.0, marketCap: 5000000, sector: 'Technology' }
+              { symbol: '00700.HK', regularMarketPrice: 300.0, regularMarketChangePercent: -1.0, marketCap: 5000000, sector: 'Technology' }
             ]
           }
         })
@@ -212,7 +212,7 @@ test.describe('Tier 2 - Boundary & Corner Cases', () => {
     expect(priceText).not.toContain('HK$');
 
     await pageObj.selectHkMarket();
-    await pageObj.hoverStock('0700.HK');
+    await pageObj.hoverStock('00700.HK');
     priceText = await pageObj.getTooltipField('price').innerText();
     expect(priceText).toContain('HK$');
   });

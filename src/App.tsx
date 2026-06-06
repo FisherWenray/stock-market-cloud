@@ -281,7 +281,7 @@ function App() {
                 style={{
                   left: `${hoverPos.x}px`,
                   top: `${hoverPos.y - 12}px`,
-                  transform: 'translate(-50%, -100%)',
+                  transform: hoverPos.y > 150 ? 'translate(-50%, -100%)' : 'translate(-50%, 24px)',
                 }}
               >
                 <div className="font-bold border-b border-slate-800 pb-1.5 mb-1.5 flex justify-between gap-3">
