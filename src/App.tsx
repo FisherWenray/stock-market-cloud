@@ -262,6 +262,7 @@ function App() {
       <header className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-slate-800 pb-4 mb-6">
         <div>
           <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white flex items-center gap-3 drop-shadow-[0_0_15px_rgba(52,211,153,0.3)]">
+            <img src="/logo.png" alt="Logo" className="w-10 h-10 md:w-12 md:h-12 object-contain rounded-xl border border-slate-700/50 shadow-inner" />
             <span className="bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-500 bg-clip-text text-transparent">
               {t.appTitle}
             </span>
