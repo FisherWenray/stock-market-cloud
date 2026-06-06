@@ -66,7 +66,10 @@ export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = '
       const chunkSize = 100;
       for (let i = 0; i < tencentTickers.length; i += chunkSize) {
         const chunk = tencentTickers.slice(i, i + chunkSize);
-        const url = `/api-yahoo/q=${chunk.join(',')}`;
+        const targetUrl = `https://qt.gtimg.cn/q=${chunk.join(',')}`;
+        const url = import.meta.env.DEV
+          ? `/api-yahoo/q=${chunk.join(',')}`
+          : `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
         fetchPromises.push(fetch(url, { signal: controller.signal }));
       }
     }
@@ -268,12 +271,22 @@ export async function fetchMarketIndices(market: 'US' | 'HK'): Promise<IndexData
   const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.timeoutMs);
 
   try {
-    const url = `https://qt.gtimg.cn/q=${symbols.join(',')}`;
+    const targetUrl = `https://qt.gtimg.cn/q=${symbols.join(',')}`;
+    const url = import.meta.env.DEV
+      ? `/api-yahoo/q=${symbols.join(',')}`
+      : `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
 
     const res = await fetch(url, { signal: controller.signal });
     if (!res.ok) throw new Error('Indices API fetch failed');
     
-    const text = await res.text();
+    let text = '';
+    try {
+      const buffer = await res.arrayBuffer();
+      const decoder = new TextDecoder('gbk');
+      text = decoder.decode(buffer);
+    } catch (e) {
+      text = await res.text();
+    }
     clearTimeout(timeoutId);
 
     const items = text.split(';').filter(line => line.trim().length > 0);
