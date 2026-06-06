@@ -293,7 +293,7 @@ function App() {
                 onClick={() => setTheme(theme === 'international' ? 'chinese' : 'international')}
                 className="px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 bg-black/40 hover:bg-slate-800 text-slate-300 border border-white/5 hover:border-white/20 shadow-inner"
               >
-                {t.theme}: {theme === 'international' ? t.themeInternational : t.themeChinese}
+                {t.theme}: {theme === 'international' ? t.themeChinese : t.themeInternational}
               </button>
               <ColorLegend theme={theme} lang={lang} />
             </div>
