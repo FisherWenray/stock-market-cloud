@@ -77,7 +77,9 @@ export const translations = {
     prevClose: 'Prev Close',
     volume: 'Volume',
     todayTrend: "Today's Trend",
-    closeDetail: 'Close Details'
+    closeDetail: 'Close Details',
+    visitAuthor: 'Visit wenyaoyefei.com',
+    footerCopyright: '© 2026 Wenyao Yefei. Discover more insights and tools at',
   },
   zh: {
     appTitle: '股票行情云图',
@@ -155,6 +157,8 @@ export const translations = {
     prevClose: '昨收',
     volume: '成交量',
     todayTrend: '今日走势',
-    closeDetail: '关闭详情'
+    closeDetail: '关闭详情',
+    visitAuthor: '访问主页 wenyaoyefei.com',
+    footerCopyright: '© 2026 Wenyao Yefei. 发现更多投资工具与深度洞察尽在',
   }
 };

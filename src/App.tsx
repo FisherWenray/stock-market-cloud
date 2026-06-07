@@ -267,9 +267,20 @@ function App() {
               {t.appTitle}
             </span>
           </h1>
-          <p className="text-sm md:text-base text-slate-400 mt-2 font-medium tracking-wide opacity-80 mb-4 md:mb-0">
-            {t.appSubtitle}
-          </p>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-2 mb-4 md:mb-0">
+            <p className="text-sm md:text-base text-slate-400 font-medium tracking-wide opacity-80">
+              {t.appSubtitle}
+            </p>
+            <a 
+              href="https://www.wenyaoyefei.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 w-fit px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold hover:bg-emerald-500/20 hover:text-emerald-300 transition-all shadow-[0_0_10px_rgba(52,211,153,0.1)]"
+            >
+              <span className="text-[10px]">🏠</span>
+              <span>{t.visitAuthor}</span>
+            </a>
+          </div>
         </div>
 
         <div className="flex-1 flex justify-center md:justify-start md:ml-8 lg:ml-12 overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
@@ -597,6 +608,21 @@ function App() {
           </div>
         )}
       </main>
+
+      {/* Global Footer */}
+      <footer className="mt-auto pt-8 pb-4 flex flex-col items-center justify-center text-center border-t border-white/5 relative z-10">
+        <p className="text-slate-500 text-sm font-medium tracking-wide flex flex-col sm:flex-row items-center gap-1.5">
+          <span>{t.footerCopyright}</span>
+          <a 
+            href="https://www.wenyaoyefei.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-emerald-400 hover:text-emerald-300 font-bold transition-colors underline decoration-emerald-500/30 underline-offset-4"
+          >
+            www.wenyaoyefei.com
+          </a>
+        </p>
+      </footer>
 
       {/* Stock Details Sidebar */}
       {selectedStock && detailedStats && (
