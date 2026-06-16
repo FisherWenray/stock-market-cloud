@@ -17,6 +17,18 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api-yahoo/, ''),
       },
+      '/api/market': {
+        target: 'http://localhost:8787',
+        changeOrigin: true,
+      },
+      '/api/refresh': {
+        target: 'http://localhost:8787',
+        changeOrigin: true,
+      },
+      '/api/health': {
+        target: 'http://localhost:8787',
+        changeOrigin: true,
+      },
     },
   },
   test: {

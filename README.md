@@ -64,6 +64,37 @@ Stock Market Cloud allows you to monitor the pulse of both the **US Market (S&P 
   npm run test:e2e
   ```
 
+### Free Market Backend V1
+
+This project can run a lightweight local backend that refreshes free market data once, caches it on disk, and lets the React app read `/api/market` instead of asking every browser tab to call quote providers directly.
+
+Run the backend and frontend in two terminals:
+
+```bash
+npm run dev:market
+npm run dev
+```
+
+Useful environment variables:
+
+```bash
+MARKET_SERVER_PORT=8787
+MARKET_REFRESH_MS=300000
+MARKET_UNIVERSE_REFRESH_MS=43200000
+MARKET_MAX_STOCKS=1500
+MARKET_HK_FULL_SCAN=true
+VITE_MARKET_LIMIT=1500
+VITE_USE_MARKET_BACKEND=true
+```
+
+V1 data behavior:
+
+- US universe is refreshed from Nasdaq Trader symbol directory files.
+- HK universe defaults to scanning `00001.HK` through `09999.HK` and keeps symbols that return valid quotes.
+- Quotes are fetched through Tencent's free quote endpoint and cached in `.market-cache`.
+- The frontend falls back to the previous client-side fetch path if the backend is not running.
+- Free data sources are best-effort and may be delayed, rate-limited, incomplete, or unavailable. This is suitable for a personal/free delayed heatmap, not a guaranteed real-time market-data service.
+
 ---
 
 <a name="中文版"></a>

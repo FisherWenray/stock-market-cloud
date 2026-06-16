@@ -37,11 +37,69 @@ const API_CONFIG = {
   get apiKey() {
     return import.meta.env.VITE_STOCK_API_KEY || '';
   },
+  get marketBackendUrl() {
+    return import.meta.env.VITE_MARKET_BACKEND_URL || '/api/market';
+  },
+  get marketLimit() {
+    return Number(import.meta.env.VITE_MARKET_LIMIT || 1500);
+  },
   timeoutMs: 15000,
 };
 
+function isTestRuntime(): boolean {
+  return typeof process !== 'undefined' && process.env.NODE_ENV === 'test';
+}
+
+function hasCustomApiKey(): boolean {
+  return Boolean(API_CONFIG.apiKey && API_CONFIG.apiKey !== 'YOUR_API_KEY');
+}
+
+async function fetchBackendMarketData(
+  market: 'US' | 'HK',
+  signal: AbortSignal,
+): Promise<MarketData | null> {
+  if (isTestRuntime() || hasCustomApiKey() || import.meta.env.VITE_USE_MARKET_BACKEND === 'false') {
+    return null;
+  }
+
+  const backendUrl = new URL(API_CONFIG.marketBackendUrl, window.location.origin);
+  backendUrl.searchParams.set('type', market);
+  backendUrl.searchParams.set('limit', String(API_CONFIG.marketLimit));
+
+  try {
+    const response = await fetch(backendUrl.toString(), { signal });
+    if (!response.ok) {
+      throw new Error(`Market backend returned ${response.status}`);
+    }
+
+    const payload = await response.json();
+    if (!payload || !Array.isArray(payload.stocks) || payload.stocks.length === 0) {
+      throw new Error('Market backend returned an empty stock list');
+    }
+
+    return {
+      market,
+      stocks: payload.stocks.map((stock: any) => ({
+        symbol: String(stock.symbol),
+        name: String(stock.name || stock.symbol),
+        price: Number(stock.price || 0),
+        change: Number(stock.change || 0),
+        marketCap: Number(stock.marketCap || 0),
+        sector: String(stock.sector || 'Other'),
+        pe: stock.pe !== undefined ? Number(stock.pe) : undefined,
+        volume: stock.volume !== undefined ? Number(stock.volume) : undefined,
+      })),
+      isMock: false,
+      lastUpdated: String(payload.lastUpdated || new Date().toISOString()),
+    };
+  } catch (error) {
+    console.warn('[StockDataService] Market backend unavailable. Falling back to legacy client fetch.', error);
+    return null;
+  }
+}
+
 async function fetchWithFallback(targetUrl: string, devUrl: string, signal: AbortSignal): Promise<Response> {
-  const isTest = typeof process !== 'undefined' && process.env.NODE_ENV === 'test';
+  const isTest = isTestRuntime();
 
   if (import.meta.env.DEV) {
     return fetch(devUrl, isTest ? {} : { signal });
@@ -86,9 +144,15 @@ export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = '
   const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.timeoutMs);
 
   try {
+    const backendData = await fetchBackendMarketData(market, controller.signal);
+    if (backendData) {
+      clearTimeout(timeoutId);
+      return backendData;
+    }
+
     let fetchPromises: Promise<Response>[] = [];
 
-    if (API_CONFIG.apiKey && API_CONFIG.apiKey !== 'YOUR_API_KEY') {
+    if (hasCustomApiKey()) {
       const url = `${API_CONFIG.baseUrl}/market?type=${market}&apikey=${API_CONFIG.apiKey}`;
       fetchPromises.push(fetch(url, { signal: controller.signal }));
     } else {

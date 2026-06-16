@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:market": "node backend/market-server.mjs",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest",
