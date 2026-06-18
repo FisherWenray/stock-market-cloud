@@ -1,108 +1,6 @@
 # Stock Market Cloud 📈☁️
 
-[English](#english) | [中文版](#中文版)
-
----
-
-<a name="english"></a>
-## 🇺🇸 English
-
-> A real-time stock market treemap dashboard for US, Hong Kong, and A-share equities, built with React, TypeScript, Tailwind CSS, and D3.
-
-**Live Demo:** [https://stock.wenyaoyefei.com/](https://stock.wenyaoyefei.com/)
-
-Stock Market Cloud is a market-screen style heatmap for tracking **A-share**, **Hong Kong**, and **US** equities from one interface. It combines a high-density treemap, market indices, sector aggregation, search, and stock detail panels so you can scan breadth, leadership, and drawdowns quickly without jumping between multiple quote pages.
-
-### Project Summary
-
-- **Three-market coverage**: A-share, Hong Kong, and US market views in one dashboard
-- **Treemap-first workflow**: Sector-grouped market cap heatmap for fast visual scanning
-- **Chinese market semantics**: Red for up, green for down in all price-change related views
-- **Refreshed brand system**: New logo and a red-gold editorial style without using green as the global brand color
-- **Local free-data backend**: Optional cached backend for larger symbol universes and more stable local development
-
-### ✨ Key Features
-
-- **Auto-refresh market dashboard**: The app refreshes quotes on a 10-second cadence and shows a circular progress countdown in the status panel.
-- **A-share / HK / US market switcher**: One-click switching between the three supported market groups, with local preference persistence.
-- **Sector-based treemap navigation**: Stocks are grouped by sector, and sector headers can be clicked to zoom into a focused view.
-- **Two color metrics**: Switch treemap coloring between **Price Change %** and **P/E Ratio** depending on whether you want momentum or valuation context.
-- **Weighted sector performance labels**: Each sector header shows its market-cap weighted average change so you can spot strength and weakness faster.
-- **Search with direct drill-in**: Search by ticker or company name and jump straight into the stock details panel from autocomplete suggestions.
-- **Stock details sidebar**: View open, high, low, previous close, estimated volume, market cap, and a multi-period SVG trend chart.
-- **Deterministic tooltip sparklines**: Hover tooltips render stable mini trendlines derived from symbol-based seeds, avoiding visual flicker.
-- **Redesigned identity**: Updated logo, warmer red-led accent system, and stronger “market terminal” visual tone while keeping down moves green.
-- **Bilingual UI**: Chinese and English interface support.
-
-### 🛠️ Tech Stack
-- **Core**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS
-- **Data Visualization**: D3-Hierarchy (`d3-treemap`, `squarify`), SVG Area Generators
-- **Testing**: Vitest, JSDOM, Playwright E2E
-
-### 🚀 Getting Started
-
-1. Clone the repository:
-   ```bash
-   git clone git@github.com:FisherWenray/stock-market-cloud.git
-   cd stock-market-cloud
-   ```
-
-2. Install dependencies and run the frontend:
-   ```bash
-   npm install
-   npm run dev
-   ```
-
-3. Open `http://localhost:5173`.
-
-4. For the optional local market backend, run this in another terminal:
-   ```bash
-   npm run dev:market
-   ```
-
-### 🧪 Running Tests
-
-* Run unit and component tests:
-  ```bash
-  npm run test:run
-  ```
-* Run End-to-End browser specs:
-  ```bash
-  npm run test:e2e
-  ```
-
-### Free Market Backend V1
-
-This project can run a lightweight local backend that refreshes free market data once, caches it on disk, and lets the React app read `/api/market` instead of asking every browser tab to call quote providers directly.
-
-Run the backend and frontend in two terminals:
-
-```bash
-npm run dev:market
-npm run dev
-```
-
-Useful environment variables:
-
-```bash
-MARKET_SERVER_PORT=8787
-MARKET_REFRESH_MS=300000
-MARKET_UNIVERSE_REFRESH_MS=43200000
-MARKET_MAX_STOCKS=1500
-MARKET_HK_FULL_SCAN=true
-VITE_MARKET_LIMIT=1500
-VITE_USE_MARKET_BACKEND=true
-```
-
-V1 data behavior:
-
-- US universe is refreshed from Nasdaq Trader symbol directory files.
-- HK universe defaults to scanning `00001.HK` through `09999.HK` and keeps symbols that return valid quotes.
-- CN market currently prioritizes the bundled A-share dataset and fallback flow for reliability.
-- Quotes are fetched through Tencent's free quote endpoint and cached in `.market-cache`.
-- The frontend falls back to the previous client-side fetch path if the backend is not running.
-- Free data sources are best-effort and may be delayed, rate-limited, incomplete, or unavailable. This is suitable for a personal/free delayed heatmap, not a guaranteed real-time market-data service.
+[中文版](#中文版) | [English](#english)
 
 ---
 
@@ -205,6 +103,108 @@ V1 数据说明：
   ```bash
   npm run test:e2e
   ```
+
+---
+
+<a name="english"></a>
+## 🇺🇸 English
+
+> A real-time stock market treemap dashboard for US, Hong Kong, and A-share equities, built with React, TypeScript, Tailwind CSS, and D3.
+
+**Live Demo:** [https://stock.wenyaoyefei.com/](https://stock.wenyaoyefei.com/)
+
+Stock Market Cloud is a market-screen style heatmap for tracking **A-share**, **Hong Kong**, and **US** equities from one interface. It combines a high-density treemap, market indices, sector aggregation, search, and stock detail panels so you can scan breadth, leadership, and drawdowns quickly without jumping between multiple quote pages.
+
+### Project Summary
+
+- **Three-market coverage**: A-share, Hong Kong, and US market views in one dashboard
+- **Treemap-first workflow**: Sector-grouped market cap heatmap for fast visual scanning
+- **Chinese market semantics**: Red for up, green for down in all price-change related views
+- **Refreshed brand system**: New logo and a red-gold editorial style without using green as the global brand color
+- **Local free-data backend**: Optional cached backend for larger symbol universes and more stable local development
+
+### ✨ Key Features
+
+- **Auto-refresh market dashboard**: The app refreshes quotes on a 10-second cadence and shows a circular progress countdown in the status panel.
+- **A-share / HK / US market switcher**: One-click switching between the three supported market groups, with local preference persistence.
+- **Sector-based treemap navigation**: Stocks are grouped by sector, and sector headers can be clicked to zoom into a focused view.
+- **Two color metrics**: Switch treemap coloring between **Price Change %** and **P/E Ratio** depending on whether you want momentum or valuation context.
+- **Weighted sector performance labels**: Each sector header shows its market-cap weighted average change so you can spot strength and weakness faster.
+- **Search with direct drill-in**: Search by ticker or company name and jump straight into the stock details panel from autocomplete suggestions.
+- **Stock details sidebar**: View open, high, low, previous close, estimated volume, market cap, and a multi-period SVG trend chart.
+- **Deterministic tooltip sparklines**: Hover tooltips render stable mini trendlines derived from symbol-based seeds, avoiding visual flicker.
+- **Redesigned identity**: Updated logo, warmer red-led accent system, and stronger “market terminal” visual tone while keeping down moves green.
+- **Bilingual UI**: Chinese and English interface support.
+
+### 🛠️ Tech Stack
+- **Core**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS
+- **Data Visualization**: D3-Hierarchy (`d3-treemap`, `squarify`), SVG Area Generators
+- **Testing**: Vitest, JSDOM, Playwright E2E
+
+### 🚀 Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone git@github.com:FisherWenray/stock-market-cloud.git
+   cd stock-market-cloud
+   ```
+
+2. Install dependencies and run the frontend:
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+3. Open `http://localhost:5173`.
+
+4. For the optional local market backend, run this in another terminal:
+   ```bash
+   npm run dev:market
+   ```
+
+### 🧪 Running Tests
+
+* Run unit and component tests:
+  ```bash
+  npm run test:run
+  ```
+* Run End-to-End browser specs:
+  ```bash
+  npm run test:e2e
+  ```
+
+### Free Market Backend V1
+
+This project can run a lightweight local backend that refreshes free market data once, caches it on disk, and lets the React app read `/api/market` instead of asking every browser tab to call quote providers directly.
+
+Run the backend and frontend in two terminals:
+
+```bash
+npm run dev:market
+npm run dev
+```
+
+Useful environment variables:
+
+```bash
+MARKET_SERVER_PORT=8787
+MARKET_REFRESH_MS=300000
+MARKET_UNIVERSE_REFRESH_MS=43200000
+MARKET_MAX_STOCKS=1500
+MARKET_HK_FULL_SCAN=true
+VITE_MARKET_LIMIT=1500
+VITE_USE_MARKET_BACKEND=true
+```
+
+V1 data behavior:
+
+- US universe is refreshed from Nasdaq Trader symbol directory files.
+- HK universe defaults to scanning `00001.HK` through `09999.HK` and keeps symbols that return valid quotes.
+- CN market currently prioritizes the bundled A-share dataset and fallback flow for reliability.
+- Quotes are fetched through Tencent's free quote endpoint and cached in `.market-cache`.
+- The frontend falls back to the previous client-side fetch path if the backend is not running.
+- Free data sources are best-effort and may be delayed, rate-limited, incomplete, or unavailable. This is suitable for a personal/free delayed heatmap, not a guaranteed real-time market-data service.
 
 ## 📝 License
 This project is open-sourced under the MIT License.
