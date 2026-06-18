@@ -1,0 +1,48 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="40" y1="28" x2="216" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E1318"/>
+      <stop offset="1" stop-color="#090B10"/>
+    </linearGradient>
+    <linearGradient id="barWarm" x1="86" y1="94" x2="180" y2="188" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8B7A"/>
+      <stop offset="1" stop-color="#FF5B6B"/>
+    </linearGradient>
+    <linearGradient id="barGold" x1="132" y1="108" x2="188" y2="188" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD47A"/>
+      <stop offset="1" stop-color="#FF9F57"/>
+    </linearGradient>
+    <linearGradient id="line" x1="66" y1="150" x2="191" y2="86" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF7B72"/>
+      <stop offset="0.55" stop-color="#FFC66D"/>
+      <stop offset="1" stop-color="#78B9FF"/>
+    </linearGradient>
+    <filter id="glow" x="50" y="68" width="156" height="104" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="6" result="effect1_foregroundBlur"/>
+    </filter>
+  </defs>
+
+  <rect x="12" y="12" width="232" height="232" rx="52" fill="url(#bg)"/>
+  <rect x="12.75" y="12.75" width="230.5" height="230.5" rx="51.25" stroke="#3A2A31" stroke-width="1.5"/>
+
+  <path d="M60 164C60 145.774 74.7746 131 93 131C96.1784 131 99.2519 131.45 102.162 132.289C108.072 117.76 122.322 107.5 139 107.5C160.263 107.5 177.8 124.191 179.156 145.118C181.71 144.383 184.408 144 187.196 144C203.102 144 216 156.898 216 172.804C216 188.71 203.102 201.608 187.196 201.608H86.696C71.4018 201.608 59 189.206 59 173.912C59 170.561 59.5954 167.35 60.6853 164.376L60 164Z" fill="#0F1520" fill-opacity="0.72"/>
+  <path d="M60 164C60 145.774 74.7746 131 93 131C96.1784 131 99.2519 131.45 102.162 132.289C108.072 117.76 122.322 107.5 139 107.5C160.263 107.5 177.8 124.191 179.156 145.118C181.71 144.383 184.408 144 187.196 144C203.102 144 216 156.898 216 172.804C216 188.71 203.102 201.608 187.196 201.608H86.696C71.4018 201.608 59 189.206 59 173.912C59 170.561 59.5954 167.35 60.6853 164.376" stroke="#7C879A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="78" y="146" width="16" height="38" rx="5" fill="url(#barWarm)"/>
+  <rect x="102" y="132" width="16" height="52" rx="5" fill="url(#barWarm)"/>
+  <rect x="126" y="140" width="16" height="44" rx="5" fill="url(#barWarm)"/>
+  <rect x="150" y="118" width="16" height="66" rx="5" fill="url(#barGold)"/>
+  <rect x="174" y="96" width="16" height="88" rx="5" fill="url(#barGold)"/>
+
+  <g filter="url(#glow)">
+    <path d="M66 154L97 130L126 139L155 107L190 87" stroke="url(#line)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M66 154L97 130L126 139L155 107L190 87" stroke="url(#line)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="66" cy="154" r="6" fill="#FF7B72"/>
+  <circle cx="97" cy="130" r="6" fill="#FF9D74"/>
+  <circle cx="126" cy="139" r="6" fill="#FFC66D"/>
+  <circle cx="155" cy="107" r="6" fill="#F8D483"/>
+  <circle cx="190" cy="87" r="6" fill="#78B9FF"/>
+</svg>
