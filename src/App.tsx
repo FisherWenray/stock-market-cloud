@@ -45,6 +45,16 @@ const getCurrencySymbol = (market: Market): string => {
 
 const prefersNameFirst = (market: Market): boolean => market === 'CN';
 
+const getTrendTone = (
+  change: number,
+  theme: ColorTheme
+): 'red' | 'emerald' | 'slate' => {
+  if (change === 0) return 'slate';
+  const isUpRed = theme === 'chinese';
+  if (change > 0) return isUpRed ? 'red' : 'emerald';
+  return isUpRed ? 'emerald' : 'red';
+};
+
 const getTooltipSparkline = (stock: Stock) => {
   const changeFraction = stock.change / 100;
   const prevClose = Number((stock.price / (1 + changeFraction)).toFixed(2));
@@ -283,27 +293,35 @@ function App() {
   };
 
   const t = translations[lang];
+  const marketTabs: Array<{ market: Market; label: string; testId: string }> = [
+    { market: 'CN', label: t.cnMarket, testId: 'market-tab-cn' },
+    { market: 'HK', label: t.hkMarket, testId: 'market-tab-hk' },
+    { market: 'US', label: t.usMarket, testId: 'market-tab-us' },
+  ];
+  const segmentedButtonBase = 'rounded-md border transition-all duration-300';
+  const segmentedButtonActive = 'border-rose-400/25 bg-gradient-to-b from-rose-500/25 via-rose-500/12 to-amber-400/15 text-rose-50 shadow-[0_0_18px_rgba(251,113,133,0.14)] scale-100';
+  const segmentedButtonInactive = 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-white/5 scale-95';
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-800 via-slate-950 to-black text-slate-100 flex flex-col p-4 md:p-6 md:px-8 font-sans selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(255,107,107,0.12),_transparent_28%),radial-gradient(circle_at_86%_16%,_rgba(120,185,255,0.12),_transparent_22%),linear-gradient(180deg,_rgba(12,14,20,0.96),_rgba(6,7,10,1))] text-slate-100 flex flex-col p-4 md:p-6 md:px-8 font-sans selection:bg-rose-500/30">
       {/* Header */}
-      <header className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-slate-800 pb-4 mb-6">
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-white/10 pb-4 mb-6">
         <div>
-          <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white flex items-center gap-3 drop-shadow-[0_0_15px_rgba(52,211,153,0.3)]">
-            <img src="/logo.png" alt="Logo" className="w-10 h-10 md:w-12 md:h-12 object-contain rounded-xl border border-slate-700/50 shadow-inner" />
-            <span className="bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white flex items-center gap-3 drop-shadow-[0_0_18px_rgba(251,113,133,0.22)]">
+            <img src="/logo.svg" alt="Stock Market Cloud logo" className="w-11 h-11 md:w-12 md:h-12 object-contain rounded-2xl ring-1 ring-white/10 shadow-[0_12px_30px_rgba(0,0,0,0.35)]" />
+            <span className="bg-gradient-to-br from-rose-300 via-amber-200 to-sky-300 bg-clip-text text-transparent">
               {t.appTitle}
             </span>
           </h1>
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mt-2 mb-4 md:mb-0">
-            <p className="text-sm md:text-base text-slate-400 font-medium tracking-wide opacity-80">
+            <p className="text-sm md:text-base text-slate-300/70 font-medium tracking-wide">
               {t.appSubtitle}
             </p>
             <a 
               href="https://www.wenyaoyefei.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 w-fit px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold hover:bg-emerald-500/20 hover:text-emerald-300 transition-all shadow-[0_0_10px_rgba(52,211,153,0.1)]"
+              className="inline-flex items-center gap-1.5 w-fit px-2.5 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs font-bold hover:bg-rose-500/20 hover:text-amber-200 transition-all shadow-[0_0_10px_rgba(251,113,133,0.12)]"
             >
               <span className="text-[10px]">🏠</span>
               <span>{t.visitAuthor}</span>
@@ -329,64 +347,31 @@ function App() {
       </header>
 
       {/* Control Panel */}
-      <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl p-5 mb-8 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6 transition-all">
+      <div className="bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl p-5 mb-8 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6 transition-all">
         {/* Settings Panel */}
         <div className="flex flex-wrap items-center gap-6">
           {/* Market Selection */}
           <div className="flex flex-col gap-1.5">
             <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500/80">{t.market}</span>
             <div className="inline-flex bg-black/40 rounded-lg p-1 border border-white/5 shadow-inner">
-              <button
-                data-testid="market-tab-us"
-                data-active={selectedMarket === 'US' ? 'true' : 'false'}
-                onClick={() => {
-                  if (selectedMarket !== 'US') {
-                    setLoading(true);
-                    setSelectedMarket('US');
-                  }
-                }}
-                className={`px-4 py-2 rounded-md text-sm font-semibold transition-all duration-300 ${
-                  selectedMarket === 'US' 
-                    ? 'bg-slate-800 text-white shadow-md shadow-black/20 scale-100' 
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/5 scale-95'
-                }`}
-              >
-                {t.usMarket}
-              </button>
-              <button
-                data-testid="market-tab-hk"
-                data-active={selectedMarket === 'HK' ? 'true' : 'false'}
-                onClick={() => {
-                  if (selectedMarket !== 'HK') {
-                    setLoading(true);
-                    setSelectedMarket('HK');
-                  }
-                }}
-                className={`px-4 py-2 rounded-md text-sm font-semibold transition-all duration-300 ${
-                  selectedMarket === 'HK' 
-                    ? 'bg-slate-800 text-white shadow-md shadow-black/20 scale-100' 
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/5 scale-95'
-                }`}
-              >
-                {t.hkMarket}
-              </button>
-              <button
-                data-testid="market-tab-cn"
-                data-active={selectedMarket === 'CN' ? 'true' : 'false'}
-                onClick={() => {
-                  if (selectedMarket !== 'CN') {
-                    setLoading(true);
-                    setSelectedMarket('CN');
-                  }
-                }}
-                className={`px-4 py-2 rounded-md text-sm font-semibold transition-all duration-300 ${
-                  selectedMarket === 'CN'
-                    ? 'bg-slate-800 text-white shadow-md shadow-black/20 scale-100'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/5 scale-95'
-                }`}
-              >
-                {t.cnMarket}
-              </button>
+              {marketTabs.map(tab => (
+                <button
+                  key={tab.market}
+                  data-testid={tab.testId}
+                  data-active={selectedMarket === tab.market ? 'true' : 'false'}
+                  onClick={() => {
+                    if (selectedMarket !== tab.market) {
+                      setLoading(true);
+                      setSelectedMarket(tab.market);
+                    }
+                  }}
+                  className={`px-4 py-2 text-sm font-semibold ${segmentedButtonBase} ${
+                    selectedMarket === tab.market ? segmentedButtonActive : segmentedButtonInactive
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -396,13 +381,13 @@ function App() {
             <div className="inline-flex bg-black/40 rounded-lg p-1 border border-white/5 shadow-inner">
               <button
                 onClick={() => setLang('zh')}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-300 ${lang === 'zh' ? 'bg-slate-800 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'}`}
+                className={`px-3 py-1.5 text-xs font-semibold ${segmentedButtonBase} ${lang === 'zh' ? segmentedButtonActive : segmentedButtonInactive}`}
               >
                 {t.langZh}
               </button>
               <button
                 onClick={() => setLang('en')}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-300 ${lang === 'en' ? 'bg-slate-800 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'}`}
+                className={`px-3 py-1.5 text-xs font-semibold ${segmentedButtonBase} ${lang === 'en' ? segmentedButtonActive : segmentedButtonInactive}`}
               >
                 {t.langEn}
               </button>
@@ -416,10 +401,8 @@ function App() {
               <button
                 data-testid="metric-change"
                 onClick={() => setColorMetric('change')}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-300 ${
-                  colorMetric === 'change' 
-                    ? 'bg-slate-800 text-white shadow-md' 
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                className={`px-3 py-1.5 text-xs font-semibold ${segmentedButtonBase} ${
+                  colorMetric === 'change' ? segmentedButtonActive : segmentedButtonInactive
                 }`}
               >
                 {t.metricChange}
@@ -427,10 +410,8 @@ function App() {
               <button
                 data-testid="metric-pe"
                 onClick={() => setColorMetric('pe')}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-300 ${
-                  colorMetric === 'pe' 
-                    ? 'bg-slate-800 text-white shadow-md' 
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                className={`px-3 py-1.5 text-xs font-semibold ${segmentedButtonBase} ${
+                  colorMetric === 'pe' ? segmentedButtonActive : segmentedButtonInactive
                 }`}
               >
                 {t.metricPe}
@@ -452,7 +433,7 @@ function App() {
               placeholder={t.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-black/40 border border-white/10 group-hover:border-white/20 focus:border-emerald-500/50 rounded-lg px-4 py-2.5 text-sm font-medium text-slate-100 placeholder-slate-500 outline-none transition-all duration-300 shadow-inner"
+              className="w-full bg-black/40 border border-white/10 group-hover:border-white/20 focus:border-rose-400/50 focus:shadow-[0_0_0_3px_rgba(251,113,133,0.08)] rounded-lg px-4 py-2.5 text-sm font-medium text-slate-100 placeholder-slate-500 outline-none transition-all duration-300 shadow-inner"
             />
             {searchQuery && (
               <button
@@ -469,12 +450,12 @@ function App() {
                 className="absolute z-50 left-0 right-0 mt-1 bg-slate-900/95 backdrop-blur-xl border border-white/10 shadow-2xl rounded-xl max-h-64 overflow-y-auto divide-y divide-white/5 scrollbar-thin scrollbar-thumb-slate-800"
               >
                 {matchingStocks.map(stock => {
-                  const isUpRed = theme === 'chinese';
-                  const isPositive = stock.change > 0;
-                  const isNegative = stock.change < 0;
-                  const colorClass = isPositive 
-                    ? (isUpRed ? 'text-red-400' : 'text-emerald-400') 
-                    : (isNegative ? (isUpRed ? 'text-emerald-400' : 'text-red-400') : 'text-slate-400');
+                  const trendTone = getTrendTone(stock.change, theme);
+                  const colorClass = trendTone === 'red'
+                    ? 'text-red-400'
+                    : trendTone === 'emerald'
+                    ? 'text-emerald-400'
+                    : 'text-slate-400';
                   
                   return (
                     <div
@@ -517,7 +498,7 @@ function App() {
       <main className={`w-full relative flex flex-col ${treemapHeightClass} mb-20 shadow-2xl rounded-2xl overflow-hidden border border-white/5 bg-black/20`}>
         {loading ? (
           <div className="flex-1 flex flex-col items-center justify-center bg-slate-950 border border-slate-800 rounded-xl min-h-[500px]">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-emerald-400 mb-4"></div>
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-rose-400 mb-4"></div>
             <span className="text-slate-400 text-sm">{t.fetchingFeeds}</span>
           </div>
         ) : error ? (
@@ -551,12 +532,7 @@ function App() {
             {/* Hover Tooltip - Prepared for Milestone 5 but fully operational */}
             {hoveredStock && hoverPos && (() => {
               const spark = getTooltipSparkline(hoveredStock);
-              const isUpRed = theme === 'chinese';
-              const isPositive = hoveredStock.change > 0;
-              const isNegative = hoveredStock.change < 0;
-              const upColor = isUpRed ? 'red' : 'emerald';
-              const downColor = isUpRed ? 'emerald' : 'red';
-              const chartColor = isPositive ? upColor : (isNegative ? downColor : 'slate');
+              const chartColor = getTrendTone(hoveredStock.change, theme);
               const chartStroke = chartColor === 'red' ? '#f87171' : (chartColor === 'emerald' ? '#34d399' : '#94a3b8');
 
               return (
@@ -573,11 +549,11 @@ function App() {
                     {showNameFirst ? (
                       <>
                         <span data-testid="tooltip-name" className="text-slate-100 text-sm truncate max-w-[120px]">{hoveredStock.name}</span>
-                        <span data-testid="tooltip-symbol" className="text-emerald-400 font-mono text-xs">{hoveredStock.symbol}</span>
+                        <span data-testid="tooltip-symbol" className="text-amber-300 font-mono text-xs">{hoveredStock.symbol}</span>
                       </>
                     ) : (
                       <>
-                        <span data-testid="tooltip-symbol" className="text-emerald-400 font-mono text-sm">{hoveredStock.symbol}</span>
+                        <span data-testid="tooltip-symbol" className="text-amber-300 font-mono text-sm">{hoveredStock.symbol}</span>
                         <span data-testid="tooltip-name" className="text-slate-300 font-normal truncate max-w-[100px]">{hoveredStock.name}</span>
                       </>
                     )}
@@ -594,10 +570,10 @@ function App() {
                       <span
                         data-testid="tooltip-change"
                         className={`font-mono font-bold ${
-                          hoveredStock.change > 0
-                            ? theme === 'chinese' ? 'text-red-500' : 'text-emerald-500'
-                            : hoveredStock.change < 0
-                            ? theme === 'chinese' ? 'text-emerald-500' : 'text-red-500'
+                          chartColor === 'red'
+                            ? 'text-red-400'
+                            : chartColor === 'emerald'
+                            ? 'text-emerald-400'
                             : 'text-slate-400'
                         }`}
                       >
@@ -660,7 +636,7 @@ function App() {
             href="https://www.wenyaoyefei.com" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-emerald-400 hover:text-emerald-300 font-bold transition-colors underline decoration-emerald-500/30 underline-offset-4"
+            className="text-rose-300 hover:text-amber-200 font-bold transition-colors underline decoration-rose-500/30 underline-offset-4"
           >
             www.wenyaoyefei.com
           </a>
@@ -713,12 +689,12 @@ function App() {
                 </div>
                 
                 {(() => {
-                  const isUpRed = theme === 'chinese';
-                  const isPositive = selectedStock.change > 0;
-                  const isNegative = selectedStock.change < 0;
-                  const upColorClass = isUpRed ? 'bg-red-500/15 text-red-400 border-red-500/30' : 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
-                  const downColorClass = isUpRed ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' : 'bg-red-500/15 text-red-400 border-red-500/30';
-                  const colorClass = isPositive ? upColorClass : (isNegative ? downColorClass : 'bg-slate-800 text-slate-400 border-slate-700');
+                  const trendTone = getTrendTone(selectedStock.change, theme);
+                  const colorClass = trendTone === 'red'
+                    ? 'bg-red-500/15 text-red-400 border-red-500/30'
+                    : trendTone === 'emerald'
+                    ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                    : 'bg-slate-800 text-slate-400 border-slate-700';
                   
                   return (
                     <span className={`px-3.5 py-1.5 rounded-xl border text-sm font-bold font-mono ${colorClass}`}>
@@ -810,13 +786,7 @@ function App() {
                 </div>
                 <div className="w-full h-[140px] flex items-center justify-center bg-black/20 rounded-xl overflow-hidden relative border border-white/5">
                   {(() => {
-                    const isUpRed = theme === 'chinese';
-                    const isPositive = selectedStock.change > 0;
-                    const isNegative = selectedStock.change < 0;
-                    const upColor = isUpRed ? 'red' : 'emerald';
-                    const downColor = isUpRed ? 'emerald' : 'red';
-                    const chartColor = isPositive ? upColor : (isNegative ? downColor : 'slate');
-                    
+                    const chartColor = getTrendTone(selectedStock.change, theme);
                     const chartStroke = chartColor === 'red' ? '#f87171' : (chartColor === 'emerald' ? '#34d399' : '#94a3b8');
                     
                     return (

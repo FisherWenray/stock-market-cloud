@@ -35,10 +35,10 @@ export const DataStatusIndicator: React.FC<DataStatusIndicatorProps> = ({
           className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors duration-300 ${
             isMock 
               ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' 
-              : 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
+              : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
           }`}
         >
-          <span className={`w-2 h-2 rounded-full animate-pulse ${isMock ? 'bg-amber-500' : 'bg-emerald-500'}`} />
+          <span className={`w-2 h-2 rounded-full animate-pulse ${isMock ? 'bg-amber-500' : 'bg-rose-400'}`} />
           {isMock ? t.mockMode : t.liveMode}
         </div>
 
@@ -75,7 +75,7 @@ export const DataStatusIndicator: React.FC<DataStatusIndicatorProps> = ({
                   cx="10"
                   cy="10"
                   r="8"
-                  className="stroke-emerald-500 transition-all duration-100"
+                  className="stroke-rose-400 transition-all duration-100"
                   strokeWidth="2"
                   fill="none"
                   strokeDasharray={2 * Math.PI * 8}

@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --brand-crimson: #ff6b6b;
+  --brand-coral: #ff8b7a;
+  --brand-amber: #ffc66d;
+  --brand-blue: #78b9ff;
+  --brand-bg: #07090f;
+}
+
 body {
   margin: 0;
-  background-color: #0f172a; /* Slate 900 */
-  color: #f8fafc; /* Slate 50 */
+  background:
+    radial-gradient(circle at top right, rgba(255, 107, 107, 0.16), transparent 30%),
+    radial-gradient(circle at 12% 18%, rgba(120, 185, 255, 0.12), transparent 24%),
+    linear-gradient(180deg, #0a0c13 0%, var(--brand-bg) 100%);
+  color: #f8fafc;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
 }

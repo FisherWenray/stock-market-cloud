@@ -26,6 +26,15 @@ describe('App Smoke Test', () => {
     expect(headingElement).toBeInTheDocument();
   });
 
+  it('renders the CN market tab before the US market tab', () => {
+    render(<App />);
+
+    const cnTab = screen.getByTestId('market-tab-cn');
+    const usTab = screen.getByTestId('market-tab-us');
+
+    expect(cnTab.compareDocumentPosition(usTab) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
   it('restores the selected HK market after refresh', () => {
     storage.set('selected-market', 'HK');
 

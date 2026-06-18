@@ -244,7 +244,7 @@ describe('Treemap component', () => {
       { symbol: 'MIDPE', name: 'Mid PE Corp', price: 100.0, change: 1.0, marketCap: 100000000, sector: 'Technology', pe: 30 },
     ];
 
-    // Under International Theme: low PE (<15) should be Emerald, high PE (>50) should be Red, mid PE should be Slate
+    // Under International Theme: low PE (<15) should be Sky, high PE (>50) should be Red, mid PE should be Slate
     const { rerender } = render(<Treemap stocks={peStocks} theme="international" lang="en" colorMetric="pe" />);
     triggerContainerResize(800, 600);
 
@@ -252,11 +252,11 @@ describe('Treemap component', () => {
     const highPeRect = screen.getByTestId('stock-tile-HIGHPE').querySelector('rect');
     const midPeRect = screen.getByTestId('stock-tile-MIDPE').querySelector('rect');
 
-    expect(lowPeRect?.className.baseVal).toContain('fill-emerald');
+    expect(lowPeRect?.className.baseVal).toContain('fill-sky');
     expect(highPeRect?.className.baseVal).toContain('fill-red');
     expect(midPeRect?.className.baseVal).toContain('fill-slate-700');
 
-    // Under Chinese Theme: low PE (<15) should be Red, high PE (>50) should be Emerald
+    // Under Chinese Theme: low PE (<15) should be Red, high PE (>50) should be Sky
     rerender(<Treemap stocks={peStocks} theme="chinese" lang="en" colorMetric="pe" />);
     triggerContainerResize(800, 600);
 
@@ -264,7 +264,7 @@ describe('Treemap component', () => {
     const highPeRectCN = screen.getByTestId('stock-tile-HIGHPE').querySelector('rect');
 
     expect(lowPeRectCN?.className.baseVal).toContain('fill-red');
-    expect(highPeRectCN?.className.baseVal).toContain('fill-emerald');
+    expect(highPeRectCN?.className.baseVal).toContain('fill-sky');
   });
 
 });

@@ -35,16 +35,16 @@ const getTileColor = (
   if (colorMetric === 'pe') {
     const pe = stock.pe || 25;
     const isUpRed = theme === 'chinese';
-    const absChangeColor = pe < 15 ? (isUpRed ? 'red' : 'emerald') : (pe >= 50 ? (isUpRed ? 'emerald' : 'red') : 'slate');
+    const absChangeColor = pe < 15 ? (isUpRed ? 'red' : 'sky') : (pe >= 50 ? (isUpRed ? 'sky' : 'red') : 'slate');
     
     if (absChangeColor === 'red') {
       if (pe >= 65) return 'fill-red-600 hover:fill-red-500 transition-colors duration-200';
       if (pe >= 55) return 'fill-red-700 hover:fill-red-600 transition-colors duration-200';
       return 'fill-red-900 hover:fill-red-800 transition-colors duration-200';
-    } else if (absChangeColor === 'emerald') {
-      if (pe < 10) return 'fill-emerald-600 hover:fill-emerald-500 transition-colors duration-200';
-      if (pe < 13) return 'fill-emerald-700 hover:fill-emerald-600 transition-colors duration-200';
-      return 'fill-emerald-950 hover:fill-emerald-900 transition-colors duration-200';
+    } else if (absChangeColor === 'sky') {
+      if (pe < 10) return 'fill-sky-600 hover:fill-sky-500 transition-colors duration-200';
+      if (pe < 13) return 'fill-sky-700 hover:fill-sky-600 transition-colors duration-200';
+      return 'fill-sky-950 hover:fill-sky-900 transition-colors duration-200';
     }
     return 'fill-slate-700 hover:fill-slate-600 transition-colors duration-200';
   }
@@ -183,7 +183,7 @@ export const Treemap: React.FC<TreemapProps> = ({
       {zoomedSector && (
         <button
           onClick={() => setZoomedSector(null)}
-          className="absolute top-3 right-3 z-30 px-3.5 py-2 bg-slate-900/90 hover:bg-slate-800 text-xs font-bold text-emerald-400 hover:text-emerald-300 border border-slate-700/80 hover:border-emerald-500/50 rounded-lg shadow-xl backdrop-blur-md transition-all duration-300 flex items-center gap-1.5 transform hover:-translate-y-0.5"
+          className="absolute top-3 right-3 z-30 px-3.5 py-2 bg-slate-900/90 hover:bg-slate-800 text-xs font-bold text-sky-400 hover:text-sky-300 border border-slate-700/80 hover:border-sky-500/50 rounded-lg shadow-xl backdrop-blur-md transition-all duration-300 flex items-center gap-1.5 transform hover:-translate-y-0.5"
         >
           <span>←</span>
           <span>{lang === 'zh' ? '返回全部板块' : 'Back to All Sectors'}</span>
@@ -230,7 +230,7 @@ export const Treemap: React.FC<TreemapProps> = ({
             
             const isUpRed = theme === 'chinese';
             const avgColor = avgChange > 0 
-              ? (isUpRed ? 'fill-red-400' : 'fill-emerald-400') 
+              ? (isUpRed ? 'fill-red-400' : 'fill-sky-400') 
               : (avgChange < 0 ? (isUpRed ? 'fill-emerald-400' : 'fill-red-400') : 'fill-slate-400');
 
             return (
