@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { hierarchy, treemap as d3Treemap, treemapSquarify } from 'd3-hierarchy';
-import { Stock, Language } from '../types';
+import { Stock, Language, Market } from '../types';
 import { useContainerSize } from '../hooks/useContainerSize';
 import { translations } from '../locales';
 
@@ -18,6 +18,7 @@ export interface TreemapNode {
 
 export interface TreemapProps {
   stocks: Stock[];
+  market?: Market;
   theme: 'international' | 'chinese';
   lang: Language;
   searchQuery?: string;
@@ -76,6 +77,7 @@ const getTrendColor = (change: number): 'up' | 'down' | 'neutral' => {
 
 export const Treemap: React.FC<TreemapProps> = ({
   stocks,
+  market = 'US',
   theme,
   lang,
   searchQuery = '',
@@ -86,6 +88,7 @@ export const Treemap: React.FC<TreemapProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { width, height } = useContainerSize(containerRef);
   const t = translations[lang];
+  const isCnMarket = market === 'CN';
 
   const [zoomedSector, setZoomedSector] = React.useState<string | null>(null);
 
@@ -176,7 +179,7 @@ export const Treemap: React.FC<TreemapProps> = ({
   return (
     <div
       ref={containerRef}
-      className="w-full h-full min-h-[500px] bg-transparent overflow-hidden relative"
+      className={`w-full h-full bg-transparent overflow-hidden relative ${isCnMarket ? 'min-h-[900px]' : 'min-h-[500px]'}`}
     >
       {zoomedSector && (
         <button
@@ -203,9 +206,20 @@ export const Treemap: React.FC<TreemapProps> = ({
           height={height}
           className="select-none font-sans"
         >
-          {sectorsLayout.map(sectorNode => {
+          {sectorsLayout.map((sectorNode, sectorIndex) => {
             const sectorName = sectorNode.data.name;
             const sectorNameLower = sectorName.toLowerCase();
+            const sectorX = sectorNode.x0;
+            const sectorY = sectorNode.y0;
+            const sectorWidth = sectorNode.x1 - sectorNode.x0;
+            const headerClipId = `treemap-sector-header-${sectorIndex}`;
+            const sectorLabel = t.sectors[sectorName] || sectorName;
+            const showZoomHint = !zoomedSector && sectorWidth >= (lang === 'zh' ? 210 : 250);
+            const headerTextClass = sectorWidth < 95
+              ? 'text-[9px]'
+              : sectorWidth < 135
+                ? 'text-[10px]'
+                : 'text-[11px]';
             
             // Calculate weighted average change for this sector
             const sectorStocks = sectorsMap.get(sectorName) || [];
@@ -225,12 +239,23 @@ export const Treemap: React.FC<TreemapProps> = ({
                 key={sectorName}
                 data-testid={`treemap-sector-${sectorNameLower}`}
               >
+                <defs>
+                  <clipPath id={headerClipId}>
+                    <rect
+                      x={sectorX + 2}
+                      y={sectorY}
+                      width={Math.max(0, sectorWidth - 4)}
+                      height={24}
+                    />
+                  </clipPath>
+                </defs>
+
                 {/* Clickable header background rect */}
                 {!zoomedSector && (
                   <rect
-                    x={sectorNode.x0}
-                    y={sectorNode.y0}
-                    width={sectorNode.x1 - sectorNode.x0}
+                    x={sectorX}
+                    y={sectorY}
+                    width={sectorWidth}
                     height={24}
                     fill="rgba(255, 255, 255, 0.01)"
                     className="cursor-zoom-in hover:fill-white/5 transition-colors duration-200"
@@ -239,16 +264,22 @@ export const Treemap: React.FC<TreemapProps> = ({
                 )}
 
                 {/* Sector header text */}
-                <text
-                  data-testid={`treemap-sector-title-${sectorNameLower}`}
-                  x={sectorNode.x0 + 6}
-                  y={sectorNode.y0 + 16}
-                  className="text-[11px] font-black fill-slate-300 pointer-events-none uppercase tracking-[0.15em] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
-                >
-                  {t.sectors[sectorName] || sectorName}
-                  <tspan className={`${avgColor} font-mono ml-2 font-black`}> {avgChangeText}</tspan>
-                  {!zoomedSector ? (lang === 'zh' ? ' (🔍 点击缩放)' : ' (🔍 Click to Zoom)') : ''}
-                </text>
+                <g clipPath={`url(#${headerClipId})`}>
+                  <text
+                    data-testid={`treemap-sector-title-${sectorNameLower}`}
+                    x={sectorX + 6}
+                    y={sectorY + 16}
+                    className={`${headerTextClass} font-black fill-slate-300 pointer-events-none uppercase tracking-[0.15em] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]`}
+                  >
+                    <tspan>{sectorLabel}</tspan>
+                    <tspan dx="8" className={`${avgColor} font-mono font-black`}>{avgChangeText}</tspan>
+                    {showZoomHint && (
+                      <tspan dx="8" className="fill-slate-300 tracking-normal">
+                        {lang === 'zh' ? '(点击缩放)' : '(Click to Zoom)'}
+                      </tspan>
+                    )}
+                  </text>
+                </g>
 
                 {/* Stock tiles inside the sector */}
                 {sectorNode.children?.map((stockNode: any) => {
@@ -270,6 +301,15 @@ export const Treemap: React.FC<TreemapProps> = ({
                   } else {
                     metricLabel = `${stock.change >= 0 ? '+' : ''}${stock.change.toFixed(2)}%`;
                   }
+
+                  const prefersNameLabel = market !== 'US';
+                  const rawLabel = prefersNameLabel ? stock.name : symbol;
+                  const maxLabelLength = prefersNameLabel
+                    ? (w > 140 ? 6 : 4)
+                    : (w > 140 ? 9 : 7);
+                  const tileLabel = rawLabel.length > maxLabelLength
+                    ? rawLabel.slice(0, maxLabelLength)
+                    : rawLabel;
 
                   return (
                     <g
@@ -307,28 +347,28 @@ export const Treemap: React.FC<TreemapProps> = ({
                       />
 
                       {/* Ticker/Name Text - Render only if dimensions permit */}
-                      {w > 42 && h > 24 && (
+                      {w > (isCnMarket ? 56 : 42) && h > (isCnMarket ? 34 : 24) && (
                         <text
                           data-testid={`stock-symbol-${symbol}`}
                           x={w / 2}
                           y={h > 36 ? h / 2 - 5 : h / 2}
                           textAnchor="middle"
                           dominantBaseline="middle"
-                          className="font-extrabold text-[13px] fill-white pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
+                          className={`font-extrabold fill-white pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] ${isCnMarket ? 'text-[15px]' : 'text-[13px]'}`}
                         >
-                          {symbol.endsWith('.HK') ? stock.name : symbol}
+                          {tileLabel}
                         </text>
                       )}
 
                       {/* Change Percentage / Metric Text - Render only if height permits */}
-                      {w > 50 && h > 36 && (
+                      {w > (isCnMarket ? 64 : 50) && h > (isCnMarket ? 50 : 36) && (
                         <text
                           data-testid={`stock-change-${symbol}`}
                           x={w / 2}
                           y={h / 2 + 10}
                           textAnchor="middle"
                           dominantBaseline="middle"
-                          className="text-[11px] font-semibold fill-slate-100 pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
+                          className={`font-semibold fill-slate-100 pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] ${isCnMarket ? 'text-[12px]' : 'text-[11px]'}`}
                         >
                           {metricLabel}
                         </text>

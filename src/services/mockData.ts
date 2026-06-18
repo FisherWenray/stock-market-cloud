@@ -4050,7 +4050,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 453.2,
     "change": -1.26,
     "marketCap": 4132333570000.0005,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "03750.HK",
@@ -4058,7 +4058,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 711,
     "change": -1.73,
     "marketCap": 3289531920000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00005.HK",
@@ -4066,7 +4066,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 141.8,
     "change": -3.14,
     "marketCap": 2436629350000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01398.HK",
@@ -4074,7 +4074,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.83,
     "change": 1.64,
     "marketCap": 2434254740000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "09988.HK",
@@ -4082,7 +4082,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 122.4,
     "change": -0.89,
     "marketCap": 2349232010000,
-    "sector": "Consumer Discretionary"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00939.HK",
@@ -4090,7 +4090,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.72,
     "change": 1.99,
     "marketCap": 2281155330000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01288.HK",
@@ -4098,7 +4098,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.83,
     "change": 0.34,
     "marketCap": 2040401090000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00857.HK",
@@ -4106,7 +4106,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 10.55,
     "change": 0,
     "marketCap": 1930871319999.9998,
-    "sector": "Energy"
+    "sector": "能源业"
   },
   {
     "symbol": "00941.HK",
@@ -4114,7 +4114,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 82.4,
     "change": 0.21,
     "marketCap": 1786383780000,
-    "sector": "Communication Services"
+    "sector": "电讯业"
   },
   {
     "symbol": "03988.HK",
@@ -4122,7 +4122,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.31,
     "change": 1.14,
     "marketCap": 1710947910000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00883.HK",
@@ -4130,7 +4130,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 26.54,
     "change": -1.78,
     "marketCap": 1261444980000,
-    "sector": "Energy"
+    "sector": "能源业"
   },
   {
     "symbol": "03968.HK",
@@ -4138,7 +4138,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 48.18,
     "change": 1.18,
     "marketCap": 1215092160000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "02840.HK",
@@ -4146,7 +4146,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3208,
     "change": 0,
     "marketCap": 1151351200000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "02318.HK",
@@ -4154,7 +4154,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 56.9,
     "change": -0.26,
     "marketCap": 1030324829999.9999,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01088.HK",
@@ -4162,7 +4162,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 46.1,
     "change": -1.03,
     "marketCap": 999882920000,
-    "sector": "Industrials"
+    "sector": "能源业"
   },
   {
     "symbol": "02899.HK",
@@ -4170,7 +4170,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 32.96,
     "change": -1.08,
     "marketCap": 876429949999.9999,
-    "sector": "Energy"
+    "sector": "原材料业"
   },
   {
     "symbol": "01211.HK",
@@ -4178,7 +4178,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 89.7,
     "change": -2.29,
     "marketCap": 817812620000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "02628.HK",
@@ -4186,7 +4186,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 28,
     "change": 0,
     "marketCap": 791411740000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01299.HK",
@@ -4194,7 +4194,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 74,
     "change": -3.52,
     "marketCap": 773601130000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01810.HK",
@@ -4202,7 +4202,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 27.8,
     "change": -2.04,
     "marketCap": 718348950000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00300.HK",
@@ -4210,7 +4210,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 88.2,
     "change": -0.68,
     "marketCap": 671487170000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "03328.HK",
@@ -4218,7 +4218,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.43,
     "change": 0.81,
     "marketCap": 656542920000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00981.HK",
@@ -4226,7 +4226,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 75.65,
     "change": -7.18,
     "marketCap": 606220890000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01658.HK",
@@ -4234,7 +4234,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.04,
     "change": 0.4,
     "marketCap": 605279070000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "09999.HK",
@@ -4242,7 +4242,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 188.4,
     "change": -2.33,
     "marketCap": 601116680000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02513.HK",
@@ -4250,7 +4250,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1297,
     "change": -9.05,
     "marketCap": 578258490000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00386.HK",
@@ -4258,7 +4258,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.29,
     "change": -1.38,
     "marketCap": 518770460000,
-    "sector": "Energy"
+    "sector": "能源业"
   },
   {
     "symbol": "03986.HK",
@@ -4266,7 +4266,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 723,
     "change": -8.02,
     "marketCap": 506897070000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00388.HK",
@@ -4274,7 +4274,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 396.4,
     "change": -1.1,
     "marketCap": 502570550000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "02388.HK",
@@ -4282,7 +4282,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 47.38,
     "change": 0,
     "marketCap": 500938330000.00006,
-    "sector": "Industrials"
+    "sector": "金融业"
   },
   {
     "symbol": "00945.HK",
@@ -4290,7 +4290,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 298,
     "change": -0.07,
     "marketCap": 497329370000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "03690.HK",
@@ -4298,7 +4298,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 79.95,
     "change": 1.72,
     "marketCap": 493660790000,
-    "sector": "Consumer Discretionary"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "09633.HK",
@@ -4306,7 +4306,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 42.18,
     "change": -1.49,
     "marketCap": 474375950000,
-    "sector": "Consumer Staples"
+    "sector": "必需性消费"
   },
   {
     "symbol": "00728.HK",
@@ -4314,7 +4314,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.99,
     "change": -0.6,
     "marketCap": 456620619999.99994,
-    "sector": "Industrials"
+    "sector": "电讯业"
   },
   {
     "symbol": "06809.HK",
@@ -4322,7 +4322,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 368.8,
     "change": -9.21,
     "marketCap": 450747369999.99994,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02888.HK",
@@ -4330,7 +4330,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 201.4,
     "change": -4.91,
     "marketCap": 443552720000.00006,
-    "sector": "Industrials"
+    "sector": "金融业"
   },
   {
     "symbol": "00998.HK",
@@ -4338,7 +4338,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.46,
     "change": 1.77,
     "marketCap": 415112910000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00267.HK",
@@ -4346,7 +4346,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.62,
     "change": -1.45,
     "marketCap": 396209380000,
-    "sector": "Financials"
+    "sector": "综合企业"
   },
   {
     "symbol": "03993.HK",
@@ -4354,7 +4354,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 18.08,
     "change": -2.11,
     "marketCap": 386809130000,
-    "sector": "Industrials"
+    "sector": "原材料业"
   },
   {
     "symbol": "06030.HK",
@@ -4362,7 +4362,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 25.26,
     "change": -0.94,
     "marketCap": 374367010000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "02359.HK",
@@ -4370,7 +4370,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 124.5,
     "change": 0.81,
     "marketCap": 370354410000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02476.HK",
@@ -4378,7 +4378,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 368.6,
     "change": -11.18,
     "marketCap": 362254480000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01276.HK",
@@ -4386,7 +4386,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 54.5,
     "change": 2.16,
     "marketCap": 361727390000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "00016.HK",
@@ -4394,7 +4394,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 120.9,
     "change": -2.26,
     "marketCap": 350341640000,
-    "sector": "Real Estate"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "09888.HK",
@@ -4402,7 +4402,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 125.6,
     "change": -3.46,
     "marketCap": 341885870000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02338.HK",
@@ -4410,7 +4410,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 37.96,
     "change": -6.69,
     "marketCap": 328815010000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02328.HK",
@@ -4418,7 +4418,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14.27,
     "change": 0,
     "marketCap": 317404260000,
-    "sector": "Industrials"
+    "sector": "金融业"
   },
   {
     "symbol": "09618.HK",
@@ -4426,7 +4426,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 115.8,
     "change": 0.7,
     "marketCap": 316324080000,
-    "sector": "Consumer Discretionary"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02259.HK",
@@ -4434,7 +4434,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 117.3,
     "change": -1.84,
     "marketCap": 313934600000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "00992.HK",
@@ -4442,7 +4442,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 24.88,
     "change": -0.48,
     "marketCap": 308627920000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02601.HK",
@@ -4450,7 +4450,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 31.1,
     "change": -0.77,
     "marketCap": 299192620000,
-    "sector": "Industrials"
+    "sector": "金融业"
   },
   {
     "symbol": "00011.HK",
@@ -4458,7 +4458,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 154.3,
     "change": 0,
     "marketCap": 288994260000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00001.HK",
@@ -4466,7 +4466,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 68.2,
     "change": -0.73,
     "marketCap": 261209029999.99997,
-    "sector": "Industrials"
+    "sector": "综合企业"
   },
   {
     "symbol": "01378.HK",
@@ -4474,7 +4474,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 26.52,
     "change": -2.86,
     "marketCap": 260410430000,
-    "sector": "Industrials"
+    "sector": "原材料业"
   },
   {
     "symbol": "01109.HK",
@@ -4482,7 +4482,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 35.92,
     "change": -0.17,
     "marketCap": 256143350000,
-    "sector": "Real Estate"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "02378.HK",
@@ -4490,7 +4490,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 101.1,
     "change": -6.39,
     "marketCap": 254592250000,
-    "sector": "Industrials"
+    "sector": "金融业"
   },
   {
     "symbol": "01347.HK",
@@ -4498,7 +4498,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 145.3,
     "change": -7.16,
     "marketCap": 252484700000.00003,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "06160.HK",
@@ -4506,7 +4506,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 163,
     "change": -2.92,
     "marketCap": 251251310000,
-    "sector": "Industrials"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02611.HK",
@@ -4514,7 +4514,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.84,
     "change": -1.21,
     "marketCap": 243984330000,
-    "sector": "Industrials"
+    "sector": "金融业"
   },
   {
     "symbol": "09992.HK",
@@ -4522,7 +4522,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 176.4,
     "change": -0.62,
     "marketCap": 234915960000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "09961.HK",
@@ -4530,7 +4530,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 369.4,
     "change": -1.39,
     "marketCap": 232613110000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "01919.HK",
@@ -4538,7 +4538,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.02,
     "change": 6.68,
     "marketCap": 230001020000.00003,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00762.HK",
@@ -4546,7 +4546,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.37,
     "change": -1.21,
     "marketCap": 225508180000,
-    "sector": "Industrials"
+    "sector": "电讯业"
   },
   {
     "symbol": "01339.HK",
@@ -4554,7 +4554,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.08,
     "change": 0.4,
     "marketCap": 224657870000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00669.HK",
@@ -4562,7 +4562,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 117,
     "change": -2.82,
     "marketCap": 214081910000.00003,
-    "sector": "Real Estate"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "02020.HK",
@@ -4570,7 +4570,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 74.2,
     "change": -0.13,
     "marketCap": 207511670000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "01024.HK",
@@ -4578,7 +4578,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 46.86,
     "change": -0.17,
     "marketCap": 203251500000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00175.HK",
@@ -4586,7 +4586,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 18.41,
     "change": -0.91,
     "marketCap": 198537340000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "06869.HK",
@@ -4594,7 +4594,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 239.2,
     "change": -4.63,
     "marketCap": 198034900000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "06690.HK",
@@ -4602,7 +4602,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 20.98,
     "change": 2.24,
     "marketCap": 196742670000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00066.HK",
@@ -4610,7 +4610,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 31.46,
     "change": -0.57,
     "marketCap": 195832940000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "06818.HK",
@@ -4618,7 +4618,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.22,
     "change": 1.26,
     "marketCap": 190255470000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "02714.HK",
@@ -4626,7 +4626,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 32.34,
     "change": -0.8,
     "marketCap": 186698690000,
-    "sector": "Industrials"
+    "sector": "必需性消费"
   },
   {
     "symbol": "00002.HK",
@@ -4634,7 +4634,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 73.35,
     "change": 0.27,
     "marketCap": 185315150000,
-    "sector": "Utilities"
+    "sector": "公用事业"
   },
   {
     "symbol": "02600.HK",
@@ -4642,7 +4642,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 10.75,
     "change": -2.63,
     "marketCap": 184415940000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "06031.HK",
@@ -4650,7 +4650,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 19.91,
     "change": 1.17,
     "marketCap": 183072540000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03288.HK",
@@ -4658,7 +4658,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 30.54,
     "change": 0.33,
     "marketCap": 178714730000,
-    "sector": "Industrials"
+    "sector": "必需性消费"
   },
   {
     "symbol": "03692.HK",
@@ -4666,7 +4666,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 29.32,
     "change": -1.61,
     "marketCap": 177800880000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "00788.HK",
@@ -4674,7 +4674,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.88,
     "change": -1.1,
     "marketCap": 173896370000,
-    "sector": "Industrials"
+    "sector": "电讯业"
   },
   {
     "symbol": "00100.HK",
@@ -4682,7 +4682,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 553,
     "change": -16.65,
     "marketCap": 173440330000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00688.HK",
@@ -4690,7 +4690,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.64,
     "change": -2.62,
     "marketCap": 171177980000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01898.HK",
@@ -4698,7 +4698,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 12.75,
     "change": -3.85,
     "marketCap": 169047960000,
-    "sector": "Energy"
+    "sector": "能源业"
   },
   {
     "symbol": "01113.HK",
@@ -4706,7 +4706,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 46.2,
     "change": -1.11,
     "marketCap": 161689760000,
-    "sector": "Industrials"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "09973.HK",
@@ -4714,7 +4714,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 27.2,
     "change": -0.58,
     "marketCap": 157994040000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "06936.HK",
@@ -4722,7 +4722,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 31.22,
     "change": -0.51,
     "marketCap": 157331020000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01888.HK",
@@ -4730,7 +4730,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 49.92,
     "change": -8.24,
     "marketCap": 156515420000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01816.HK",
@@ -4738,7 +4738,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.08,
     "change": -2.84,
     "marketCap": 155536290000,
-    "sector": "Utilities"
+    "sector": "公用事业"
   },
   {
     "symbol": "01766.HK",
@@ -4746,7 +4746,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.3,
     "change": -1.3,
     "marketCap": 152103980000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01988.HK",
@@ -4754,7 +4754,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.46,
     "change": 1.76,
     "marketCap": 151487170000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01171.HK",
@@ -4762,7 +4762,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14.99,
     "change": -5.25,
     "marketCap": 150452410000,
-    "sector": "Energy"
+    "sector": "能源业"
   },
   {
     "symbol": "01336.HK",
@@ -4770,7 +4770,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 47.38,
     "change": 0.77,
     "marketCap": 147804120000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "06886.HK",
@@ -4778,7 +4778,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 16.31,
     "change": 0.25,
     "marketCap": 147228150000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "09840.HK",
@@ -4786,7 +4786,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 409.1,
     "change": -0.05,
     "marketCap": 146825990000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "06613.HK",
@@ -4794,7 +4794,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 27.36,
     "change": 0.59,
     "marketCap": 144426350000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "03606.HK",
@@ -4802,7 +4802,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 55,
     "change": -0.81,
     "marketCap": 143535890000,
-    "sector": "Industrials"
+    "sector": "原材料业"
   },
   {
     "symbol": "02423.HK",
@@ -4810,7 +4810,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 42.32,
     "change": -1.9,
     "marketCap": 142839420000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01038.HK",
@@ -4818,7 +4818,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 56.65,
     "change": 0.62,
     "marketCap": 142735960000,
-    "sector": "Industrials"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "00763.HK",
@@ -4826,7 +4826,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 29.66,
     "change": 4.51,
     "marketCap": 141879640000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00027.HK",
@@ -4834,7 +4834,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 31.2,
     "change": -2.26,
     "marketCap": 136632310000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "06082.HK",
@@ -4842,7 +4842,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 55.8,
     "change": -6.45,
     "marketCap": 136088300000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02269.HK",
@@ -4850,7 +4850,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 32.74,
     "change": 0.99,
     "marketCap": 135576820000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "00012.HK",
@@ -4858,7 +4858,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 27.86,
     "change": -2.93,
     "marketCap": 134881040000,
-    "sector": "Real Estate"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "02057.HK",
@@ -4866,7 +4866,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 175.9,
     "change": 0,
     "marketCap": 134596010000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "01801.HK",
@@ -4874,7 +4874,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 76.6,
     "change": 0.26,
     "marketCap": 133149740000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02800.HK",
@@ -4882,7 +4882,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 25.28,
     "change": -1.02,
     "marketCap": 131101890000,
-    "sector": "Materials"
+    "sector": "金融业"
   },
   {
     "symbol": "02050.HK",
@@ -4890,7 +4890,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 30.72,
     "change": -2.85,
     "marketCap": 129270190000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06099.HK",
@@ -4898,7 +4898,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14.74,
     "change": -1.07,
     "marketCap": 128186809999.99998,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00003.HK",
@@ -4906,7 +4906,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.82,
     "change": 0,
     "marketCap": 127260310000,
-    "sector": "Utilities"
+    "sector": "公用事业"
   },
   {
     "symbol": "01776.HK",
@@ -4914,7 +4914,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.94,
     "change": -1.97,
     "marketCap": 124728040000.00002,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "09868.HK",
@@ -4922,7 +4922,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 65,
     "change": -2.18,
     "marketCap": 124437760000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "01972.HK",
@@ -4930,7 +4930,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 21.54,
     "change": -2.71,
     "marketCap": 124016220000,
-    "sector": "Real Estate"
+    "sector": "综合企业"
   },
   {
     "symbol": "01928.HK",
@@ -4938,7 +4938,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.21,
     "change": -3.49,
     "marketCap": 123100300000,
-    "sector": "Materials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00358.HK",
@@ -4946,7 +4946,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 35.52,
     "change": -3.22,
     "marketCap": 122996149999.99998,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "06618.HK",
@@ -4954,7 +4954,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 37.9,
     "change": 1.01,
     "marketCap": 121688380000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "00006.HK",
@@ -4962,7 +4962,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 56.4,
     "change": 0.45,
     "marketCap": 120194329999.99998,
-    "sector": "Real Estate"
+    "sector": "公用事业"
   },
   {
     "symbol": "01772.HK",
@@ -4970,7 +4970,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 55.8,
     "change": -3.13,
     "marketCap": 116995550000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02015.HK",
@@ -4978,7 +4978,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 56.65,
     "change": -1.05,
     "marketCap": 116150010000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "01880.HK",
@@ -4986,7 +4986,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 55.8,
     "change": 1.55,
     "marketCap": 115941050000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "09987.HK",
@@ -4994,7 +4994,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 332.4,
     "change": -0.6,
     "marketCap": 115594990000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00288.HK",
@@ -5002,7 +5002,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.99,
     "change": 1.01,
     "marketCap": 115343670000,
-    "sector": "Industrials"
+    "sector": "必需性消费"
   },
   {
     "symbol": "03808.HK",
@@ -5010,7 +5010,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 41.58,
     "change": -5.33,
     "marketCap": 114802100000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01929.HK",
@@ -5018,7 +5018,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 11.61,
     "change": 1.4,
     "marketCap": 114532009999.99998,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "01698.HK",
@@ -5026,7 +5026,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 35.9,
     "change": 1.82,
     "marketCap": 113006340000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00083.HK",
@@ -5034,7 +5034,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 11.64,
     "change": -0.26,
     "marketCap": 111582680000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00902.HK",
@@ -5042,7 +5042,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.1,
     "change": -2.61,
     "marketCap": 111456460000,
-    "sector": "Utilities"
+    "sector": "公用事业"
   },
   {
     "symbol": "09866.HK",
@@ -5050,7 +5050,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 44,
     "change": -3.76,
     "marketCap": 110249350000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00836.HK",
@@ -5058,7 +5058,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 21.02,
     "change": -2.14,
     "marketCap": 108821750000,
-    "sector": "Utilities"
+    "sector": "公用事业"
   },
   {
     "symbol": "09927.HK",
@@ -5066,7 +5066,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 61.8,
     "change": -3.36,
     "marketCap": 107654680000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01179.HK",
@@ -5074,7 +5074,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 34.8,
     "change": -1.19,
     "marketCap": 107018290000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01208.HK",
@@ -5082,7 +5082,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.8,
     "change": -4.97,
     "marketCap": 106836670000,
-    "sector": "Energy"
+    "sector": "原材料业"
   },
   {
     "symbol": "01072.HK",
@@ -5090,7 +5090,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 30.78,
     "change": -4.29,
     "marketCap": 106448330000.00002,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06656.HK",
@@ -5098,7 +5098,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 420.6,
     "change": -4.41,
     "marketCap": 104659130000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "09903.HK",
@@ -5106,7 +5106,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 410,
     "change": -4.7,
     "marketCap": 104270270000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01787.HK",
@@ -5114,7 +5114,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 22.46,
     "change": -2.52,
     "marketCap": 103539020000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "00501.HK",
@@ -5122,7 +5122,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 80.7,
     "change": -4.38,
     "marketCap": 101789280000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02097.HK",
@@ -5130,7 +5130,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 265.4,
     "change": 0,
     "marketCap": 100750830000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00823.HK",
@@ -5138,7 +5138,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 38.2,
     "change": -1.75,
     "marketCap": 99279470000,
-    "sector": "Materials"
+    "sector": "金融业"
   },
   {
     "symbol": "00914.HK",
@@ -5146,7 +5146,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 18.32,
     "change": -1.66,
     "marketCap": 97083220000,
-    "sector": "Industrials"
+    "sector": "原材料业"
   },
   {
     "symbol": "01209.HK",
@@ -5154,7 +5154,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 42.32,
     "change": 2.27,
     "marketCap": 96595400000,
-    "sector": "Consumer Staples"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "09980.HK",
@@ -5162,7 +5162,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 129.8,
     "change": -6.08,
     "marketCap": 95299070000,
-    "sector": "Industrials"
+    "sector": "必需性消费"
   },
   {
     "symbol": "01308.HK",
@@ -5170,7 +5170,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 34.98,
     "change": 1.39,
     "marketCap": 94849260000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00316.HK",
@@ -5178,7 +5178,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 143.2,
     "change": 6,
     "marketCap": 94565460000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01913.HK",
@@ -5186,7 +5186,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 36.74,
     "change": -0.7,
     "marketCap": 94011190000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01876.HK",
@@ -5194,7 +5194,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.01,
     "change": 0,
     "marketCap": 92836210000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02955.HK",
@@ -5202,7 +5202,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.92,
     "change": 0,
     "marketCap": 91910370000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06990.HK",
@@ -5210,7 +5210,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 393.4,
     "change": 0.82,
     "marketCap": 91735360000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "03908.HK",
@@ -5218,7 +5218,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 18.81,
     "change": -1.62,
     "marketCap": 90800700000,
-    "sector": "Materials"
+    "sector": "金融业"
   },
   {
     "symbol": "06823.HK",
@@ -5226,7 +5226,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 11.97,
     "change": -0.91,
     "marketCap": 90761310000,
-    "sector": "Technology"
+    "sector": "电讯业"
   },
   {
     "symbol": "00390.HK",
@@ -5234,7 +5234,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.64,
     "change": 1.11,
     "marketCap": 89857850000,
-    "sector": "Industrials"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "06066.HK",
@@ -5242,7 +5242,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 11.46,
     "change": -0.17,
     "marketCap": 88891720000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "02333.HK",
@@ -5250,7 +5250,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 10.37,
     "change": 0.1,
     "marketCap": 88656220000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "02382.HK",
@@ -5258,7 +5258,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 82.05,
     "change": 1.3,
     "marketCap": 88529060000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "06181.HK",
@@ -5266,7 +5266,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 500,
     "change": -1.77,
     "marketCap": 88372250000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "01177.HK",
@@ -5274,7 +5274,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.66,
     "change": -0.85,
     "marketCap": 87165380000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02618.HK",
@@ -5282,7 +5282,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 12.96,
     "change": -1.52,
     "marketCap": 86533680000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "09926.HK",
@@ -5290,7 +5290,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 93.6,
     "change": -5.88,
     "marketCap": 86219000000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "03296.HK",
@@ -5298,7 +5298,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 76.5,
     "change": -6.88,
     "marketCap": 84645870000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06881.HK",
@@ -5306,7 +5306,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.64,
     "change": 0,
     "marketCap": 83538830000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01093.HK",
@@ -5314,7 +5314,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.24,
     "change": 0,
     "marketCap": 83422550000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "03200.HK",
@@ -5322,7 +5322,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 166.9,
     "change": -5.17,
     "marketCap": 81615390000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01519.HK",
@@ -5330,7 +5330,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.02,
     "change": -2.91,
     "marketCap": 80396130000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "03033.HK",
@@ -5338,7 +5338,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.786,
     "change": -1.72,
     "marketCap": 79176710000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00293.HK",
@@ -5346,7 +5346,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 12.96,
     "change": -0.69,
     "marketCap": 78811420000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00489.HK",
@@ -5354,7 +5354,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.54,
     "change": 0,
     "marketCap": 78729690000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00753.HK",
@@ -5362,7 +5362,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.45,
     "change": -1.33,
     "marketCap": 77645470000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00291.HK",
@@ -5370,7 +5370,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 23.64,
     "change": -1.09,
     "marketCap": 76692340000,
-    "sector": "Consumer Staples"
+    "sector": "必需性消费"
   },
   {
     "symbol": "01989.HK",
@@ -5378,7 +5378,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 161,
     "change": -6.45,
     "marketCap": 76082930000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01138.HK",
@@ -5386,7 +5386,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.87,
     "change": -1.07,
     "marketCap": 75881850000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00670.HK",
@@ -5394,7 +5394,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.41,
     "change": -1.16,
     "marketCap": 75319180000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "09696.HK",
@@ -5402,7 +5402,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 43.78,
     "change": -4.33,
     "marketCap": 75004700000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00522.HK",
@@ -5410,7 +5410,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 176,
     "change": -4.35,
     "marketCap": 73815850000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03618.HK",
@@ -5418,7 +5418,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.45,
     "change": 1.9,
     "marketCap": 73252650000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "09660.HK",
@@ -5426,7 +5426,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.01,
     "change": -3.09,
     "marketCap": 73004330000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00470.HK",
@@ -5434,7 +5434,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 43.26,
     "change": -1.37,
     "marketCap": 72426820000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01818.HK",
@@ -5442,7 +5442,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 20.16,
     "change": -2.42,
     "marketCap": 71414650000,
-    "sector": "Energy"
+    "sector": "原材料业"
   },
   {
     "symbol": "01768.HK",
@@ -5450,7 +5450,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 325,
     "change": -2.64,
     "marketCap": 70797290000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03698.HK",
@@ -5458,7 +5458,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.09,
     "change": 2.83,
     "marketCap": 70699090000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00020.HK",
@@ -5466,7 +5466,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.66,
     "change": 0.61,
     "marketCap": 70079540000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "06862.HK",
@@ -5474,7 +5474,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 12.54,
     "change": -0.32,
     "marketCap": 69897960000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "02016.HK",
@@ -5482,7 +5482,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.54,
     "change": 1.6,
     "marketCap": 69760180000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00966.HK",
@@ -5490,7 +5490,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 19.31,
     "change": -1.63,
     "marketCap": 69400500000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01997.HK",
@@ -5498,7 +5498,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 22.84,
     "change": -0.87,
     "marketCap": 69347430000,
-    "sector": "Industrials"
+    "sector": "综合企业"
   },
   {
     "symbol": "00148.HK",
@@ -5506,7 +5506,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 62.35,
     "change": -6.8,
     "marketCap": 69103240000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00322.HK",
@@ -5514,7 +5514,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 12.16,
     "change": -6.1,
     "marketCap": 68548190000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01800.HK",
@@ -5522,7 +5522,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.21,
     "change": -2.32,
     "marketCap": 68516250000,
-    "sector": "Real Estate"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "01186.HK",
@@ -5530,7 +5530,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.03,
     "change": 1,
     "marketCap": 68305089999.99999,
-    "sector": "Industrials"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "01157.HK",
@@ -5538,7 +5538,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.7,
     "change": -0.52,
     "marketCap": 66593719999.99999,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02313.HK",
@@ -5546,7 +5546,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 43.74,
     "change": -1.62,
     "marketCap": 65734050000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00168.HK",
@@ -5554,7 +5554,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 48.1,
     "change": 0,
     "marketCap": 65617790000,
-    "sector": "Consumer Staples"
+    "sector": "必需性消费"
   },
   {
     "symbol": "07709.HK",
@@ -5562,7 +5562,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 106.9,
     "change": -19.32,
     "marketCap": 65583150000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02577.HK",
@@ -5570,7 +5570,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 71.55,
     "change": -4.79,
     "marketCap": 65475450000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01055.HK",
@@ -5578,7 +5578,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.6,
     "change": -0.83,
     "marketCap": 65235490000.00001,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00019.HK",
@@ -5586,7 +5586,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 83.3,
     "change": -1.77,
     "marketCap": 64889700000.00001,
-    "sector": "Industrials"
+    "sector": "综合企业"
   },
   {
     "symbol": "00285.HK",
@@ -5594,7 +5594,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 28.58,
     "change": -3.58,
     "marketCap": 64396579999.99999,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "06806.HK",
@@ -5602,7 +5602,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.57,
     "change": -0.39,
     "marketCap": 64352660000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00004.HK",
@@ -5610,7 +5610,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 20.88,
     "change": -3.78,
     "marketCap": 63809849999.99999,
-    "sector": "Industrials"
+    "sector": "综合企业"
   },
   {
     "symbol": "02268.HK",
@@ -5618,7 +5618,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 50.15,
     "change": -0.69,
     "marketCap": 63254570000,
-    "sector": "Industrials"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02727.HK",
@@ -5626,7 +5626,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.07,
     "change": -2.86,
     "marketCap": 63248299999.99999,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06088.HK",
@@ -5634,7 +5634,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.45,
     "change": -7.45,
     "marketCap": 61716590000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02319.HK",
@@ -5642,7 +5642,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.89,
     "change": -6.31,
     "marketCap": 61635760000.00001,
-    "sector": "Consumer Staples"
+    "sector": "必需性消费"
   },
   {
     "symbol": "00144.HK",
@@ -5650,7 +5650,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14.42,
     "change": -0.76,
     "marketCap": 60535290000,
-    "sector": "Industrials"
+    "sector": "综合企业"
   },
   {
     "symbol": "09626.HK",
@@ -5658,7 +5658,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 142.8,
     "change": 0.49,
     "marketCap": 59517840000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00135.HK",
@@ -5666,7 +5666,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.85,
     "change": -2.42,
     "marketCap": 59312789999.99999,
-    "sector": "Energy"
+    "sector": "公用事业"
   },
   {
     "symbol": "09863.HK",
@@ -5674,7 +5674,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 41.28,
     "change": 0.73,
     "marketCap": 58692430000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "02688.HK",
@@ -5682,7 +5682,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 51.75,
     "change": 0.49,
     "marketCap": 58572680000,
-    "sector": "Energy"
+    "sector": "公用事业"
   },
   {
     "symbol": "00486.HK",
@@ -5690,7 +5690,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.84,
     "change": 1.32,
     "marketCap": 58341180000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "02099.HK",
@@ -5698,7 +5698,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 146.8,
     "change": -2.46,
     "marketCap": 58193539999.99999,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "00241.HK",
@@ -5706,7 +5706,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.59,
     "change": 0.56,
     "marketCap": 58069330000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "09901.HK",
@@ -5714,7 +5714,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 36.3,
     "change": -1.31,
     "marketCap": 57769910000.00001,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02638.HK",
@@ -5722,7 +5722,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.44,
     "change": 0.63,
     "marketCap": 56905130000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01258.HK",
@@ -5730,7 +5730,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14.57,
     "change": -1.75,
     "marketCap": 56852660000,
-    "sector": "Energy"
+    "sector": "原材料业"
   },
   {
     "symbol": "06969.HK",
@@ -5738,7 +5738,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.01,
     "change": -0.66,
     "marketCap": 55822450000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "09880.HK",
@@ -5746,7 +5746,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 110.3,
     "change": -0.09,
     "marketCap": 55525170000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00960.HK",
@@ -5754,7 +5754,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.78,
     "change": 1.17,
     "marketCap": 55217790000,
-    "sector": "Industrials"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "06693.HK",
@@ -5762,7 +5762,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 28.9,
     "change": -2.82,
     "marketCap": 54921880000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "03996.HK",
@@ -5770,7 +5770,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.24,
     "change": 0,
     "marketCap": 54857830000,
-    "sector": "Energy"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "01364.HK",
@@ -5778,7 +5778,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 23,
     "change": 0.61,
     "marketCap": 54698270000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00177.HK",
@@ -5786,7 +5786,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 10.77,
     "change": -1.28,
     "marketCap": 54256539999.99999,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00991.HK",
@@ -5794,7 +5794,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.93,
     "change": -4.25,
     "marketCap": 54224659999.99999,
-    "sector": "Industrials"
+    "sector": "公用事业"
   },
   {
     "symbol": "00270.HK",
@@ -5802,7 +5802,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.27,
     "change": 0.73,
     "marketCap": 54067780000.00001,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "09698.HK",
@@ -5810,7 +5810,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 34.56,
     "change": 0.7,
     "marketCap": 53716700000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01099.HK",
@@ -5818,7 +5818,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 17.21,
     "change": 0.35,
     "marketCap": 53706490000,
-    "sector": "Financials"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "03317.HK",
@@ -5826,7 +5826,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 166,
     "change": -11.8,
     "marketCap": 53567270000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00916.HK",
@@ -5834,7 +5834,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.4,
     "change": -4.33,
     "marketCap": 53502820000,
-    "sector": "Utilities"
+    "sector": "公用事业"
   },
   {
     "symbol": "03898.HK",
@@ -5842,7 +5842,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 39.64,
     "change": -4.02,
     "marketCap": 53422940000.00001,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02018.HK",
@@ -5850,7 +5850,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 45.98,
     "change": -3.36,
     "marketCap": 53418390000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02076.HK",
@@ -5858,7 +5858,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 54.3,
     "change": 0.37,
     "marketCap": 52513750000.00001,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06651.HK",
@@ -5866,7 +5866,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 126.6,
     "change": 3.01,
     "marketCap": 52412879999.99999,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01508.HK",
@@ -5874,7 +5874,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.23,
     "change": -0.81,
     "marketCap": 52250160000.00001,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01071.HK",
@@ -5882,7 +5882,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.48,
     "change": -7.05,
     "marketCap": 52020750000,
-    "sector": "Utilities"
+    "sector": "公用事业"
   },
   {
     "symbol": "01879.HK",
@@ -5890,7 +5890,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 551,
     "change": -3.25,
     "marketCap": 51814590000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02208.HK",
@@ -5898,7 +5898,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 12.25,
     "change": -4.45,
     "marketCap": 51699270000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "03668.HK",
@@ -5906,7 +5906,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 38.48,
     "change": -2.34,
     "marketCap": 50810510000,
-    "sector": "Energy"
+    "sector": "能源业"
   },
   {
     "symbol": "02588.HK",
@@ -5914,7 +5914,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 72.9,
     "change": -0.34,
     "marketCap": 50593350000,
-    "sector": "Industrials"
+    "sector": "金融业"
   },
   {
     "symbol": "03998.HK",
@@ -5922,7 +5922,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.26,
     "change": -3.4,
     "marketCap": 49777030000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02799.HK",
@@ -5930,7 +5930,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 0.62,
     "change": -1.59,
     "marketCap": 49752940000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00151.HK",
@@ -5938,7 +5938,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.21,
     "change": 0.72,
     "marketCap": 49685040000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02921.HK",
@@ -5946,7 +5946,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 42.22,
     "change": 0,
     "marketCap": 49471450000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06166.HK",
@@ -5954,7 +5954,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 133.3,
     "change": -3.75,
     "marketCap": 49087770000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01081.HK",
@@ -5962,7 +5962,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 66.4,
     "change": 0,
     "marketCap": 48987260000,
-    "sector": "Materials"
+    "sector": "工业"
   },
   {
     "symbol": "02039.HK",
@@ -5970,7 +5970,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.15,
     "change": -1.4,
     "marketCap": 48715470000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03931.HK",
@@ -5978,7 +5978,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 27.1,
     "change": -5.57,
     "marketCap": 48029380000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06198.HK",
@@ -5986,7 +5986,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.35,
     "change": -0.27,
     "marketCap": 47709590000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03311.HK",
@@ -5994,7 +5994,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.98,
     "change": 1.81,
     "marketCap": 47434310000,
-    "sector": "Real Estate"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "03958.HK",
@@ -6002,7 +6002,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.57,
     "change": 0.18,
     "marketCap": 47326310000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "02631.HK",
@@ -6010,7 +6010,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 95.6,
     "change": -8.87,
     "marketCap": 46329530000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02331.HK",
@@ -6018,7 +6018,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 17.78,
     "change": -0.5,
     "marketCap": 45957990000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00008.HK",
@@ -6026,7 +6026,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.9,
     "change": 2.08,
     "marketCap": 45711800000,
-    "sector": "Technology"
+    "sector": "电讯业"
   },
   {
     "symbol": "02380.HK",
@@ -6034,7 +6034,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.69,
     "change": -2.38,
     "marketCap": 45645860000,
-    "sector": "Utilities"
+    "sector": "公用事业"
   },
   {
     "symbol": "02726.HK",
@@ -6042,7 +6042,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 106.2,
     "change": -1.39,
     "marketCap": 45197110000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03010.HK",
@@ -6050,7 +6050,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 89.56,
     "change": -2.8,
     "marketCap": 43963210000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03939.HK",
@@ -6058,7 +6058,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.92,
     "change": -4.06,
     "marketCap": 43761670000,
-    "sector": "Industrials"
+    "sector": "原材料业"
   },
   {
     "symbol": "00247.HK",
@@ -6066,7 +6066,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 19.35,
     "change": 0,
     "marketCap": 43519090000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02282.HK",
@@ -6074,7 +6074,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 11.42,
     "change": -0.87,
     "marketCap": 43397100000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "03277.HK",
@@ -6082,7 +6082,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 97.45,
     "change": -8.75,
     "marketCap": 43373850000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02196.HK",
@@ -6090,7 +6090,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 16.23,
     "change": -0.06,
     "marketCap": 43163040000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02607.HK",
@@ -6098,7 +6098,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 11.55,
     "change": 0.79,
     "marketCap": 42831580000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "03020.HK",
@@ -6106,7 +6106,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1773.5,
     "change": 0.25,
     "marketCap": 42736300000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00868.HK",
@@ -6114,7 +6114,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.58,
     "change": -2.54,
     "marketCap": 42382960000,
-    "sector": "Industrials"
+    "sector": "原材料业"
   },
   {
     "symbol": "01133.HK",
@@ -6122,7 +6122,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 18.47,
     "change": -4.84,
     "marketCap": 41304020000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01193.HK",
@@ -6130,7 +6130,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 17.6,
     "change": -1.23,
     "marketCap": 40726630000,
-    "sector": "Utilities"
+    "sector": "公用事业"
   },
   {
     "symbol": "00576.HK",
@@ -6138,7 +6138,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.74,
     "change": -1.75,
     "marketCap": 40696890000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02788.HK",
@@ -6146,7 +6146,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 19.41,
     "change": -0.05,
     "marketCap": 40275750000,
-    "sector": "Real Estate"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "01729.HK",
@@ -6154,7 +6154,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 18.03,
     "change": -3.32,
     "marketCap": 40235410000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "06963.HK",
@@ -6162,7 +6162,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.48,
     "change": -0.29,
     "marketCap": 40025300000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "03858.HK",
@@ -6170,7 +6170,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 87.45,
     "change": -2.29,
     "marketCap": 39850970000,
-    "sector": "Energy"
+    "sector": "能源业"
   },
   {
     "symbol": "01530.HK",
@@ -6178,7 +6178,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.68,
     "change": -1.88,
     "marketCap": 39797160000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "00101.HK",
@@ -6186,7 +6186,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.87,
     "change": 0.25,
     "marketCap": 39795810000,
-    "sector": "Real Estate"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "09995.HK",
@@ -6194,7 +6194,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 70.5,
     "change": -2.62,
     "marketCap": 39795660000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "01359.HK",
@@ -6202,7 +6202,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.04,
     "change": 0,
     "marketCap": 39691120000,
-    "sector": "Industrials"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "00425.HK",
@@ -6210,7 +6210,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 33.66,
     "change": -3.16,
     "marketCap": 39462250000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02883.HK",
@@ -6218,7 +6218,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.14,
     "change": 1.12,
     "marketCap": 38840760000,
-    "sector": "Industrials"
+    "sector": "能源业"
   },
   {
     "symbol": "00384.HK",
@@ -6226,7 +6226,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.02,
     "change": 2.03,
     "marketCap": 38246030000,
-    "sector": "Utilities"
+    "sector": "公用事业"
   },
   {
     "symbol": "02919.HK",
@@ -6234,7 +6234,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 28.8,
     "change": 0,
     "marketCap": 37872540000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00290.HK",
@@ -6242,7 +6242,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.64,
     "change": -8.54,
     "marketCap": 37506020000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00392.HK",
@@ -6250,7 +6250,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 29.64,
     "change": 0.61,
     "marketCap": 37287220000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "07618.HK",
@@ -6258,7 +6258,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.71,
     "change": -4.33,
     "marketCap": 37223340000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00087.HK",
@@ -6266,7 +6266,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.06,
     "change": -1.95,
     "marketCap": 37207060000,
-    "sector": "Industrials"
+    "sector": "综合企业"
   },
   {
     "symbol": "01828.HK",
@@ -6274,7 +6274,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 29.06,
     "change": -1.22,
     "marketCap": 37185820000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03396.HK",
@@ -6282,7 +6282,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.7,
     "change": -3.8,
     "marketCap": 36992830000,
-    "sector": "Financials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00659.HK",
@@ -6290,7 +6290,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.05,
     "change": -1.59,
     "marketCap": 36758270000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "03323.HK",
@@ -6298,7 +6298,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.84,
     "change": -2.22,
     "marketCap": 36750220000,
-    "sector": "Real Estate"
+    "sector": "原材料业"
   },
   {
     "symbol": "01585.HK",
@@ -6306,7 +6306,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 11.63,
     "change": -0.51,
     "marketCap": 36200090000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "03360.HK",
@@ -6314,7 +6314,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.48,
     "change": -0.8,
     "marketCap": 36032150000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00023.HK",
@@ -6322,7 +6322,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.58,
     "change": -1.67,
     "marketCap": 35907880000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "03969.HK",
@@ -6330,7 +6330,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.38,
     "change": -0.59,
     "marketCap": 35793590000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02889.HK",
@@ -6338,7 +6338,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 223.2,
     "change": 3.81,
     "marketCap": 35457080000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02979.HK",
@@ -6346,7 +6346,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.01,
     "change": 3.49,
     "marketCap": 35446720000,
-    "sector": "Industrials"
+    "sector": "原材料业"
   },
   {
     "symbol": "01070.HK",
@@ -6354,7 +6354,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.84,
     "change": -1.77,
     "marketCap": 34889740000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01735.HK",
@@ -6362,7 +6362,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.23,
     "change": 0.24,
     "marketCap": 34763520000,
-    "sector": "Energy"
+    "sector": "能源业"
   },
   {
     "symbol": "01908.HK",
@@ -6370,7 +6370,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.51,
     "change": -1.52,
     "marketCap": 34744790000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00921.HK",
@@ -6378,7 +6378,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 24.96,
     "change": 1.05,
     "marketCap": 34566130000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00220.HK",
@@ -6386,7 +6386,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8,
     "change": -5.77,
     "marketCap": 34554670000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06821.HK",
@@ -6394,7 +6394,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 93.5,
     "change": 2.24,
     "marketCap": 33741810000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06178.HK",
@@ -6402,7 +6402,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.29,
     "change": -1.35,
     "marketCap": 33612640000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00598.HK",
@@ -6410,7 +6410,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.68,
     "change": 0,
     "marketCap": 33573160000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02718.HK",
@@ -6418,7 +6418,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 227,
     "change": -14.98,
     "marketCap": 33019680000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01882.HK",
@@ -6426,7 +6426,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 20.68,
     "change": -1.71,
     "marketCap": 33005280000,
-    "sector": "Industrials"
+    "sector": "必需性消费"
   },
   {
     "symbol": "02579.HK",
@@ -6434,7 +6434,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 31.62,
     "change": -5.95,
     "marketCap": 32956070000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00780.HK",
@@ -6442,7 +6442,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.9,
     "change": -0.79,
     "marketCap": 32724910000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "02696.HK",
@@ -6450,7 +6450,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 60.2,
     "change": 0.17,
     "marketCap": 32718390000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02723.HK",
@@ -6458,7 +6458,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 360,
     "change": 0.45,
     "marketCap": 32644500000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00666.HK",
@@ -6466,7 +6466,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.83,
     "change": -3.35,
     "marketCap": 32318970000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02228.HK",
@@ -6474,7 +6474,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.49,
     "change": -2.09,
     "marketCap": 32232250000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "02026.HK",
@@ -6482,7 +6482,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 74.2,
     "change": -8.11,
     "marketCap": 32168780000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00656.HK",
@@ -6490,7 +6490,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.91,
     "change": -0.26,
     "marketCap": 31885350000,
-    "sector": "Industrials"
+    "sector": "综合企业"
   },
   {
     "symbol": "09896.HK",
@@ -6498,7 +6498,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 25.74,
     "change": -0.77,
     "marketCap": 31416490000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01318.HK",
@@ -6506,7 +6506,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 63.8,
     "change": 0.24,
     "marketCap": 31273920000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02202.HK",
@@ -6514,7 +6514,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.62,
     "change": -0.76,
     "marketCap": 31258460000.000004,
-    "sector": "Industrials"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "03888.HK",
@@ -6522,7 +6522,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 22.6,
     "change": 3.29,
     "marketCap": 31229010000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "06810.HK",
@@ -6530,7 +6530,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 75.55,
     "change": 3.42,
     "marketCap": 30418450000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01128.HK",
@@ -6538,7 +6538,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.77,
     "change": -1.87,
     "marketCap": 30371650000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "02689.HK",
@@ -6546,7 +6546,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.46,
     "change": -4.01,
     "marketCap": 30311750000,
-    "sector": "Industrials"
+    "sector": "原材料业"
   },
   {
     "symbol": "00683.HK",
@@ -6554,7 +6554,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 20.86,
     "change": 1.96,
     "marketCap": 30274239999.999996,
-    "sector": "Real Estate"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "01618.HK",
@@ -6562,7 +6562,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.46,
     "change": -0.68,
     "marketCap": 30209760000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03759.HK",
@@ -6570,7 +6570,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 16.47,
     "change": 1.6,
     "marketCap": 30140429999.999996,
-    "sector": "Healthcare"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "06655.HK",
@@ -6578,7 +6578,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14.43,
     "change": -1.1,
     "marketCap": 29999910000,
-    "sector": "Real Estate"
+    "sector": "原材料业"
   },
   {
     "symbol": "00257.HK",
@@ -6586,7 +6586,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.88,
     "change": -1.41,
     "marketCap": 29977720000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01963.HK",
@@ -6594,7 +6594,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.25,
     "change": 0.98,
     "marketCap": 29912450000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "03320.HK",
@@ -6602,7 +6602,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.73,
     "change": -0.21,
     "marketCap": 29716269999.999996,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "00068.HK",
@@ -6610,7 +6610,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 17.2,
     "change": -4.34,
     "marketCap": 29690630000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02676.HK",
@@ -6618,7 +6618,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 178.9,
     "change": -5.44,
     "marketCap": 29093329999.999996,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02367.HK",
@@ -6626,7 +6626,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 27.38,
     "change": -0.22,
     "marketCap": 29069459999.999996,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "00189.HK",
@@ -6634,7 +6634,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 16.68,
     "change": -5.87,
     "marketCap": 28901630000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03896.HK",
@@ -6642,7 +6642,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.33,
     "change": -2.76,
     "marketCap": 28686200000.000004,
-    "sector": "Materials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00268.HK",
@@ -6650,7 +6650,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.98,
     "change": 4.31,
     "marketCap": 28324759999.999996,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "01548.HK",
@@ -6658,7 +6658,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 12.92,
     "change": -0.54,
     "marketCap": 28274350000,
-    "sector": "Technology"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "00552.HK",
@@ -6666,7 +6666,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.06,
     "change": 1.42,
     "marketCap": 28119630000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "06186.HK",
@@ -6674,7 +6674,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.18,
     "change": -1.24,
     "marketCap": 28008370000.000004,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02526.HK",
@@ -6682,7 +6682,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 315,
     "change": -1.69,
     "marketCap": 27996950000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01044.HK",
@@ -6690,7 +6690,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 24.22,
     "change": 0.5,
     "marketCap": 27981869999.999996,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03347.HK",
@@ -6698,7 +6698,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 31.7,
     "change": -0.69,
     "marketCap": 27294529999.999996,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "00995.HK",
@@ -6706,7 +6706,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.87,
     "change": -1.67,
     "marketCap": 27115350000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00564.HK",
@@ -6714,7 +6714,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.08,
     "change": -1.37,
     "marketCap": 26923830000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06979.HK",
@@ -6722,7 +6722,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.8,
     "change": 6.56,
     "marketCap": 26431259999.999996,
-    "sector": "Consumer Staples"
+    "sector": "必需性消费"
   },
   {
     "symbol": "00696.HK",
@@ -6730,7 +6730,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.99,
     "change": -0.22,
     "marketCap": 26306619999.999996,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00867.HK",
@@ -6738,7 +6738,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 10.65,
     "change": 0.95,
     "marketCap": 25937450000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02252.HK",
@@ -6746,7 +6746,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 25.1,
     "change": 2.78,
     "marketCap": 25886390000,
-    "sector": "Technology"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02828.HK",
@@ -6754,7 +6754,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 87,
     "change": -0.5,
     "marketCap": 25778640000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02386.HK",
@@ -6762,7 +6762,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.85,
     "change": -2.17,
     "marketCap": 25705040000.000004,
-    "sector": "Energy"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "02238.HK",
@@ -6770,7 +6770,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.52,
     "change": 0.4,
     "marketCap": 25696610000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "02096.HK",
@@ -6778,7 +6778,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.87,
     "change": 2.28,
     "marketCap": 25619540000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "03866.HK",
@@ -6786,7 +6786,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.35,
     "change": 0.69,
     "marketCap": 25318540000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00371.HK",
@@ -6794,7 +6794,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.52,
     "change": 0.8,
     "marketCap": 25317460000,
-    "sector": "Industrials"
+    "sector": "公用事业"
   },
   {
     "symbol": "06680.HK",
@@ -6802,7 +6802,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 18.37,
     "change": -1.08,
     "marketCap": 25269580000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "02357.HK",
@@ -6810,7 +6810,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.16,
     "change": 0.32,
     "marketCap": 25194220000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00699.HK",
@@ -6818,7 +6818,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 16.18,
     "change": -1.52,
     "marketCap": 25059030000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00874.HK",
@@ -6826,7 +6826,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.36,
     "change": -0.45,
     "marketCap": 24972150000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01415.HK",
@@ -6834,7 +6834,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 28.64,
     "change": -0.42,
     "marketCap": 24877390000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00631.HK",
@@ -6842,7 +6842,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.56,
     "change": -1.82,
     "marketCap": 24870290000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02400.HK",
@@ -6850,7 +6850,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 50.8,
     "change": -2.59,
     "marketCap": 24856560000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02988.HK",
@@ -6858,7 +6858,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 52.7,
     "change": 0,
     "marketCap": 24682410000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "07747.HK",
@@ -6866,7 +6866,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 185.9,
     "change": -13.45,
     "marketCap": 24631750000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "09899.HK",
@@ -6874,7 +6874,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 115.7,
     "change": -3.66,
     "marketCap": 24335230000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02525.HK",
@@ -6882,7 +6882,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 154.6,
     "change": -4.69,
     "marketCap": 24294190000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03800.HK",
@@ -6890,7 +6890,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 0.73,
     "change": -3.95,
     "marketCap": 24248020000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "03416.HK",
@@ -6898,7 +6898,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.19,
     "change": -0.11,
     "marketCap": 24085300000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00136.HK",
@@ -6906,7 +6906,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.42,
     "change": -1.39,
     "marketCap": 23856870000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02931.HK",
@@ -6914,7 +6914,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 63,
     "change": 4.13,
     "marketCap": 23855960000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01385.HK",
@@ -6922,7 +6922,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 28.8,
     "change": -4.64,
     "marketCap": 23723110000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00179.HK",
@@ -6930,7 +6930,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 25.24,
     "change": -5.4,
     "marketCap": 23584560000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00772.HK",
@@ -6938,7 +6938,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 23.08,
     "change": 0.96,
     "marketCap": 23575670000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01513.HK",
@@ -6946,7 +6946,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 26.32,
     "change": -1.28,
     "marketCap": 23369720000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02648.HK",
@@ -6954,7 +6954,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 70,
     "change": 3.55,
     "marketCap": 23330230000,
-    "sector": "Consumer Staples"
+    "sector": "必需性消费"
   },
   {
     "symbol": "01164.HK",
@@ -6962,7 +6962,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.05,
     "change": -1.29,
     "marketCap": 23182080000,
-    "sector": "Energy"
+    "sector": "公用事业"
   },
   {
     "symbol": "00968.HK",
@@ -6970,7 +6970,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.53,
     "change": -3.07,
     "marketCap": 23142020000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00053.HK",
@@ -6978,7 +6978,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 70,
     "change": 0.86,
     "marketCap": 23033600000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02706.HK",
@@ -6986,7 +6986,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 57.5,
     "change": 0,
     "marketCap": 23024760000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "09889.HK",
@@ -6994,7 +6994,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.34,
     "change": -1.47,
     "marketCap": 23007740000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "03393.HK",
@@ -7002,7 +7002,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 21.92,
     "change": -5.52,
     "marketCap": 22925680000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01357.HK",
@@ -7010,7 +7010,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.02,
     "change": -1.38,
     "marketCap": 22834190000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01797.HK",
@@ -7018,7 +7018,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 21.18,
     "change": -1.12,
     "marketCap": 22453470000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02670.HK",
@@ -7026,7 +7026,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 319.8,
     "change": -3.03,
     "marketCap": 22277280000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02945.HK",
@@ -7034,7 +7034,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.15,
     "change": 0,
     "marketCap": 22224490000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03900.HK",
@@ -7042,7 +7042,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.65,
     "change": -1.48,
     "marketCap": 21967530000,
-    "sector": "Industrials"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "02602.HK",
@@ -7050,7 +7050,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 19.02,
     "change": -4.42,
     "marketCap": 21938020000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01860.HK",
@@ -7058,7 +7058,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.92,
     "change": -0.71,
     "marketCap": 21912230000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01456.HK",
@@ -7066,7 +7066,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.85,
     "change": -1.03,
     "marketCap": 21870280000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00142.HK",
@@ -7074,7 +7074,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.13,
     "change": -0.19,
     "marketCap": 21864680000,
-    "sector": "Industrials"
+    "sector": "综合企业"
   },
   {
     "symbol": "02938.HK",
@@ -7082,7 +7082,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 55.7,
     "change": 0,
     "marketCap": 21783800000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01551.HK",
@@ -7090,7 +7090,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.51,
     "change": 0,
     "marketCap": 21758780000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00817.HK",
@@ -7098,7 +7098,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.61,
     "change": -2.42,
     "marketCap": 21755070000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "03696.HK",
@@ -7106,7 +7106,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 37.98,
     "change": -1.96,
     "marketCap": 21739830000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00551.HK",
@@ -7114,7 +7114,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.46,
     "change": -3.03,
     "marketCap": 21597330000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02276.HK",
@@ -7122,7 +7122,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 41.98,
     "change": -0.1,
     "marketCap": 21170370000,
-    "sector": "Healthcare"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02610.HK",
@@ -7130,7 +7130,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 33.64,
     "change": -1.58,
     "marketCap": 20871440000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "01757.HK",
@@ -7138,7 +7138,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 17.34,
     "change": 0.23,
     "marketCap": 20808000000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02442.HK",
@@ -7146,7 +7146,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 51,
     "change": 3.07,
     "marketCap": 20808000000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "02245.HK",
@@ -7154,7 +7154,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.33,
     "change": -0.89,
     "marketCap": 20740560000,
-    "sector": "Energy"
+    "sector": "能源业"
   },
   {
     "symbol": "01651.HK",
@@ -7162,7 +7162,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 56.15,
     "change": -1.23,
     "marketCap": 20697680000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03330.HK",
@@ -7170,7 +7170,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14.94,
     "change": -0.99,
     "marketCap": 20626900000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "02935.HK",
@@ -7178,7 +7178,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 17.11,
     "change": 0,
     "marketCap": 20532000000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02038.HK",
@@ -7186,7 +7186,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 26.12,
     "change": -6.71,
     "marketCap": 20453380000,
-    "sector": "Healthcare"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "02880.HK",
@@ -7194,7 +7194,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 0.86,
     "change": 1.18,
     "marketCap": 20271720000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06887.HK",
@@ -7202,7 +7202,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 35.14,
     "change": 0.92,
     "marketCap": 20239880000,
-    "sector": "Industrials"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "01199.HK",
@@ -7210,7 +7210,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.1,
     "change": 0.59,
     "marketCap": 20195770000,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "01788.HK",
@@ -7218,7 +7218,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.11,
     "change": -2.31,
     "marketCap": 20108180000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02675.HK",
@@ -7226,7 +7226,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 51.3,
     "change": -3.84,
     "marketCap": 20103470000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02590.HK",
@@ -7234,7 +7234,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14.99,
     "change": -3.85,
     "marketCap": 20045930000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00586.HK",
@@ -7242,7 +7242,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 11.06,
     "change": 0,
     "marketCap": 19819970000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00317.HK",
@@ -7250,7 +7250,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14,
     "change": -0.43,
     "marketCap": 19789090000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01606.HK",
@@ -7258,7 +7258,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.56,
     "change": -0.64,
     "marketCap": 19722110000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "03188.HK",
@@ -7266,7 +7266,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 57.62,
     "change": -1.84,
     "marketCap": 19610970000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "09981.HK",
@@ -7274,7 +7274,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.96,
     "change": -3.19,
     "marketCap": 19542430000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03421.HK",
@@ -7282,7 +7282,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1017.35,
     "change": 0.01,
     "marketCap": 19508400000,
-    "sector": "Industrials"
+    "sector": "金融业"
   },
   {
     "symbol": "02460.HK",
@@ -7290,7 +7290,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.11,
     "change": 1.76,
     "marketCap": 19449370000,
-    "sector": "Industrials"
+    "sector": "必需性消费"
   },
   {
     "symbol": "02419.HK",
@@ -7298,7 +7298,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 50.45,
     "change": -2.04,
     "marketCap": 19441260000,
-    "sector": "Healthcare"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00010.HK",
@@ -7306,7 +7306,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14.23,
     "change": -0.35,
     "marketCap": 19375830000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "07489.HK",
@@ -7314,7 +7314,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.24,
     "change": -1.69,
     "marketCap": 19283200000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "01910.HK",
@@ -7322,7 +7322,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14.05,
     "change": -0.71,
     "marketCap": 19190060000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00017.HK",
@@ -7330,7 +7330,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.61,
     "change": -1.04,
     "marketCap": 19151580000,
-    "sector": "Industrials"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "09985.HK",
@@ -7338,7 +7338,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.85,
     "change": -1.38,
     "marketCap": 19084490000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06098.HK",
@@ -7346,7 +7346,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.85,
     "change": -0.51,
     "marketCap": 19061260000,
-    "sector": "Industrials"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "01440.HK",
@@ -7354,7 +7354,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 15.12,
     "change": 2.51,
     "marketCap": 19047720000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01833.HK",
@@ -7362,7 +7362,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.76,
     "change": -0.68,
     "marketCap": 18934250000,
-    "sector": "Industrials"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "06623.HK",
@@ -7370,7 +7370,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 10.9,
     "change": 0,
     "marketCap": 18893820000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02225.HK",
@@ -7378,7 +7378,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.54,
     "change": -3.28,
     "marketCap": 18758460000,
-    "sector": "Technology"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02315.HK",
@@ -7386,7 +7386,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 41.82,
     "change": 1.85,
     "marketCap": 18689290000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "09900.HK",
@@ -7394,7 +7394,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.25,
     "change": -8.36,
     "marketCap": 18600000000,
-    "sector": "Technology"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "09969.HK",
@@ -7402,7 +7402,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 10.55,
     "change": -1.95,
     "marketCap": 18590770000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03677.HK",
@@ -7410,7 +7410,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.27,
     "change": -0.82,
     "marketCap": 18570640000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02658.HK",
@@ -7418,7 +7418,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 47.18,
     "change": -6.76,
     "marketCap": 18554410000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00014.HK",
@@ -7426,7 +7426,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 17.93,
     "change": -0.22,
     "marketCap": 18414260000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02643.HK",
@@ -7434,7 +7434,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 31.58,
     "change": -3.25,
     "marketCap": 18410580000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02356.HK",
@@ -7442,7 +7442,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.08,
     "change": -2.1,
     "marketCap": 18387240000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00512.HK",
@@ -7450,7 +7450,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.17,
     "change": 0.39,
     "marketCap": 18351280000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "06600.HK",
@@ -7458,7 +7458,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 81,
     "change": -2.41,
     "marketCap": 18253840000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06993.HK",
@@ -7466,7 +7466,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.11,
     "change": 1.3,
     "marketCap": 18129040000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06865.HK",
@@ -7474,7 +7474,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 7.76,
     "change": -1.9,
     "marketCap": 18128490000,
-    "sector": "Industrials"
+    "sector": "原材料业"
   },
   {
     "symbol": "03899.HK",
@@ -7482,7 +7482,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.58,
     "change": -2.83,
     "marketCap": 18123910000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02692.HK",
@@ -7490,7 +7490,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 67.6,
     "change": 5.68,
     "marketCap": 18087340000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01060.HK",
@@ -7498,7 +7498,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 0.6,
     "change": 0,
     "marketCap": 17986050000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "00579.HK",
@@ -7506,7 +7506,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.18,
     "change": -0.46,
     "marketCap": 17973030000,
-    "sector": "Energy"
+    "sector": "能源业"
   },
   {
     "symbol": "06110.HK",
@@ -7514,7 +7514,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.89,
     "change": -0.34,
     "marketCap": 17921530000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00800.HK",
@@ -7522,7 +7522,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 17.98,
     "change": -9.65,
     "marketCap": 17802390000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03918.HK",
@@ -7530,7 +7530,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.02,
     "change": -0.5,
     "marketCap": 17780420000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "01877.HK",
@@ -7538,7 +7538,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 17.26,
     "change": -1.93,
     "marketCap": 17720670000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "00123.HK",
@@ -7546,7 +7546,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.39,
     "change": -1.57,
     "marketCap": 17671470000,
-    "sector": "Real Estate"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "01384.HK",
@@ -7554,7 +7554,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 52.7,
     "change": -7.22,
     "marketCap": 17632050000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02715.HK",
@@ -7562,7 +7562,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 18.16,
     "change": 9.86,
     "marketCap": 17575220000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02232.HK",
@@ -7570,7 +7570,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.14,
     "change": -0.97,
     "marketCap": 17516330000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02162.HK",
@@ -7578,7 +7578,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 58.4,
     "change": -1.1,
     "marketCap": 17446160000,
-    "sector": "Healthcare"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "06060.HK",
@@ -7586,7 +7586,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 10.32,
     "change": -0.29,
     "marketCap": 17387270000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01286.HK",
@@ -7594,7 +7594,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.9,
     "change": -5.02,
     "marketCap": 17330840000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00548.HK",
@@ -7602,7 +7602,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.8,
     "change": 0.59,
     "marketCap": 17257420000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02580.HK",
@@ -7610,7 +7610,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 10.79,
     "change": -4.09,
     "marketCap": 17137060000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03933.HK",
@@ -7618,7 +7618,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.68,
     "change": 0.23,
     "marketCap": 17125870000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "09677.HK",
@@ -7626,7 +7626,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.84,
     "change": 0.35,
     "marketCap": 16983370000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "09606.HK",
@@ -7634,7 +7634,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 186.6,
     "change": -0.48,
     "marketCap": 16864280000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "03443.HK",
@@ -7642,7 +7642,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.02,
     "change": -1.1,
     "marketCap": 16842140000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02698.HK",
@@ -7650,7 +7650,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 27.06,
     "change": -2.45,
     "marketCap": 16798150000.000002,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01304.HK",
@@ -7658,7 +7658,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 142.9,
     "change": -1.99,
     "marketCap": 16449799999.999998,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02343.HK",
@@ -7666,7 +7666,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.18,
     "change": 0.63,
     "marketCap": 16430189999.999998,
-    "sector": "Industrials"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "02589.HK",
@@ -7674,7 +7674,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 156,
     "change": 3.11,
     "marketCap": 16411670000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00525.HK",
@@ -7682,7 +7682,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.31,
     "change": -2.12,
     "marketCap": 16362970000.000002,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06199.HK",
@@ -7690,7 +7690,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.12,
     "change": 0,
     "marketCap": 16338610000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00326.HK",
@@ -7698,7 +7698,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.7,
     "change": -6.29,
     "marketCap": 16273670000.000002,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "07666.HK",
@@ -7706,7 +7706,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 14.06,
     "change": -1.54,
     "marketCap": 16204340000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "06055.HK",
@@ -7714,7 +7714,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 23.26,
     "change": -0.43,
     "marketCap": 16088480000.000002,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01196.HK",
@@ -7722,7 +7722,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 11.11,
     "change": -0.8,
     "marketCap": 16024060000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06682.HK",
@@ -7730,7 +7730,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 28.66,
     "change": -5.04,
     "marketCap": 15970030000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "01277.HK",
@@ -7738,7 +7738,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.89,
     "change": -2.07,
     "marketCap": 15932700000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "06049.HK",
@@ -7746,7 +7746,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 28.5,
     "change": -1.11,
     "marketCap": 15769999999.999998,
-    "sector": "Real Estate"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "02518.HK",
@@ -7754,7 +7754,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 34.2,
     "change": -2.84,
     "marketCap": 15755380000,
-    "sector": "Consumer Discretionary"
+    "sector": "非必需性消费"
   },
   {
     "symbol": "01428.HK",
@@ -7762,7 +7762,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 9.27,
     "change": -2.63,
     "marketCap": 15733940000.000002,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "02823.HK",
@@ -7770,7 +7770,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 17.35,
     "change": -2.2,
     "marketCap": 15719100000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00956.HK",
@@ -7778,7 +7778,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.47,
     "change": -1.42,
     "marketCap": 15659039999.999998,
-    "sector": "Energy"
+    "sector": "能源业"
   },
   {
     "symbol": "00107.HK",
@@ -7786,7 +7786,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.1,
     "change": -4.32,
     "marketCap": 15596109999.999998,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02768.HK",
@@ -7794,7 +7794,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 51.7,
     "change": 0,
     "marketCap": 15574630000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "02632.HK",
@@ -7802,7 +7802,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 125.7,
     "change": 2.11,
     "marketCap": 15510780000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00013.HK",
@@ -7810,7 +7810,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 17.64,
     "change": -1.23,
     "marketCap": 15387990000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "01918.HK",
@@ -7818,7 +7818,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 0.9,
     "change": 0,
     "marketCap": 15353870000,
-    "sector": "Industrials"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "01396.HK",
@@ -7826,7 +7826,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 12.87,
     "change": -8.07,
     "marketCap": 15236910000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02498.HK",
@@ -7834,7 +7834,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 32.22,
     "change": 2.94,
     "marketCap": 15214300000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "01066.HK",
@@ -7842,7 +7842,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.36,
     "change": 0.3,
     "marketCap": 15163500000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "09678.HK",
@@ -7850,7 +7850,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 203,
     "change": -3.43,
     "marketCap": 15159150000,
-    "sector": "Industrials"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00069.HK",
@@ -7858,7 +7858,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.18,
     "change": 0.97,
     "marketCap": 14987490000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00856.HK",
@@ -7866,7 +7866,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 10.47,
     "change": -5.42,
     "marketCap": 14969880000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00363.HK",
@@ -7874,7 +7874,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 13.75,
     "change": -3.91,
     "marketCap": 14949160000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "02965.HK",
@@ -7882,7 +7882,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.64,
     "change": 0,
     "marketCap": 14923860000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00152.HK",
@@ -7890,7 +7890,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 6.1,
     "change": 2.18,
     "marketCap": 14906790000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02637.HK",
@@ -7898,7 +7898,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 189.3,
     "change": -6.75,
     "marketCap": 14899290000,
-    "sector": "Industrials"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "01999.HK",
@@ -7906,7 +7906,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 3.84,
     "change": 1.59,
     "marketCap": 14891840000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "03067.HK",
@@ -7914,7 +7914,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 10.27,
     "change": -1.91,
     "marketCap": 14851960000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "09898.HK",
@@ -7922,7 +7922,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 60.4,
     "change": -1.23,
     "marketCap": 14838620000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "00622.HK",
@@ -7930,7 +7930,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.12,
     "change": -13.47,
     "marketCap": 14720180000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00323.HK",
@@ -7938,7 +7938,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 1.91,
     "change": -1.04,
     "marketCap": 14708300000,
-    "sector": "Materials"
+    "sector": "原材料业"
   },
   {
     "symbol": "02801.HK",
@@ -7946,7 +7946,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 24.52,
     "change": -1.05,
     "marketCap": 14704610000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02778.HK",
@@ -7954,7 +7954,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.37,
     "change": -1.25,
     "marketCap": 14582390000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "03877.HK",
@@ -7962,7 +7962,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.34,
     "change": -2.9,
     "marketCap": 14513430000,
-    "sector": "Industrials"
+    "sector": "金融业"
   },
   {
     "symbol": "02510.HK",
@@ -7970,7 +7970,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 8.68,
     "change": 2.48,
     "marketCap": 14452470000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "02869.HK",
@@ -7978,7 +7978,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 4.61,
     "change": -2.12,
     "marketCap": 14438460000,
-    "sector": "Industrials"
+    "sector": "地产建筑业"
   },
   {
     "symbol": "03355.HK",
@@ -7986,7 +7986,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 35.46,
     "change": -1.45,
     "marketCap": 14385260000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "03660.HK",
@@ -7994,7 +7994,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 58.9,
     "change": -0.93,
     "marketCap": 14342370000,
-    "sector": "Technology"
+    "sector": "资讯科技业"
   },
   {
     "symbol": "09956.HK",
@@ -8002,7 +8002,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 12.13,
     "change": 0,
     "marketCap": 14311840000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "09688.HK",
@@ -8010,7 +8010,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 12.6,
     "change": -4.98,
     "marketCap": 14290010000,
-    "sector": "Healthcare"
+    "sector": "医疗保健业"
   },
   {
     "symbol": "02145.HK",
@@ -8018,7 +8018,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 35.88,
     "change": -2.13,
     "marketCap": 14284850000,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00546.HK",
@@ -8026,7 +8026,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.67,
     "change": -1.73,
     "marketCap": 14216650000.000002,
-    "sector": "Industrials"
+    "sector": "工业"
   },
   {
     "symbol": "00881.HK",
@@ -8034,7 +8034,7 @@ export const HK_STOCKS: Stock[] = [
     "price": 5.98,
     "change": -2.76,
     "marketCap": 14154620000,
-    "sector": "Financials"
+    "sector": "金融业"
   },
   {
     "symbol": "00639.HK",
@@ -8042,6 +8042,6 @@ export const HK_STOCKS: Stock[] = [
     "price": 2.78,
     "change": -3.81,
     "marketCap": 14153160000,
-    "sector": "Energy"
+    "sector": "原材料业"
   }
 ];

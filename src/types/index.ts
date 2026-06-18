@@ -1,4 +1,4 @@
-export type Market = 'US' | 'HK';
+export type Market = 'US' | 'HK' | 'CN';
 
 export interface Stock {
   symbol: string;

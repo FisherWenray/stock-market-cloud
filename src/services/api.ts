@@ -1,5 +1,6 @@
-import { MarketData, Stock, IndexData } from '../types';
+import { MarketData, Stock, IndexData, Market } from '../types';
 import { US_STOCKS, HK_STOCKS } from './mockData';
+import { CN_STOCKS } from './cnStocks';
 
 export function getFluctuatedMockData(stocks: Stock[]): Stock[] {
   return stocks.map(stock => {
@@ -54,8 +55,42 @@ function hasCustomApiKey(): boolean {
   return Boolean(API_CONFIG.apiKey && API_CONFIG.apiKey !== 'YOUR_API_KEY');
 }
 
+function getDefaultStocksForMarket(market: Market): Stock[] {
+  if (market === 'US') return US_STOCKS;
+  if (market === 'HK') return HK_STOCKS;
+  return CN_STOCKS;
+}
+
+function getTencentTicker(symbol: string, market: Market): string {
+  if (market === 'US') {
+    return `us${symbol}`;
+  }
+  const [code, exchange] = symbol.split('.');
+  if (market === 'HK') {
+    return `hk${code.padStart(5, '0')}`;
+  }
+  return `${exchange.toLowerCase()}${code}`;
+}
+
+function parseTencentSymbol(rawTicker: string, market: Market, defaultMockStocks: Stock[]): string {
+  if (market === 'US') {
+    return rawTicker.replace('v_us', '');
+  }
+  if (market === 'HK') {
+    const cleanCode = rawTicker.replace('v_hk', '');
+    const matchedStock = defaultMockStocks.find(s => {
+      const stockCode = s.symbol.split('.')[0];
+      return Number(stockCode) === Number(cleanCode);
+    });
+    return matchedStock ? matchedStock.symbol : `${cleanCode}.HK`;
+  }
+  const cleanTicker = rawTicker.replace('v_', '');
+  const exchange = cleanTicker.startsWith('sh') ? 'SH' : 'SZ';
+  return `${cleanTicker.slice(2)}.${exchange}`;
+}
+
 async function fetchBackendMarketData(
-  market: 'US' | 'HK',
+  market: Market,
   signal: AbortSignal,
 ): Promise<MarketData | null> {
   if (isTestRuntime() || hasCustomApiKey() || import.meta.env.VITE_USE_MARKET_BACKEND === 'false') {
@@ -137,8 +172,8 @@ async function fetchWithFallback(targetUrl: string, devUrl: string, signal: Abor
   return fetch(proxyUrl, isTest ? {} : { signal });
 }
 
-export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = 'zh'): Promise<MarketData> {
-  const defaultMockStocks = market === 'US' ? US_STOCKS : HK_STOCKS;
+export async function fetchMarketData(market: Market, lang: 'zh' | 'en' = 'zh'): Promise<MarketData> {
+  const defaultMockStocks = getDefaultStocksForMarket(market);
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.timeoutMs);
@@ -156,15 +191,7 @@ export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = '
       const url = `${API_CONFIG.baseUrl}/market?type=${market}&apikey=${API_CONFIG.apiKey}`;
       fetchPromises.push(fetch(url, { signal: controller.signal }));
     } else {
-      const tencentTickers = defaultMockStocks.map(s => {
-        if (market === 'US') {
-          return `us${s.symbol}`;
-        } else {
-          const numPart = s.symbol.split('.')[0];
-          const padded = numPart.padStart(5, '0');
-          return `hk${padded}`;
-        }
-      });
+      const tencentTickers = defaultMockStocks.map(s => getTencentTicker(s.symbol, market));
 
       const chunkSize = 100;
       for (let i = 0; i < tencentTickers.length; i += chunkSize) {
@@ -248,17 +275,7 @@ export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = '
 
         if (fields.length < 46) continue;
 
-        let symbol = '';
-        if (market === 'US') {
-          symbol = rawTicker.replace('v_us', '');
-        } else {
-          const cleanCode = rawTicker.replace('v_hk', '');
-          const matchedStock = defaultMockStocks.find(s => {
-            const sCode = s.symbol.split('.')[0];
-            return Number(sCode) === Number(cleanCode);
-          });
-          symbol = matchedStock ? matchedStock.symbol : cleanCode + '.HK';
-        }
+        const symbol = parseTencentSymbol(rawTicker, market, defaultMockStocks);
 
         const price = parseFloat(fields[3]) || 0;
         const change = parseFloat(fields[32]) || 0;
@@ -300,6 +317,9 @@ export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = '
               return Number(sCode) === Number(rawSymbol.split('.')[0]);
             });
             if (matchedStock) symbol = matchedStock.symbol;
+          } else if (market === 'CN') {
+            const exchange = rawSymbol.startsWith('6') ? 'SH' : 'SZ';
+            symbol = rawSymbol.includes('.') ? rawSymbol : `${rawSymbol}.${exchange}`;
           }
           const price = Number(stockItem.regularMarketPrice !== undefined ? stockItem.regularMarketPrice : (stockItem.price || 0));
           const change = Number(stockItem.regularMarketChangePercent !== undefined ? stockItem.regularMarketChangePercent : (stockItem.change || 0));
@@ -354,19 +374,29 @@ export async function fetchMarketData(market: 'US' | 'HK', lang: 'zh' | 'en' = '
   }
 }
 
-export async function fetchMarketIndices(market: 'US' | 'HK'): Promise<IndexData[]> {
-  const symbols = market === 'US' ? ['usINX', 'usDJI', 'usIXIC'] : ['hkHSI', 'hkHSTECH', 'hkHSCEI'];
-  const mockData: IndexData[] = market === 'US' 
+export async function fetchMarketIndices(market: Market): Promise<IndexData[]> {
+  const symbols = market === 'US'
+    ? ['usINX', 'usDJI', 'usIXIC']
+    : market === 'HK'
+      ? ['hkHSI', 'hkHSTECH', 'hkHSCEI']
+      : ['sh000001', 'sz399001', 'sz399006'];
+  const mockData: IndexData[] = market === 'US'
     ? [
         { symbol: 'usINX', nameKey: 'usINX', price: 7479.50, change: -1.38 },
         { symbol: 'usDJI', nameKey: 'usDJI', price: 51278.62, change: -0.55 },
         { symbol: 'usIXIC', nameKey: 'usIXIC', price: 26199.83, change: -2.35 },
       ]
-    : [
-        { symbol: 'hkHSI', nameKey: 'hkHSI', price: 18567.89, change: -1.20 },
-        { symbol: 'hkHSTECH', nameKey: 'hkHSTECH', price: 3845.67, change: -2.15 },
-        { symbol: 'hkHSCEI', nameKey: 'hkHSCEI', price: 6543.21, change: -1.05 },
-      ];
+    : market === 'HK'
+      ? [
+          { symbol: 'hkHSI', nameKey: 'hkHSI', price: 18567.89, change: -1.20 },
+          { symbol: 'hkHSTECH', nameKey: 'hkHSTECH', price: 3845.67, change: -2.15 },
+          { symbol: 'hkHSCEI', nameKey: 'hkHSCEI', price: 6543.21, change: -1.05 },
+        ]
+      : [
+          { symbol: 'sh000001', nameKey: 'cnSHCOMP', price: 4090.48, change: -0.43 },
+          { symbol: 'sz399001', nameKey: 'cnSZCOMP', price: 16030.70, change: 0.94 },
+          { symbol: 'sz399006', nameKey: 'cnCHINEXT', price: 4252.39, change: 2.05 },
+        ];
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.timeoutMs);
@@ -394,7 +424,7 @@ export async function fetchMarketIndices(market: 'US' | 'HK'): Promise<IndexData
       const fields = item.split('~');
       return {
         symbol: symbols[idx],
-        nameKey: symbols[idx],
+        nameKey: mockData[idx].nameKey,
         price: Number(fields[3] || 0),
         change: Number(fields[32] || 0)
       };

@@ -7,21 +7,24 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 const cacheDir = path.join(rootDir, '.market-cache');
 const mockDataPath = path.join(rootDir, 'src', 'services', 'mockData.ts');
+const cnStocksPath = path.join(rootDir, 'src', 'services', 'cnStocks.ts');
 
 const PORT = Number(process.env.MARKET_SERVER_PORT || 8787);
 const REFRESH_MS = Number(process.env.MARKET_REFRESH_MS || 5 * 60 * 1000);
 const UNIVERSE_REFRESH_MS = Number(process.env.MARKET_UNIVERSE_REFRESH_MS || 12 * 60 * 60 * 1000);
 const MAX_STOCKS_PER_RESPONSE = Number(process.env.MARKET_MAX_STOCKS || 1500);
-const ENABLE_HK_FULL_SCAN = process.env.MARKET_HK_FULL_SCAN !== 'false';
+const ENABLE_US_FULL_UNIVERSE = process.env.MARKET_US_FULL_UNIVERSE === 'true';
+const ENABLE_HK_FULL_SCAN = process.env.MARKET_HK_FULL_SCAN === 'true';
 
 const NASDAQ_LISTED_URL = 'https://www.nasdaqtrader.com/dynamic/SymDir/nasdaqlisted.txt';
 const OTHER_LISTED_URL = 'https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt';
 const TENCENT_QUOTE_URL = 'https://qt.gtimg.cn/q=';
+const MARKETS = ['US', 'HK', 'CN'];
 
 const state = {
-  universe: { US: [], HK: [] },
-  knownMeta: { US: new Map(), HK: new Map() },
-  cache: { US: null, HK: null },
+  universe: { US: [], HK: [], CN: [] },
+  knownMeta: { US: new Map(), HK: new Map(), CN: new Map() },
+  cache: { US: null, HK: null, CN: null },
   lastUniverseRefresh: 0,
   refreshInFlight: new Map(),
 };
@@ -49,12 +52,29 @@ function normalizeHkSymbol(symbol) {
   return code ? `${code.padStart(5, '0')}.HK` : '';
 }
 
+function normalizeCnSymbol(symbol) {
+  const [rawCode = '', rawExchange = ''] = String(symbol || '').toUpperCase().split('.');
+  const code = rawCode.replace(/\D/g, '');
+  if (!code) return '';
+  const exchange = rawExchange || (code.startsWith('6') ? 'SH' : 'SZ');
+  return `${code.padStart(6, '0')}.${exchange}`;
+}
+
 function getTencentCode(symbol, market) {
   if (market === 'HK') {
     const code = normalizeHkSymbol(symbol).split('.')[0];
     return code ? `hk${code}` : '';
   }
+  if (market === 'CN') {
+    const [code, exchange] = normalizeCnSymbol(symbol).split('.');
+    return code && exchange ? `${exchange.toLowerCase()}${code}` : '';
+  }
   return `us${String(symbol).replace('-', '.')}`;
+}
+
+function extractStocksArray(text, exportName) {
+  const match = text.match(new RegExp(`export const ${exportName}: Stock\\[] = (\\[[\\s\\S]*?\\]);`));
+  return match ? JSON.parse(match[1]) : [];
 }
 
 function parsePipeRows(text) {
@@ -96,14 +116,17 @@ async function fetchGbkText(url, timeoutMs = 15000) {
 }
 
 async function loadFallbackUniverse() {
-  const text = await readFile(mockDataPath, 'utf8');
-  const usMatch = text.match(/export const US_STOCKS: Stock\[] = (\[[\s\S]*?\]);\s*export const HK_STOCKS/);
-  const hkMatch = text.match(/export const HK_STOCKS: Stock\[] = (\[[\s\S]*?\]);\s*$/);
-  const usStocks = usMatch ? JSON.parse(usMatch[1]) : [];
-  const hkStocks = hkMatch ? JSON.parse(hkMatch[1]) : [];
+  const [mockText, cnText] = await Promise.all([
+    readFile(mockDataPath, 'utf8'),
+    readFile(cnStocksPath, 'utf8'),
+  ]);
+  const usStocks = extractStocksArray(mockText, 'US_STOCKS');
+  const hkStocks = extractStocksArray(mockText, 'HK_STOCKS');
+  const cnStocks = extractStocksArray(cnText, 'CN_STOCKS');
 
   state.knownMeta.US = new Map(usStocks.map(stock => [stock.symbol, stock]));
   state.knownMeta.HK = new Map(hkStocks.map(stock => [stock.symbol, stock]));
+  state.knownMeta.CN = new Map(cnStocks.map(stock => [stock.symbol, stock]));
   state.universe.US = usStocks.map(stock => ({
     symbol: stock.symbol,
     name: stock.name,
@@ -112,6 +135,12 @@ async function loadFallbackUniverse() {
   }));
   state.universe.HK = hkStocks.map(stock => ({
     symbol: normalizeHkSymbol(stock.symbol),
+    name: stock.name,
+    sector: stock.sector,
+    source: 'fallback',
+  }));
+  state.universe.CN = cnStocks.map(stock => ({
+    symbol: normalizeCnSymbol(stock.symbol),
     name: stock.name,
     sector: stock.sector,
     source: 'fallback',
@@ -195,10 +224,12 @@ function buildHkScanUniverse() {
 async function refreshUniverse() {
   await loadFallbackUniverse();
 
-  try {
-    await refreshUsUniverse();
-  } catch (error) {
-    console.warn('[market-server] US universe refresh failed, using fallback list:', error.message);
+  if (ENABLE_US_FULL_UNIVERSE) {
+    try {
+      await refreshUsUniverse();
+    } catch (error) {
+      console.warn('[market-server] US universe refresh failed, using fallback list:', error.message);
+    }
   }
 
   if (ENABLE_HK_FULL_SCAN) {
@@ -214,9 +245,11 @@ async function refreshUniverse() {
       counts: {
         US: state.universe.US.length,
         HK: state.universe.HK.length,
+        CN: state.universe.CN.length,
       },
       US: state.universe.US,
       HK: state.universe.HK,
+      CN: state.universe.CN,
     }),
     'utf8',
   );
@@ -233,7 +266,9 @@ function parseTencentQuoteLine(line, market) {
 
   const symbol = market === 'HK'
     ? normalizeHkSymbol(rawTicker.replace('v_hk', ''))
-    : rawTicker.replace('v_us', '');
+    : market === 'CN'
+      ? normalizeCnSymbol(rawTicker.replace('v_', ''))
+      : rawTicker.replace('v_us', '');
   const price = Number.parseFloat(fields[3]) || 0;
   const change = Number.parseFloat(fields[32]) || 0;
   const marketCap = (Number.parseFloat(fields[45]) || 0) * 1e8;
@@ -243,7 +278,11 @@ function parseTencentQuoteLine(line, market) {
 
   const meta = market === 'HK'
     ? state.knownMeta.HK.get(symbol)
+    : market === 'CN'
+      ? state.knownMeta.CN.get(symbol)
     : state.knownMeta.US.get(symbol);
+
+  if (!meta) return null;
 
   return {
     symbol,
@@ -257,9 +296,18 @@ function parseTencentQuoteLine(line, market) {
 
 async function fetchTencentQuotes(universe, market) {
   const chunks = [];
-  const symbols = universe.map(item => item.symbol);
-  for (let index = 0; index < symbols.length; index += 100) {
-    chunks.push(symbols.slice(index, index + 100));
+  
+  // Prioritize known stocks so that if API fails halfway, we still get the most important ones
+  const sortedUniverse = [...universe].sort((a, b) => {
+    const aKnown = state.knownMeta[market].has(a.symbol) ? 1 : 0;
+    const bKnown = state.knownMeta[market].has(b.symbol) ? 1 : 0;
+    return bKnown - aKnown;
+  });
+
+  const symbols = sortedUniverse.map(item => item.symbol);
+  // Tencent can handle up to ~800, use 400 to be safe and reduce requests
+  for (let index = 0; index < symbols.length; index += 400) {
+    chunks.push(symbols.slice(index, index + 400));
   }
 
   const stocks = [];
@@ -280,6 +328,12 @@ async function fetchTencentQuotes(universe, market) {
 
   const bySymbol = new Map();
   for (const stock of stocks) {
+    // Anomaly filter: If a stock is in 'Other' sector and has an absurdly high market cap (>300B), it's likely a GDR/ETF glitch (e.g., SPCX, Microsoft HDR).
+    if (stock.sector === 'Other' && stock.marketCap > 3000e8) continue;
+    
+    // Anomaly filter: Avoid zero-cap or missing name
+    if (stock.marketCap <= 0 || !stock.name) continue;
+
     if (!bySymbol.has(stock.symbol)) bySymbol.set(stock.symbol, stock);
   }
   return Array.from(bySymbol.values())
@@ -375,7 +429,7 @@ async function getMarketPayload(market, limit) {
 }
 
 function parseMarket(value) {
-  return value === 'HK' ? 'HK' : 'US';
+  return value === 'HK' || value === 'CN' ? value : 'US';
 }
 
 async function handleRequest(req, res) {
@@ -392,14 +446,17 @@ async function handleRequest(req, res) {
         ok: true,
         refreshMs: REFRESH_MS,
         universeRefreshMs: UNIVERSE_REFRESH_MS,
+        usFullUniverse: ENABLE_US_FULL_UNIVERSE,
         hkFullScan: ENABLE_HK_FULL_SCAN,
         universeCounts: {
           US: state.universe.US.length,
           HK: state.universe.HK.length,
+          CN: state.universe.CN.length,
         },
         cache: {
           US: state.cache.US?.lastUpdated || null,
           HK: state.cache.HK?.lastUpdated || null,
+          CN: state.cache.CN?.lastUpdated || null,
         },
       });
       return;
@@ -429,11 +486,12 @@ async function handleRequest(req, res) {
 
 async function main() {
   await mkdir(cacheDir, { recursive: true });
-  await Promise.all([loadCacheFromDisk('US'), loadCacheFromDisk('HK')]);
+  await Promise.all(MARKETS.map(loadCacheFromDisk));
   await refreshUniverse();
 
   refreshMarket('US').catch(error => console.warn('[market-server] initial US refresh failed:', error.message));
   refreshMarket('HK').catch(error => console.warn('[market-server] initial HK refresh failed:', error.message));
+  refreshMarket('CN').catch(error => console.warn('[market-server] initial CN refresh failed:', error.message));
 
   const server = http.createServer((req, res) => {
     handleRequest(req, res);
@@ -441,7 +499,9 @@ async function main() {
 
   server.listen(PORT, () => {
     console.log(`[market-server] listening on http://localhost:${PORT}`);
+    console.log(`[market-server] US full universe: ${ENABLE_US_FULL_UNIVERSE ? 'enabled' : 'disabled'}`);
     console.log(`[market-server] HK full scan: ${ENABLE_HK_FULL_SCAN ? 'enabled' : 'disabled'}`);
+    console.log('[market-server] CN universe: fallback-only enabled');
   });
 }
 

@@ -2,7 +2,6 @@ import { useEffect, useState, useMemo } from 'react';
 import { Treemap } from './components/Treemap';
 import { fetchMarketData, fetchMarketIndices } from './services/api';
 import { Stock, Market, ColorTheme, Language, IndexData } from './types';
-import { ColorLegend } from './components/ColorLegend';
 import { DataStatusIndicator } from './components/DataStatusIndicator';
 import { MarketIndices } from './components/MarketIndices';
 import { translations } from './locales';
@@ -19,6 +18,32 @@ const formatMarketCap = (marketCap: number): string => {
   }
   return marketCap.toLocaleString();
 };
+
+const getStoredPreference = (key: string): string | null => {
+  try {
+    return typeof localStorage?.getItem === 'function' ? localStorage.getItem(key) : null;
+  } catch {
+    return null;
+  }
+};
+
+const setStoredPreference = (key: string, value: string) => {
+  try {
+    if (typeof localStorage?.setItem === 'function') {
+      localStorage.setItem(key, value);
+    }
+  } catch {
+    // Preference persistence is optional; the app should still render.
+  }
+};
+
+const getCurrencySymbol = (market: Market): string => {
+  if (market === 'US') return '$';
+  if (market === 'HK') return 'HK$';
+  return '¥';
+};
+
+const prefersNameFirst = (market: Market): boolean => market === 'CN';
 
 const getTooltipSparkline = (stock: Stock) => {
   const changeFraction = stock.change / 100;
@@ -63,13 +88,13 @@ const getTooltipSparkline = (stock: Stock) => {
 };
 
 function App() {
-  const [selectedMarket, setSelectedMarket] = useState<Market>('US');
-  const [theme, setTheme] = useState<ColorTheme>(() => {
-    const saved = localStorage.getItem('color-theme');
-    return (saved === 'chinese' || saved === 'international') ? saved : 'chinese'; // Default to chinese theme as implied
+  const [selectedMarket, setSelectedMarket] = useState<Market>(() => {
+    const saved = getStoredPreference('selected-market');
+    return (saved === 'US' || saved === 'HK' || saved === 'CN') ? saved : 'US';
   });
+  const theme: ColorTheme = 'chinese';
   const [lang, setLang] = useState<Language>(() => {
-    const saved = localStorage.getItem('lang');
+    const saved = getStoredPreference('lang');
     return (saved === 'zh' || saved === 'en') ? saved : 'zh';
   });
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -88,6 +113,9 @@ function App() {
   const [colorMetric, setColorMetric] = useState<'change' | 'pe'>('change');
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
   const [chartPeriod, setChartPeriod] = useState<'24h' | '5d' | '1m'>('24h');
+  const currencySymbol = getCurrencySymbol(selectedMarket);
+  const showNameFirst = prefersNameFirst(selectedMarket);
+  const treemapHeightClass = selectedMarket === 'CN' ? 'h-[2800px]' : 'h-[1800px]';
 
   const loadData = () => {
     setLoading(true);
@@ -238,12 +266,12 @@ function App() {
   }, [selectedStock, chartPeriod]);
 
   useEffect(() => {
-    localStorage.setItem('color-theme', theme);
-  }, [theme]);
+    setStoredPreference('lang', lang);
+  }, [lang]);
 
   useEffect(() => {
-    localStorage.setItem('lang', lang);
-  }, [lang]);
+    setStoredPreference('selected-market', selectedMarket);
+  }, [selectedMarket]);
 
   const handleStockHover = (stock: Stock | null, x: number, y: number) => {
     setHoveredStock(stock);
@@ -342,22 +370,23 @@ function App() {
               >
                 {t.hkMarket}
               </button>
-            </div>
-          </div>
-
-          {/* Color System */}
-          <div className="flex flex-col gap-1.5">
-            <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500/80">{t.colorSystem}</span>
-            <div className="flex flex-wrap items-center gap-3">
               <button
-                data-testid="theme-toggle"
-                data-theme-style={theme}
-                onClick={() => setTheme(theme === 'international' ? 'chinese' : 'international')}
-                className="px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 bg-black/40 hover:bg-slate-800 text-slate-300 border border-white/5 hover:border-white/20 shadow-inner"
+                data-testid="market-tab-cn"
+                data-active={selectedMarket === 'CN' ? 'true' : 'false'}
+                onClick={() => {
+                  if (selectedMarket !== 'CN') {
+                    setLoading(true);
+                    setSelectedMarket('CN');
+                  }
+                }}
+                className={`px-4 py-2 rounded-md text-sm font-semibold transition-all duration-300 ${
+                  selectedMarket === 'CN'
+                    ? 'bg-slate-800 text-white shadow-md shadow-black/20 scale-100'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/5 scale-95'
+                }`}
               >
-                {t.theme}: {theme === 'international' ? t.themeChinese : t.themeInternational}
+                {t.cnMarket}
               </button>
-              <ColorLegend theme={theme} lang={lang} />
             </div>
           </div>
 
@@ -460,12 +489,16 @@ function App() {
                       className="flex items-center justify-between px-4 py-3 hover:bg-white/5 cursor-pointer transition-colors"
                     >
                       <div className="flex flex-col">
-                        <span className="font-mono font-bold text-white text-sm">{stock.symbol}</span>
-                        <span className="text-slate-400 text-xs truncate max-w-[200px]">{stock.name}</span>
+                        <span className={`font-bold text-white text-sm truncate max-w-[200px] ${showNameFirst ? '' : 'font-mono'}`}>
+                          {showNameFirst ? stock.name : stock.symbol}
+                        </span>
+                        <span className={`text-slate-400 text-xs truncate max-w-[200px] ${showNameFirst ? 'font-mono' : ''}`}>
+                          {showNameFirst ? stock.symbol : stock.name}
+                        </span>
                       </div>
                       <div className="flex flex-col items-end">
                         <span className="font-mono text-white text-sm">
-                          {selectedMarket === 'US' ? '$' : 'HK$'}{stock.price.toFixed(2)}
+                          {currencySymbol}{stock.price.toFixed(2)}
                         </span>
                         <span className={`font-mono text-xs font-bold ${colorClass}`}>
                           {stock.change >= 0 ? `+${stock.change.toFixed(2)}%` : `${stock.change.toFixed(2)}%`}
@@ -481,14 +514,14 @@ function App() {
       </div>
 
       {/* Main Treemap Area */}
-      <main className="w-full relative flex flex-col h-[1800px] mb-20 shadow-2xl rounded-2xl overflow-hidden border border-white/5 bg-black/20">
+      <main className={`w-full relative flex flex-col ${treemapHeightClass} mb-20 shadow-2xl rounded-2xl overflow-hidden border border-white/5 bg-black/20`}>
         {loading ? (
           <div className="flex-1 flex flex-col items-center justify-center bg-slate-950 border border-slate-800 rounded-xl min-h-[500px]">
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-emerald-400 mb-4"></div>
             <span className="text-slate-400 text-sm">{t.fetchingFeeds}</span>
           </div>
         ) : error ? (
-          <div className="flex-1 flex flex-col items-center justify-center bg-black/30 backdrop-blur-md rounded-2xl p-6 h-[1800px]">
+          <div className={`flex-1 flex flex-col items-center justify-center bg-black/30 backdrop-blur-md rounded-2xl p-6 ${treemapHeightClass}`}>
             <div className="text-red-400 text-4xl mb-4 drop-shadow-[0_0_10px_rgba(248,113,113,0.5)]">⚠</div>
             <span className="text-slate-200 text-lg font-bold tracking-wide mb-2">{t.errorLoading}</span>
             <span className="text-slate-400 text-sm mb-6">{error}</span>
@@ -500,9 +533,10 @@ function App() {
             </button>
           </div>
         ) : (
-          <div className="flex-1 relative h-[1800px] rounded-2xl overflow-visible">
+          <div className={`flex-1 relative ${treemapHeightClass} rounded-2xl overflow-visible`}>
             <Treemap
               stocks={stocks}
+              market={selectedMarket}
               theme={theme}
               lang={lang}
               searchQuery={searchQuery}
@@ -536,14 +570,23 @@ function App() {
                   }}
                 >
                   <div className="font-bold border-b border-slate-800 pb-1.5 mb-1.5 flex justify-between gap-3">
-                    <span data-testid="tooltip-symbol" className="text-emerald-400 font-mono text-sm">{hoveredStock.symbol}</span>
-                    <span data-testid="tooltip-name" className="text-slate-300 font-normal truncate max-w-[100px]">{hoveredStock.name}</span>
+                    {showNameFirst ? (
+                      <>
+                        <span data-testid="tooltip-name" className="text-slate-100 text-sm truncate max-w-[120px]">{hoveredStock.name}</span>
+                        <span data-testid="tooltip-symbol" className="text-emerald-400 font-mono text-xs">{hoveredStock.symbol}</span>
+                      </>
+                    ) : (
+                      <>
+                        <span data-testid="tooltip-symbol" className="text-emerald-400 font-mono text-sm">{hoveredStock.symbol}</span>
+                        <span data-testid="tooltip-name" className="text-slate-300 font-normal truncate max-w-[100px]">{hoveredStock.name}</span>
+                      </>
+                    )}
                   </div>
                   <div className="space-y-1">
                     <div className="flex justify-between">
                       <span className="text-slate-500">{t.price}:</span>
                       <span data-testid="tooltip-price" className="font-mono text-slate-200">
-                        {selectedMarket === 'US' ? '$' : 'HK$'}{hoveredStock.price.toFixed(2)}
+                        {currencySymbol}{hoveredStock.price.toFixed(2)}
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -564,7 +607,7 @@ function App() {
                     <div className="flex justify-between">
                       <span className="text-slate-500">{t.marketCap}:</span>
                       <span data-testid="tooltip-market-cap" className="font-mono text-slate-200">
-                        {selectedMarket === 'US' ? '$' : 'HK$'}{formatMarketCap(hoveredStock.marketCap)}
+                        {currencySymbol}{formatMarketCap(hoveredStock.marketCap)}
                       </span>
                     </div>
                     <div className="flex justify-between pt-1 border-t border-slate-800/80 mt-1">
@@ -640,12 +683,16 @@ function App() {
               <div className="flex justify-between items-start mb-6">
                 <div>
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl font-mono font-black text-white">{selectedStock.symbol}</span>
+                    <span className={`text-3xl font-black text-white ${showNameFirst ? '' : 'font-mono'}`}>
+                      {showNameFirst ? selectedStock.name : selectedStock.symbol}
+                    </span>
                     <span className="px-2.5 py-0.5 rounded bg-slate-800 text-[10px] uppercase font-bold tracking-wider text-slate-400">
                       {t.sectors[selectedStock.sector] || selectedStock.sector}
                     </span>
                   </div>
-                  <h2 className="text-slate-400 text-sm mt-1.5 font-medium">{selectedStock.name}</h2>
+                  <h2 className={`text-slate-400 text-sm mt-1.5 font-medium ${showNameFirst ? 'font-mono' : ''}`}>
+                    {showNameFirst ? selectedStock.symbol : selectedStock.name}
+                  </h2>
                 </div>
                 <button
                   onClick={() => setSelectedStock(null)}
@@ -661,7 +708,7 @@ function App() {
                 <div>
                   <span className="text-xs uppercase font-bold tracking-wider text-slate-500">{t.price}</span>
                   <div className="text-3xl font-mono font-black text-white mt-1">
-                    {selectedMarket === 'US' ? '$' : 'HK$'}{selectedStock.price.toFixed(2)}
+                    {currencySymbol}{selectedStock.price.toFixed(2)}
                   </div>
                 </div>
                 
@@ -686,25 +733,25 @@ function App() {
                 <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
                   <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.openPrice}</span>
                   <span className="text-base font-mono font-bold text-slate-200 mt-1">
-                    {selectedMarket === 'US' ? '$' : 'HK$'}{detailedStats.openPrice}
+                    {currencySymbol}{detailedStats.openPrice}
                   </span>
                 </div>
                 <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
                   <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.prevClose}</span>
                   <span className="text-base font-mono font-bold text-slate-200 mt-1">
-                    {selectedMarket === 'US' ? '$' : 'HK$'}{detailedStats.prevClose}
+                    {currencySymbol}{detailedStats.prevClose}
                   </span>
                 </div>
                 <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
                   <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.highPrice}</span>
                   <span className="text-base font-mono font-bold text-slate-200 mt-1">
-                    {selectedMarket === 'US' ? '$' : 'HK$'}{detailedStats.highPrice}
+                    {currencySymbol}{detailedStats.highPrice}
                   </span>
                 </div>
                 <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
                   <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.lowPrice}</span>
                   <span className="text-base font-mono font-bold text-slate-200 mt-1">
-                    {selectedMarket === 'US' ? '$' : 'HK$'}{detailedStats.lowPrice}
+                    {currencySymbol}{detailedStats.lowPrice}
                   </span>
                 </div>
                 <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
@@ -716,7 +763,7 @@ function App() {
                 <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 flex flex-col">
                   <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">{t.marketCap}</span>
                   <span className="text-base font-mono font-bold text-slate-200 mt-1">
-                    {selectedMarket === 'US' ? '$' : 'HK$'}{formatMarketCap(selectedStock.marketCap)}
+                    {currencySymbol}{formatMarketCap(selectedStock.marketCap)}
                   </span>
                 </div>
               </div>
