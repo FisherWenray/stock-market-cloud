@@ -115,7 +115,7 @@ function App() {
   const [chartPeriod, setChartPeriod] = useState<'24h' | '5d' | '1m'>('24h');
   const currencySymbol = getCurrencySymbol(selectedMarket);
   const showNameFirst = prefersNameFirst(selectedMarket);
-  const treemapHeightClass = selectedMarket === 'CN' ? 'h-[2800px]' : 'h-[1800px]';
+  const treemapHeightClass = 'h-[1800px]';
 
   const loadData = () => {
     setLoading(true);

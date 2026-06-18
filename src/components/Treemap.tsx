@@ -88,7 +88,6 @@ export const Treemap: React.FC<TreemapProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { width, height } = useContainerSize(containerRef);
   const t = translations[lang];
-  const isCnMarket = market === 'CN';
 
   const [zoomedSector, setZoomedSector] = React.useState<string | null>(null);
 
@@ -179,7 +178,7 @@ export const Treemap: React.FC<TreemapProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`w-full h-full bg-transparent overflow-hidden relative ${isCnMarket ? 'min-h-[900px]' : 'min-h-[500px]'}`}
+      className="w-full h-full min-h-[500px] bg-transparent overflow-hidden relative"
     >
       {zoomedSector && (
         <button
@@ -347,28 +346,28 @@ export const Treemap: React.FC<TreemapProps> = ({
                       />
 
                       {/* Ticker/Name Text - Render only if dimensions permit */}
-                      {w > (isCnMarket ? 56 : 42) && h > (isCnMarket ? 34 : 24) && (
+                      {w > 42 && h > 24 && (
                         <text
                           data-testid={`stock-symbol-${symbol}`}
                           x={w / 2}
                           y={h > 36 ? h / 2 - 5 : h / 2}
                           textAnchor="middle"
                           dominantBaseline="middle"
-                          className={`font-extrabold fill-white pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] ${isCnMarket ? 'text-[15px]' : 'text-[13px]'}`}
+                          className="font-extrabold text-[13px] fill-white pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
                         >
                           {tileLabel}
                         </text>
                       )}
 
                       {/* Change Percentage / Metric Text - Render only if height permits */}
-                      {w > (isCnMarket ? 64 : 50) && h > (isCnMarket ? 50 : 36) && (
+                      {w > 50 && h > 36 && (
                         <text
                           data-testid={`stock-change-${symbol}`}
                           x={w / 2}
                           y={h / 2 + 10}
                           textAnchor="middle"
                           dominantBaseline="middle"
-                          className={`font-semibold fill-slate-100 pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] ${isCnMarket ? 'text-[12px]' : 'text-[11px]'}`}
+                          className="text-[11px] font-semibold fill-slate-100 pointer-events-none drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
                         >
                           {metricLabel}
                         </text>
