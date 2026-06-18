@@ -1,4 +1,4 @@
-# Stock Market Cloud 📈🌩️
+# Stock Market Cloud 📈☁️
 
 [English](#english) | [中文版](#中文版)
 
@@ -7,29 +7,32 @@
 <a name="english"></a>
 ## 🇺🇸 English
 
-> A real-time, interactive, and visually stunning Stock Market Treemap Visualization tool built with React, TypeScript, Tailwind CSS, and D3.js.
+> A real-time stock market treemap dashboard for US, Hong Kong, and A-share equities, built with React, TypeScript, Tailwind CSS, and D3.
 
 **Live Demo:** [https://stock.wenyaoyefei.com/](https://stock.wenyaoyefei.com/)
 
-Stock Market Cloud allows you to monitor the pulse of both the **US Market (S&P 500, Dow Jones, Nasdaq)** and the **Hong Kong Market (Hang Seng, HS Tech, HSCEI)** simultaneously. By utilizing advanced D3 treemap algorithms, it visualizes the market capitalization and real-time fluctuations of up to 1000 stocks at a glance.
+Stock Market Cloud is a market-screen style heatmap for tracking **A-share**, **Hong Kong**, and **US** equities from one interface. It combines a high-density treemap, market indices, sector aggregation, search, and stock detail panels so you can scan breadth, leadership, and drawdowns quickly without jumping between multiple quote pages.
+
+### Project Summary
+
+- **Three-market coverage**: A-share, Hong Kong, and US market views in one dashboard
+- **Treemap-first workflow**: Sector-grouped market cap heatmap for fast visual scanning
+- **Chinese market semantics**: Red for up, green for down in all price-change related views
+- **Refreshed brand system**: New logo and a red-gold editorial style without using green as the global brand color
+- **Local free-data backend**: Optional cached backend for larger symbol universes and more stable local development
 
 ### ✨ Key Features
 
-- **Real-Time Data Syncing**: Polling backend market APIs every 10 seconds. Features an immersive **Auto-Refresh Circular Progress** timer inside the status bar tracking the 10s countdown.
-- **Robust Production CORS Architecture**: Attempts a direct connection to Tencent's stock CDN (`https://qt.gtimg.cn`) first (taking `<200ms` with zero proxy rate-limits due to native CORS headers). If direct connection fails or times out after 6 seconds, it automatically falls back to the public `api.allorigins.win` CORS proxy. Uses cache-busting timestamp queries to prevent stale data.
-- **Top-tier Visual Design**: Premium dark mode with subtle glassmorphism UI panels, immersive radial gradients, and fluid zoom transitions.
-- **Dual Market Support**: Easily switch between US and HK stock markets with one click.
-- **Interactive D3 Treemap (Focus Mode)**: Stocks are nested inside GICS/local industry sectors. Click a sector's header bar to zoom in to focus only on that sector (revealing labels for smaller stocks), and use the breadcrumb button to zoom back out.
-- **Color Metric/Dimension Switching**: Toggle the treemap color mapping between:
-  - **Price Change %**: Traditional red/green map representing market fluctuations.
-  - **P/E Ratio**: Mapped such that P/E < 15 is colored with the bullish theme (undervalued) and P/E > 50 with the bearish theme (overvalued).
-  - **Volume/Turnover**: Mapped to highlight stocks with high liquidity (turnover rate >= 0.03%).
-- **Weighted Average Sector Performance**: Displays the market-cap weighted average change percentage for each sector directly inside the sector headers (e.g. `Information Technology +1.24%`).
-- **Autocomplete Search Suggestions**: Typing inside the search bar reveals a matching glassmorphism suggestions dropdown. Click a stock suggestion to open its details panel immediately.
-- **Detailed Sidebar Panel**: Slide-out panel presenting detailed stock financials (Open, High, Low, Volume, Market Cap) alongside a beautiful, smooth **SVG Area Trend Chart** with multi-period (24H, 5D, 1M) toggling.
-- **Deterministic Sparklines in Tooltips**: Hovering over tiles displays a detailed tooltip containing a miniature SVG trend sparkline. To prevent flickering, the trend graph is calculated deterministically from the stock's ticker string hash.
-- **Bi-Cultural Color Themes**: Support for both "International" (Green = Up, Red = Down) and "Chinese" (Red = Up, Green = Down) color styles.
-- **Multi-language**: Fully localized in both English and Chinese.
+- **Auto-refresh market dashboard**: The app refreshes quotes on a 10-second cadence and shows a circular progress countdown in the status panel.
+- **A-share / HK / US market switcher**: One-click switching between the three supported market groups, with local preference persistence.
+- **Sector-based treemap navigation**: Stocks are grouped by sector, and sector headers can be clicked to zoom into a focused view.
+- **Two color metrics**: Switch treemap coloring between **Price Change %** and **P/E Ratio** depending on whether you want momentum or valuation context.
+- **Weighted sector performance labels**: Each sector header shows its market-cap weighted average change so you can spot strength and weakness faster.
+- **Search with direct drill-in**: Search by ticker or company name and jump straight into the stock details panel from autocomplete suggestions.
+- **Stock details sidebar**: View open, high, low, previous close, estimated volume, market cap, and a multi-period SVG trend chart.
+- **Deterministic tooltip sparklines**: Hover tooltips render stable mini trendlines derived from symbol-based seeds, avoiding visual flicker.
+- **Redesigned identity**: Updated logo, warmer red-led accent system, and stronger “market terminal” visual tone while keeping down moves green.
+- **Bilingual UI**: Chinese and English interface support.
 
 ### 🛠️ Tech Stack
 - **Core**: React 18, TypeScript, Vite
@@ -45,13 +48,18 @@ Stock Market Cloud allows you to monitor the pulse of both the **US Market (S&P 
    cd stock-market-cloud
    ```
 
-2. Install dependencies & Run:
+2. Install dependencies and run the frontend:
    ```bash
    npm install
    npm run dev
    ```
 
-3. Open your browser and navigate to `http://localhost:5173`.
+3. Open `http://localhost:5173`.
+
+4. For the optional local market backend, run this in another terminal:
+   ```bash
+   npm run dev:market
+   ```
 
 ### 🧪 Running Tests
 
@@ -91,6 +99,7 @@ V1 data behavior:
 
 - US universe is refreshed from Nasdaq Trader symbol directory files.
 - HK universe defaults to scanning `00001.HK` through `09999.HK` and keeps symbols that return valid quotes.
+- CN market currently prioritizes the bundled A-share dataset and fallback flow for reliability.
 - Quotes are fetched through Tencent's free quote endpoint and cached in `.market-cache`.
 - The frontend falls back to the previous client-side fetch path if the backend is not running.
 - Free data sources are best-effort and may be delayed, rate-limited, incomplete, or unavailable. This is suitable for a personal/free delayed heatmap, not a guaranteed real-time market-data service.
@@ -100,29 +109,32 @@ V1 data behavior:
 <a name="中文版"></a>
 ## 🇨🇳 中文版
 
-> 一个基于 React、TypeScript、Tailwind CSS 和 D3.js 构建的实时、交互式、极具视觉冲击力的股票市场热力云图可视化工具。
+> 一个基于 React、TypeScript、Tailwind CSS 和 D3 构建的三市场股票热力云图看盘面板，覆盖 A 股、港股和美股。
 
 **线上体验:** [https://stock.wenyaoyefei.com/](https://stock.wenyaoyefei.com/)
 
-“股票行情云图”可以帮助您同时监控**美股市场（ S&P 500、道琼斯、纳斯达克）**和**港股市场（恒生指数、恒生科技、国企指数）**的实时脉搏。通过利用先进的 D3 Treemap 算法，系统能够将多达 1000 只股票的市值大小和实时涨跌幅，以精美的马赛克区块完美呈现。
+“股票行情云图”现在是一个更完整的三市场看盘工具：你可以在同一套界面里查看 **A 股、港股、美股** 的热力分布、指数表现、板块强弱、个股详情和搜索结果。它采用以热力图为核心的浏览方式，适合快速扫盘、观察板块轮动以及定位领涨领跌方向。
+
+### 项目简介
+
+- **三市场统一看盘**：A 股、港股、美股集中在一个面板里切换查看
+- **热力图优先的信息结构**：按板块聚合的市值热力图，适合快速扫盘
+- **符合中文市场习惯的涨跌语义**：所有和涨跌直接相关的视图都采用红涨绿跌
+- **全新品牌视觉**：Logo 和主品牌色重做为偏红金的行情终端风格，但不拿绿色做全站品牌色
+- **本地免费数据后端**：支持本地缓存与扩展股票池，更适合持续开发和自用部署
 
 ### ✨ 核心功能
 
-- **实时数据同步**：每 10 秒自动静默拉取一次最新市场行情。状态栏内置 **SVG 环形倒计时进度条**，实时显示自动刷新进度。
-- **免代理 CORS 直连架构**：生产环境下默认首选直连腾讯股票接口（由于接口自带 CORS 头，直连 `<200ms`，且无任何代理频率限制）。若网络异常或直连超时（超过6秒），系统自动降级切换至 `api.allorigins.win` 代理进行兜底。带有 `_=${Date.now()}` 时间戳参数防止浏览器和代理缓存陈旧数据。
-- **顶级视觉体验**：采用了高级的暗黑深空渐变背景，搭配时下流行的毛玻璃 (Glassmorphism) UI 控制面板与流畅的过渡动画。
-- **双市场支持**：一键在“美股”与“港股”之间无缝切换。
-- **Focus 缩放热力图（聚焦模式）**：所有股票按行业板块嵌套布局。点击板块头部可一键放大该板块（以便查看较小市值股票的代码），并提供浮动面包屑按钮返回全局。
-- **多维度热力染色切换**：支持一键切换热力图块的填色规则：
-  - **涨跌幅**：传统的红/绿变化，反映盘面涨跌。
-  - **市盈率 (P/E)**：P/E < 15 染代表上涨的牛市色（估值偏低），P/E > 50 染代表下跌的熊市色（估值偏高）。
-  - **成交量 (换手率)**：突出流动性高的异动个股（换手率 >= 0.03%）。
-- **板块市值加权指标**：在板块头部实时显示该板块的市值加权平均涨跌幅表现（例如：`信息技术 +1.24%`）。
-- **智能搜索联想下拉框**：搜索输入框支持实时过滤匹配的个股，并在毛玻璃下拉框中展示名称、代码和价格，点击可直接拉起个股详情。
-- **侧边栏详情面板**：点击个股滑出侧边栏，展示详细财务指标（开盘、收盘、高、低、成交量、市值），并绘制支持多周期切换（24H, 5D, 1M）的平滑 **SVG 趋势面积图**。
-- **悬停迷你折线图 (Sparkline)**：鼠标悬停在磁贴上，提示框内会绘制该股的小型 SVG 趋势线。为防止悬停闪烁，折线形状基于股号的哈希值做确定性生成。
-- **双文化色彩系统**：内置“国际样式（绿涨红跌）”与“中国样式（红涨绿跌）”两套独立的高对比度色彩体系。
-- **完全国际化**：系统级支持中英文双语一键切换。
+- **自动刷新行情面板**：每 10 秒刷新一次行情，状态区带有环形倒计时进度。
+- **A 股 / 港股 / 美股切换**：支持在三大市场之间一键切换，并记住上次选择。
+- **板块聚焦热力图**：股票按行业板块分组，点击板块头部即可放大查看该板块内部结构。
+- **两种热力染色维度**：支持在 **涨跌幅** 与 **市盈率** 两种视角之间切换。
+- **板块加权涨跌表现**：板块标题直接显示按市值加权后的平均涨跌幅，方便快速判断强弱。
+- **搜索联想直达详情**：可按股票代码或名称搜索，并从联想结果直接打开个股详情面板。
+- **个股详情侧边栏**：展示开盘、最高、最低、昨收、估算成交量、市值，以及多周期 SVG 趋势图。
+- **稳定的悬停迷你走势图**：Tooltip 中的 Sparkline 采用确定性算法生成，避免反复悬停时抖动闪烁。
+- **全新品牌与配色**：新版 Logo、偏红金的品牌层视觉，以及更明确的行情终端气质。
+- **中英文双语界面**：支持中文与英文切换。
 
 ### 🛠️ 技术栈
 - **核心框架**：React 18, TypeScript, Vite
@@ -138,13 +150,50 @@ V1 data behavior:
    cd stock-market-cloud
    ```
 
-2. 安装依赖并启动本地开发服务器：
+2. 安装依赖并启动前端开发服务器：
    ```bash
    npm install
    npm run dev
    ```
 
-3. 在浏览器中打开 `http://localhost:5173` 即可体验。
+3. 在浏览器中打开 `http://localhost:5173`。
+
+4. 如果你希望同时启用本地行情后端，再开一个终端运行：
+   ```bash
+   npm run dev:market
+   ```
+
+### 免费行情后端 V1
+
+这个项目支持一个轻量级本地后端：它会定时刷新免费行情数据、把结果缓存到磁盘，并让前端通过 `/api/market` 读取整理后的数据。
+
+双终端启动方式：
+
+```bash
+npm run dev:market
+npm run dev
+```
+
+常用环境变量：
+
+```bash
+MARKET_SERVER_PORT=8787
+MARKET_REFRESH_MS=300000
+MARKET_UNIVERSE_REFRESH_MS=43200000
+MARKET_MAX_STOCKS=1500
+MARKET_HK_FULL_SCAN=true
+VITE_MARKET_LIMIT=1500
+VITE_USE_MARKET_BACKEND=true
+```
+
+V1 数据说明：
+
+- 美股股票池来自 Nasdaq Trader 的目录文件刷新
+- 港股默认扫描 `00001.HK` 到 `09999.HK` 并保留有效行情代码
+- A 股目前以内置股票池和 fallback 路径为主，保证稳定性
+- 行情通过腾讯免费接口抓取，并缓存到 `.market-cache`
+- 若本地后端未启动，前端会回退到浏览器侧抓取路径
+- 免费数据源可能有延迟、限流、缺失或不可用，更适合个人看盘与自用部署，不适合作为严格实时行情基础设施
 
 ### 🧪 测试运行
 

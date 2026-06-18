@@ -2,6 +2,7 @@
   "name": "stock-market-cloud",
   "private": true,
   "version": "0.1.0",
+  "description": "A real-time treemap dashboard for A-share, Hong Kong, and US stock markets.",
   "type": "module",
   "scripts": {
     "dev": "vite",
