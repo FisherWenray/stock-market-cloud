@@ -93,44 +93,44 @@ export const HistoryCalendarModal: React.FC<HistoryCalendarModalProps> = ({
   const weekLabels = ['一', '二', '三', '四', '五', '六', '日'];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 select-none animate-in fade-in duration-200">
-      <div className="bg-[#0c101c] border border-slate-700/80 rounded-2xl max-w-sm w-full p-5 shadow-2xl shadow-black/80 text-white ring-1 ring-white/10">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 select-none animate-in fade-in duration-200">
+      <div className="bg-[#1e222d] border border-[#3b4255] rounded-xl max-w-sm w-full p-5 shadow-2xl text-white">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
+        <div className="flex items-center justify-between pb-3 border-b border-[#2d3242]">
           <div className="flex items-center space-x-2">
             <CalendarIcon size={18} className="text-amber-400" />
-            <span className="text-base font-bold text-slate-100">历史盘面回看</span>
+            <span className="text-base font-bold text-zinc-100">历史回看</span>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            className="p-1 rounded hover:bg-zinc-700/60 text-zinc-400 hover:text-white transition-colors"
           >
             <X size={16} />
           </button>
         </div>
 
-        <p className="text-[12px] text-slate-400 mt-2">
-          点击交易日，立即查看当天 15:00 收盘全景云图快照
+        <p className="text-[12px] text-zinc-400 mt-2">
+          点击日期立即回看当天 15:00 收盘的大盘云图
         </p>
 
         {/* Month Selector Bar */}
         <div className="flex items-center justify-between my-3 px-1">
-          <span className="text-sm font-bold text-slate-200">
+          <span className="text-sm font-semibold text-zinc-200">
             {currentYear}年 {currentMonth}月
           </span>
           <div className="flex items-center space-x-1">
             <button
               type="button"
               onClick={handlePrevMonth}
-              className="p-1 rounded-lg hover:bg-slate-800 text-slate-300 transition-colors"
+              className="p-1 rounded hover:bg-zinc-700/80 text-zinc-300"
             >
               <ChevronLeft size={16} />
             </button>
             <button
               type="button"
               onClick={handleNextMonth}
-              className="p-1 rounded-lg hover:bg-slate-800 text-slate-300 transition-colors"
+              className="p-1 rounded hover:bg-zinc-700/80 text-zinc-300"
             >
               <ChevronRight size={16} />
             </button>
@@ -138,7 +138,7 @@ export const HistoryCalendarModal: React.FC<HistoryCalendarModalProps> = ({
         </div>
 
         {/* Weekday Header */}
-        <div className="grid grid-cols-7 gap-1 text-center text-xs text-slate-400 font-medium mb-1">
+        <div className="grid grid-cols-7 gap-1 text-center text-xs text-zinc-400 font-medium mb-1">
           {weekLabels.map(w => (
             <div key={w} className="py-1">
               {w}
@@ -156,7 +156,7 @@ export const HistoryCalendarModal: React.FC<HistoryCalendarModalProps> = ({
             const isSelected = item.dateStr === selectedDate;
             const isUp = (item.changePercent ?? 0) > 0;
             const isDown = (item.changePercent ?? 0) < 0;
-            const changeColor = isUp ? 'text-rose-400' : isDown ? 'text-emerald-400' : 'text-slate-400';
+            const changeColor = isUp ? 'text-[#f63538]' : isDown ? 'text-[#30cc5a]' : 'text-zinc-400';
             const sign = isUp ? '+' : '';
 
             return (
@@ -170,17 +170,17 @@ export const HistoryCalendarModal: React.FC<HistoryCalendarModalProps> = ({
                     onClose();
                   }
                 }}
-                className={`h-11 rounded-lg flex flex-col items-center justify-center text-xs transition-all ${
+                className={`h-11 rounded flex flex-col items-center justify-center text-xs transition-colors ${
                   isSelected
-                    ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20'
+                    ? 'bg-amber-500 text-zinc-950 font-bold shadow'
                     : item.hasSnapshot
-                    ? 'bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-800/80 hover:border-slate-700'
-                    : 'bg-transparent text-slate-600 cursor-not-allowed'
+                    ? 'bg-[#272b38] hover:bg-[#343a4c] text-zinc-200'
+                    : 'bg-transparent text-zinc-600 cursor-not-allowed'
                 }`}
               >
-                <span className={isSelected ? 'text-slate-950 font-bold' : ''}>{item.day}</span>
+                <span className={isSelected ? 'text-zinc-950 font-bold' : ''}>{item.day}</span>
                 {item.changePercent !== undefined && (
-                  <span className={`text-[10px] font-mono leading-none mt-0.5 ${isSelected ? 'text-slate-950 font-bold' : changeColor}`}>
+                  <span className={`text-[10px] font-mono leading-none mt-0.5 ${isSelected ? 'text-zinc-900' : changeColor}`}>
                     {sign}{item.changePercent.toFixed(1)}%
                   </span>
                 )}
@@ -190,15 +190,15 @@ export const HistoryCalendarModal: React.FC<HistoryCalendarModalProps> = ({
         </div>
 
         {/* Legend */}
-        <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+        <div className="mt-4 pt-3 border-t border-[#2d3242] flex items-center justify-between text-[11px] text-zinc-400">
           <span>灰色暂无快照</span>
           <div className="flex items-center space-x-2">
             <span className="flex items-center space-x-1">
-              <span className="w-2 h-2 rounded-full bg-rose-500"></span>
+              <span className="w-2 h-2 rounded-full bg-[#f63538]"></span>
               <span>涨</span>
             </span>
             <span className="flex items-center space-x-1">
-              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span className="w-2 h-2 rounded-full bg-[#30cc5a]"></span>
               <span>跌</span>
             </span>
           </div>

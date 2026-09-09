@@ -64,17 +64,17 @@ export interface LayoutSectorRect {
   sector: string;
 }
 
-// High-contrast modern FinTech color palette (Vivid Crimson Bullish, Rich Emerald Bearish, Slate Neutral)
+// 9-step Chinese standard color palette (Red up, Green down, Slate flat)
 export function getStockFillColor(change: number): string {
-  if (change >= 4.0) return '#e11d48';   // +4% (Rose Crimson)
-  if (change >= 3.0) return '#dc2626';   // +3% (Pure Red)
-  if (change >= 2.0) return '#b91c1c';   // +2% (Carmine)
-  if (change >= 0.5) return '#881337';   // +1% (Burgundy)
-  if (change > -0.5) return '#1e293b';   // 0% (Slate Neutral)
-  if (change > -2.0) return '#064e3b';   // -1% (Pine Green)
-  if (change > -3.0) return '#047857';   // -2% (Forest Emerald)
-  if (change > -4.0) return '#059669';   // -3% (Jade)
-  return '#10b981';                      // -4% (Mint Emerald)
+  if (change >= 4.0) return '#e63538';   // +4%
+  if (change >= 3.0) return '#ce3d41';   // +3%
+  if (change >= 2.0) return '#a5424a';   // +2%
+  if (change >= 0.5) return '#784551';   // +1%
+  if (change > -0.5) return '#3a3e4c';   // 0%
+  if (change > -2.0) return '#36684e';   // -1%
+  if (change > -3.0) return '#31894e';   // -2%
+  if (change > -4.0) return '#2faa51';   // -3%
+  return '#30cc5a';                      // -4%
 }
 
 export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
@@ -259,8 +259,8 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
     ctx.save();
     ctx.scale(dpr, dpr);
 
-    // Clear background with deep obsidian tone
-    ctx.fillStyle = '#080b12';
+    // Clear background
+    ctx.fillStyle = '#1e212b';
     ctx.fillRect(0, 0, width, height);
 
     // Apply Pan & Zoom Transform
@@ -271,38 +271,38 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
 
     // 1. Draw Sector Containers & Headers
     for (const sec of sectors) {
-      ctx.fillStyle = '#0e1422';
+      ctx.fillStyle = '#262935';
       ctx.fillRect(sec.x, sec.y, sec.w, sec.h);
-      ctx.strokeStyle = '#1e293b';
-      ctx.lineWidth = 1.0 / transform.scale;
+      ctx.strokeStyle = '#43495b';
+      ctx.lineWidth = 1.2 / transform.scale;
       ctx.strokeRect(sec.x, sec.y, sec.w, sec.h);
 
       // Sector Header Text
       if (sec.w > 28 && sec.h > 20) {
-        ctx.fillStyle = '#f1f5f9';
+        ctx.fillStyle = '#e2e8f0';
         ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
-        ctx.fillText(sec.sector, sec.x + 6, sec.y + 11);
+        ctx.fillText(sec.sector, sec.x + 5, sec.y + 11);
       }
     }
 
     // 2. Draw Subsector Containers & Headers
     for (const sub of subsectors) {
-      ctx.fillStyle = '#121827';
+      ctx.fillStyle = '#292d3a';
       ctx.fillRect(sub.x, sub.y, sub.w, sub.h);
-      ctx.strokeStyle = '#222d42';
-      ctx.lineWidth = 0.7 / transform.scale;
+      ctx.strokeStyle = '#383e4e';
+      ctx.lineWidth = 0.8 / transform.scale;
       ctx.strokeRect(sub.x, sub.y, sub.w, sub.h);
 
       // Subsector Header Text
       if (sub.w > 30 && sub.h > 18) {
         ctx.fillStyle = '#94a3b8';
-        ctx.font = '500 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.font = '11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
         const label = sub.subsector.length > 6 && sub.w < 50 ? sub.subsector.slice(0, 4) + '..' : sub.subsector;
-        ctx.fillText(label, sub.x + 5, sub.y + 9);
+        ctx.fillText(label, sub.x + 4, sub.y + 9);
       }
     }
 
@@ -314,8 +314,8 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
       ctx.fillStyle = getStockFillColor(s.stock.change);
       ctx.fillRect(s.x, s.y, s.w, s.h);
 
-      // Micro gap border between stock tiles
-      ctx.strokeStyle = '#080b12';
+      // Border between stock tiles
+      ctx.strokeStyle = '#222530';
       ctx.lineWidth = 0.6 / transform.scale;
       ctx.strokeRect(s.x, s.y, s.w, s.h);
 
@@ -341,12 +341,12 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
           ctx.fillText(s.stock.name, cx, cy - 1);
 
           const changeFontSize = Math.max(10, Math.min(13, nameFontSize - 1));
-          ctx.font = `600 ${changeFontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
+          ctx.font = `normal ${changeFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
           ctx.textBaseline = 'top';
           const sign = s.stock.change > 0 ? '+' : '';
           ctx.fillText(`${sign}${s.stock.change.toFixed(2)}%`, cx, cy + 1);
         } else {
-          // Compact stock name
+          // Just stock name (compact)
           const nameFontSize = Math.min(12, Math.max(9, Math.floor(s.w / 4.2)));
           ctx.font = `500 ${nameFontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
           ctx.textBaseline = 'middle';
@@ -357,7 +357,7 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
       }
     }
 
-    // 4. Highlight Hovered Subsector (Modern Cyber Amber Glow Border)
+    // 4. Highlight Hovered Subsector (Bright Yellow Border - Exact 52etf.site Replica)
     const activeSub =
       hoveredSubsectorItem ||
       (externalHoveredSubsector
@@ -369,9 +369,8 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
         : null);
 
     if (activeSub) {
-      // Crisp glowing amber outline
-      ctx.strokeStyle = '#f59e0b';
-      ctx.lineWidth = 2.4 / transform.scale;
+      ctx.strokeStyle = '#faad14';
+      ctx.lineWidth = 2.5 / transform.scale;
       ctx.strokeRect(
         activeSub.x,
         activeSub.y,
@@ -382,8 +381,8 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
 
     // 5. Highlight Hovered Tile
     if (hoveredStockItem) {
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
-      ctx.lineWidth = 2.0 / transform.scale;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.lineWidth = 1.5 / transform.scale;
       ctx.strokeRect(
         hoveredStockItem.x,
         hoveredStockItem.y,
@@ -633,24 +632,24 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
 
       // Draw watermark & branding overlay on top-left
       const dpr = window.devicePixelRatio || 1;
-      ctx.fillStyle = 'rgba(10, 14, 23, 0.88)';
-      ctx.fillRect(16 * dpr, 16 * dpr, 284 * dpr, 46 * dpr);
-      ctx.strokeStyle = '#334155';
+      ctx.fillStyle = 'rgba(15, 18, 24, 0.85)';
+      ctx.fillRect(16 * dpr, 16 * dpr, 280 * dpr, 44 * dpr);
+      ctx.strokeStyle = '#3b4252';
       ctx.lineWidth = 1 * dpr;
-      ctx.strokeRect(16 * dpr, 16 * dpr, 284 * dpr, 46 * dpr);
+      ctx.strokeRect(16 * dpr, 16 * dpr, 280 * dpr, 44 * dpr);
 
       const now = new Date();
       const dateStr = now.toISOString().replace('T', ' ').slice(0, 19);
 
       ctx.fillStyle = '#f59e0b';
-      ctx.font = `bold ${14 * dpr}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+      ctx.font = `bold ${14 * dpr}px -apple-system, BlinkMacSystemFont, sans-serif`;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
-      ctx.fillText('大盘云图 · MARKET LENS PRO', 28 * dpr, 23 * dpr);
+      ctx.fillText('大盘云图 · A股热力图', 28 * dpr, 23 * dpr);
 
       ctx.fillStyle = '#94a3b8';
-      ctx.font = `${11 * dpr}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-      ctx.fillText(`${dateStr}  实时全景热力终端`, 28 * dpr, 44 * dpr);
+      ctx.font = `${11 * dpr}px -apple-system, BlinkMacSystemFont, sans-serif`;
+      ctx.fillText(`${dateStr}  本地看盘终端`, 28 * dpr, 43 * dpr);
 
       return exportCanvas.toDataURL('image/png');
     },
@@ -662,7 +661,7 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full min-h-0 select-none overflow-hidden bg-[#080b12]"
+      className="relative w-full h-full min-h-0 select-none overflow-hidden bg-[#1e212b]"
     >
       <canvas
         ref={canvasRef}

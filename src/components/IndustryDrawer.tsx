@@ -29,11 +29,7 @@ export const IndustryDrawer: React.FC<IndustryDrawerProps> = ({
   const isUp = current.change > 0;
   const isDown = current.change < 0;
   const sign = isUp ? '+' : '';
-  const heroBgClass = isUp
-    ? 'bg-gradient-to-r from-rose-950/70 via-slate-900/90 to-[#0c101c] border-b border-rose-900/40'
-    : isDown
-    ? 'bg-gradient-to-r from-emerald-950/70 via-slate-900/90 to-[#0c101c] border-b border-emerald-900/40'
-    : 'bg-slate-900/90 border-b border-slate-800';
+  const topBgClass = isUp ? 'bg-[#c3343a]' : isDown ? 'bg-[#299949]' : 'bg-[#3b4152]';
 
   // Format sina ticker for K-line image
   const [code, exchange] = current.symbol.split('.');
@@ -41,39 +37,39 @@ export const IndustryDrawer: React.FC<IndustryDrawerProps> = ({
   const klineImgUrl = `https://image.sinajs.cn/newchart/daily/n/${prefix}${code}.gif`;
 
   return (
-    <div className="absolute right-0 top-0 bottom-0 w-[360px] bg-[#0c101c] border-l border-slate-800 shadow-2xl z-30 flex flex-col select-none text-slate-100 animate-in slide-in-from-right duration-200">
+    <div className="absolute right-0 top-0 bottom-0 w-[360px] bg-[#1a1d27] border-l border-[#343a4c] shadow-2xl z-30 flex flex-col select-none text-white animate-in slide-in-from-right duration-200">
       {/* 1. Header */}
-      <div className="h-[46px] px-4 flex items-center justify-between border-b border-slate-800/80 bg-[#111726] flex-shrink-0">
+      <div className="h-[46px] px-4 flex items-center justify-between border-b border-[#2d3242] bg-[#222634] flex-shrink-0">
         <div className="flex items-center space-x-2">
-          <span className="text-[13px] font-bold text-slate-100">
+          <span className="text-[13px] font-semibold text-zinc-100">
             {sector} · {subsector}
           </span>
-          <span className="text-[11px] text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700/60 font-mono">
+          <span className="text-[11px] text-zinc-400 bg-zinc-800 px-1.5 py-0.5 rounded">
             {stocks.length} 只成分股
           </span>
         </div>
         <button
           type="button"
           onClick={onClose}
-          className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+          className="p-1 rounded hover:bg-zinc-700/60 text-zinc-400 hover:text-white transition-colors"
         >
           <X size={16} />
         </button>
       </div>
 
       {/* 2. Top Selected Stock Card */}
-      <div className={`p-4 ${heroBgClass} text-white transition-colors flex-shrink-0 shadow-md`}>
+      <div className={`p-4 ${topBgClass} text-white transition-colors flex-shrink-0 shadow-md`}>
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center space-x-2">
-              <span className="text-lg font-bold tracking-tight text-white">{current.name}</span>
-              <span className="text-xs font-mono text-slate-400">{current.symbol}</span>
+              <span className="text-lg font-bold tracking-tight">{current.name}</span>
+              <span className="text-xs font-mono opacity-80">{current.symbol}</span>
             </div>
             <div className="flex items-baseline space-x-3 mt-1">
-              <span className="text-2xl font-bold font-mono text-white">
+              <span className="text-2xl font-bold font-mono">
                 {current.price.toFixed(2)}
               </span>
-              <span className={`text-base font-bold font-mono ${isUp ? 'text-rose-400' : isDown ? 'text-emerald-400' : 'text-slate-300'}`}>
+              <span className="text-base font-semibold font-mono">
                 {sign}{current.change.toFixed(2)}%
               </span>
             </div>
@@ -82,20 +78,21 @@ export const IndustryDrawer: React.FC<IndustryDrawerProps> = ({
           <button
             type="button"
             onClick={() => onStockDoubleClick?.(current)}
-            className="p-1.5 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white transition-colors border border-slate-700/60"
-            title="新标签页在雪球打开详情"
+            className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
+            title="新标签页打开详情"
           >
             <ExternalLink size={16} />
           </button>
         </div>
 
         {/* Daily K-line Chart */}
-        <div className="mt-3 bg-[#07090f] rounded-lg p-1 border border-slate-800 overflow-hidden min-h-[140px] flex items-center justify-center">
+        <div className="mt-3 bg-[#111319] rounded p-1 border border-white/10 overflow-hidden min-h-[140px] flex items-center justify-center">
           <img
             src={klineImgUrl}
             alt={`${current.name} 日K线走势`}
             className="w-full h-auto object-contain rounded"
             onError={(e) => {
+              // Fallback if Sina image is blocked or unavailable
               (e.target as HTMLElement).style.display = 'none';
             }}
           />
@@ -103,12 +100,12 @@ export const IndustryDrawer: React.FC<IndustryDrawerProps> = ({
       </div>
 
       {/* 3. Component Stocks List */}
-      <div className="flex-1 overflow-y-auto divide-y divide-slate-800/50 scrollbar-thin scrollbar-thumb-slate-700">
+      <div className="flex-1 overflow-y-auto divide-y divide-[#252936] scrollbar-thin scrollbar-thumb-zinc-700">
         {stocks.map(st => {
           const itemUp = st.change > 0;
           const itemDown = st.change < 0;
           const itemSign = itemUp ? '+' : '';
-          const itemColor = itemUp ? 'text-rose-400' : itemDown ? 'text-emerald-400' : 'text-slate-400';
+          const itemColor = itemUp ? 'text-[#f63538]' : itemDown ? 'text-[#30cc5a]' : 'text-zinc-300';
           const isSelected = st.symbol === current.symbol;
 
           // Eastmoney sparkline image
@@ -121,17 +118,17 @@ export const IndustryDrawer: React.FC<IndustryDrawerProps> = ({
               key={st.symbol}
               onClick={() => setSelectedStock(st)}
               onDoubleClick={() => onStockDoubleClick?.(st)}
-              className={`px-4 py-2.5 flex items-center justify-between cursor-pointer transition-all ${
-                isSelected ? 'bg-amber-500/15 border-l-[3px] border-amber-400 pl-[13px] text-white' : 'hover:bg-slate-800/40 text-slate-300'
+              className={`px-4 py-2.5 flex items-center justify-between cursor-pointer transition-colors ${
+                isSelected ? 'bg-[#292e3f]' : 'hover:bg-[#202431]'
               }`}
             >
               <div className="min-w-[90px]">
-                <div className="text-[13px] font-semibold text-slate-200">{st.name}</div>
-                <div className="text-[10px] font-mono text-slate-500">{st.symbol}</div>
+                <div className="text-[13px] font-medium text-zinc-200">{st.name}</div>
+                <div className="text-[11px] font-mono text-zinc-400">{st.symbol}</div>
               </div>
 
               {/* Sparkline */}
-              <div className="w-[80px] h-[28px] rounded bg-white/95 p-0.5 border border-slate-700/40 overflow-hidden flex items-center justify-center">
+              <div className="w-[80px] h-[26px] overflow-hidden flex items-center justify-center opacity-85">
                 <img
                   src={sparklineUrl}
                   alt="分时"
@@ -143,10 +140,10 @@ export const IndustryDrawer: React.FC<IndustryDrawerProps> = ({
               </div>
 
               <div className="text-right min-w-[70px]">
-                <div className="text-[13px] font-mono font-bold text-slate-200">
+                <div className="text-[13px] font-mono font-medium text-zinc-100">
                   {st.price.toFixed(2)}
                 </div>
-                <div className={`text-[12px] font-mono font-bold ${itemColor}`}>
+                <div className={`text-[12px] font-mono font-semibold ${itemColor}`}>
                   {itemSign}{st.change.toFixed(2)}%
                 </div>
               </div>
