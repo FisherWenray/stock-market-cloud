@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Calendar, ChevronDown } from 'lucide-react';
+import { Calendar, ChevronDown, Clock } from 'lucide-react';
 import { REPLAY_TIME_SLOTS, ReplayTimeSlot, getAvailableReplaySlots } from '../services/replayService';
 
 export interface FooterBarProps {
@@ -22,7 +22,6 @@ export const FooterBar: React.FC<FooterBarProps> = ({
   // Keyboard navigation: ArrowLeft and ArrowRight to step through time slots
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't trigger if user is in an input field
       if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) {
         return;
       }
@@ -45,24 +44,24 @@ export const FooterBar: React.FC<FooterBarProps> = ({
   }, [activeTimeSlot, availableSlots, onSelectTimeSlot]);
 
   return (
-    <footer className="h-[38px] bg-[#1a1c24] border-t border-[#2d3240] px-3 flex items-center justify-between text-white select-none z-20 flex-shrink-0 text-[12px]">
+    <footer className="h-[40px] bg-[#0b0f19] border-t border-slate-800/80 px-3 flex items-center justify-between text-white select-none z-20 flex-shrink-0 text-[12px] shadow-inner">
       {/* Left & Center: Replay Controls */}
-      <div className="flex items-center space-x-2 overflow-x-auto scrollbar-none py-1">
+      <div className="flex items-center space-x-2.5 overflow-x-auto scrollbar-none py-1">
         {/* History Date Picker Button */}
         <button
           type="button"
           onClick={onOpenHistoryCalendar}
-          className="h-[26px] px-2.5 bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-white rounded font-medium flex items-center space-x-1 transition-colors shadow-sm"
+          className="h-[27px] px-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 active:scale-[0.98] text-slate-950 rounded-lg font-bold flex items-center space-x-1.5 transition-all shadow-sm text-[11.5px]"
         >
           <Calendar size={13} />
-          <span>{isHistoricalDate && selectedDateStr ? selectedDateStr : '回看历史'}</span>
+          <span>{isHistoricalDate && selectedDateStr ? selectedDateStr : '日历回看'}</span>
           <ChevronDown size={12} />
         </button>
 
         {/* Current Replay Status Badge */}
-        <div className="flex items-center space-x-1.5 px-2 py-0.5 rounded bg-zinc-800/80 text-zinc-300 text-[11px] border border-zinc-700">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>{isHistoricalDate ? '历史复盘' : '当日复盘'}</span>
+        <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-slate-900/80 text-slate-300 text-[11px] border border-slate-800">
+          <Clock size={11} className="text-amber-400" />
+          <span className="font-medium">{isHistoricalDate ? '历史盘面' : '当日盘面'}</span>
         </div>
 
         {/* Intraday Time Slots */}
@@ -76,12 +75,12 @@ export const FooterBar: React.FC<FooterBarProps> = ({
                 type="button"
                 disabled={!available}
                 onClick={() => onSelectTimeSlot(slot)}
-                className={`h-[24px] px-2 rounded text-[11px] font-mono transition-colors ${
+                className={`h-[25px] px-2 rounded-md text-[11px] font-mono transition-all ${
                   isSelected
-                    ? 'bg-amber-500 font-bold text-zinc-950 shadow'
+                    ? 'bg-gradient-to-r from-amber-400 to-amber-500 font-bold text-slate-950 shadow-md shadow-amber-500/20'
                     : available
-                    ? 'bg-[#2a2e3c] hover:bg-[#383d4f] text-zinc-200'
-                    : 'bg-[#1e212b] text-zinc-600 cursor-not-allowed'
+                    ? 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800/80'
+                    : 'bg-slate-900/30 text-slate-600 border border-slate-900 cursor-not-allowed'
                 }`}
                 title={available ? `回放 ${slot} 盘面 (支持键盘方向键)` : `${slot} 盘面尚未产生`}
               >
@@ -92,36 +91,41 @@ export const FooterBar: React.FC<FooterBarProps> = ({
         </div>
       </div>
 
-      {/* Right: 9-step Color Legend */}
-      <div className="hidden md:flex items-center space-x-0.5 flex-shrink-0">
-        <div className="h-[22px] px-1.5 bg-[#30cc5a] text-white flex items-center justify-center text-[10px] font-mono rounded-l">
-          -4%
+      {/* Right: Modern FinTech Color Spectrum Legend */}
+      <div className="hidden md:flex items-center space-x-1.5 flex-shrink-0 bg-slate-900/80 px-2.5 py-1 rounded-lg border border-slate-800/80">
+        <span className="text-[10px] text-emerald-400 font-medium mr-0.5">跌</span>
+        <div className="flex items-center overflow-hidden rounded shadow-sm">
+          <div className="h-[18px] px-1.5 bg-[#10b981] text-white flex items-center justify-center text-[10px] font-mono font-semibold">
+            -4%
+          </div>
+          <div className="h-[18px] px-1.5 bg-[#059669] text-white flex items-center justify-center text-[10px] font-mono font-semibold">
+            -3%
+          </div>
+          <div className="h-[18px] px-1.5 bg-[#047857] text-white flex items-center justify-center text-[10px] font-mono font-semibold">
+            -2%
+          </div>
+          <div className="h-[18px] px-1.5 bg-[#064e3b] text-white flex items-center justify-center text-[10px] font-mono font-semibold">
+            -1%
+          </div>
+          <div className="h-[18px] px-1.5 bg-[#1e293b] text-slate-300 flex items-center justify-center text-[10px] font-mono font-semibold">
+            0%
+          </div>
+          <div className="h-[18px] px-1.5 bg-[#881337] text-white flex items-center justify-center text-[10px] font-mono font-semibold">
+            +1%
+          </div>
+          <div className="h-[18px] px-1.5 bg-[#b91c1c] text-white flex items-center justify-center text-[10px] font-mono font-semibold">
+            +2%
+          </div>
+          <div className="h-[18px] px-1.5 bg-[#dc2626] text-white flex items-center justify-center text-[10px] font-mono font-semibold">
+            +3%
+          </div>
+          <div className="h-[18px] px-1.5 bg-[#e11d48] text-white flex items-center justify-center text-[10px] font-mono font-semibold">
+            +4%
+          </div>
         </div>
-        <div className="h-[22px] px-1.5 bg-[#2faa51] text-white flex items-center justify-center text-[10px] font-mono">
-          -3%
-        </div>
-        <div className="h-[22px] px-1.5 bg-[#31894e] text-white flex items-center justify-center text-[10px] font-mono">
-          -2%
-        </div>
-        <div className="h-[22px] px-1.5 bg-[#38694f] text-white flex items-center justify-center text-[10px] font-mono">
-          -1%
-        </div>
-        <div className="h-[22px] px-1.5 bg-[#414554] text-white flex items-center justify-center text-[10px] font-mono">
-          0%
-        </div>
-        <div className="h-[22px] px-1.5 bg-[#784551] text-white flex items-center justify-center text-[10px] font-mono">
-          +1%
-        </div>
-        <div className="h-[22px] px-1.5 bg-[#a5424a] text-white flex items-center justify-center text-[10px] font-mono">
-          +2%
-        </div>
-        <div className="h-[22px] px-1.5 bg-[#ce3d41] text-white flex items-center justify-center text-[10px] font-mono">
-          +3%
-        </div>
-        <div className="h-[22px] px-1.5 bg-[#f63538] text-white flex items-center justify-center text-[10px] font-mono rounded-r">
-          +4%
-        </div>
+        <span className="text-[10px] text-rose-400 font-medium ml-0.5">涨</span>
       </div>
     </footer>
   );
 };
+

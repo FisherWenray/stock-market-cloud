@@ -230,7 +230,7 @@ export function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-[#1a1c24] text-white overflow-hidden select-none font-sans">
+    <div className="flex flex-col h-screen w-screen bg-[#080b12] text-slate-100 overflow-hidden select-none font-sans">
       {/* 1. Header Bar */}
       <HeaderBar
         indices={indices}
@@ -277,7 +277,7 @@ export function App() {
             onStockDoubleClick={handleStockDoubleClick}
           />
 
-          {/* Hover Overview Panel - Exact 52etf.site Replica */}
+          {/* Hover Overview Panel - FinTech Pro Dark Glassmorphism */}
           {hoverState && (
             <StockHoverTooltip
               stock={hoverState.stock}
@@ -288,7 +288,7 @@ export function App() {
               containerWidth={mainContainerRef.current?.clientWidth || 1282}
               cursorX={
                 hoverState.clientX -
-                (mainContainerRef.current?.getBoundingClientRect().left || 158)
+                (mainContainerRef.current?.getBoundingClientRect().left || 168)
               }
               onStockDoubleClick={handleStockDoubleClick}
               onMouseEnterTooltip={handleMouseEnterTooltip}
