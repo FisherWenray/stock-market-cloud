@@ -12,7 +12,17 @@ export interface CanvasTreemapProps {
   stocks: Stock[];
   scope: MarketScope;
   searchQuery?: string;
-  onStockHover?: (stock: Stock | null, x: number, y: number, sectorInfo?: { sector: string; subsector: string }) => void;
+  externalHoveredSubsector?: { sector: string; subsector: string } | null;
+  onStockHover?: (
+    stock: Stock | null,
+    x: number,
+    y: number,
+    sectorInfo?: {
+      sector: string;
+      subsector: string;
+      rect: { x: number; y: number; w: number; h: number };
+    }
+  ) => void;
   onStockClick?: (stock: Stock, sectorInfo: { sector: string; subsector: string }) => void;
   onStockDoubleClick?: (stock: Stock) => void;
   onSubsectorClick?: (sector: string, subsector: string, stock?: Stock) => void;
@@ -71,6 +81,7 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
   stocks,
   scope: _scope,
   searchQuery = '',
+  externalHoveredSubsector,
   onStockHover,
   onStockClick,
   onStockDoubleClick,
@@ -82,6 +93,7 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [transform, setTransform] = useState({ x: 0, y: 0, scale: 1 });
   const [hoveredStockItem, setHoveredStockItem] = useState<LayoutStockRect | null>(null);
+  const [hoveredSubsectorItem, setHoveredSubsectorItem] = useState<LayoutSubsectorRect | null>(null);
 
   const isDraggingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, y: 0, initialTx: 0, initialTy: 0 });
@@ -345,10 +357,32 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
       }
     }
 
-    // 4. Highlight Hovered Tile
+    // 4. Highlight Hovered Subsector (Bright Yellow Border - Exact 52etf.site Replica)
+    const activeSub =
+      hoveredSubsectorItem ||
+      (externalHoveredSubsector
+        ? subsectors.find(
+            s =>
+              s.sector === externalHoveredSubsector.sector &&
+              s.subsector === externalHoveredSubsector.subsector
+          )
+        : null);
+
+    if (activeSub) {
+      ctx.strokeStyle = '#faad14';
+      ctx.lineWidth = 2.5 / transform.scale;
+      ctx.strokeRect(
+        activeSub.x,
+        activeSub.y,
+        activeSub.w,
+        activeSub.h
+      );
+    }
+
+    // 5. Highlight Hovered Tile
     if (hoveredStockItem) {
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 2.0 / transform.scale;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.lineWidth = 1.5 / transform.scale;
       ctx.strokeRect(
         hoveredStockItem.x,
         hoveredStockItem.y,
@@ -358,7 +392,7 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
     }
 
     ctx.restore();
-  }, [dimensions, transform, hoveredStockItem]);
+  }, [dimensions, transform, hoveredStockItem, hoveredSubsectorItem, externalHoveredSubsector]);
 
   // Re-render when transform or hovered item changes
   useEffect(() => {
@@ -433,8 +467,9 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
     const canvasX = (mouseX - transform.x) / transform.scale;
     const canvasY = (mouseY - transform.y) / transform.scale;
 
-    const { stocks: stockList } = layoutRectsRef.current;
-    let found: LayoutStockRect | null = null;
+    const { stocks: stockList, subsectors } = layoutRectsRef.current;
+    let foundStock: LayoutStockRect | null = null;
+    let foundSub: LayoutSubsectorRect | null = null;
 
     for (let i = stockList.length - 1; i >= 0; i--) {
       const item = stockList[i];
@@ -444,18 +479,55 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
         canvasY >= item.y &&
         canvasY <= item.y + item.h
       ) {
-        found = item;
+        foundStock = item;
         break;
       }
     }
 
-    setHoveredStockItem(found);
+    if (foundStock) {
+      foundSub =
+        subsectors.find(
+          sub =>
+            sub.sector === foundStock!.sector &&
+            sub.subsector === foundStock!.subsector
+        ) || null;
+    } else {
+      // Check if mouse is within any subsector area
+      for (let i = subsectors.length - 1; i >= 0; i--) {
+        const sub = subsectors[i];
+        if (
+          canvasX >= sub.x &&
+          canvasX <= sub.x + sub.w &&
+          canvasY >= sub.y &&
+          canvasY <= sub.y + sub.h
+        ) {
+          foundSub = sub;
+          break;
+        }
+      }
+    }
 
-    if (found) {
-      onStockHover?.(found.stock, clientX, clientY, {
-        sector: found.sector,
-        subsector: found.subsector,
-      });
+    setHoveredStockItem(foundStock);
+    setHoveredSubsectorItem(foundSub);
+
+    if (foundSub) {
+      const subRectInContainer = {
+        x: foundSub.x * transform.scale + transform.x,
+        y: foundSub.y * transform.scale + transform.y,
+        w: foundSub.w * transform.scale,
+        h: foundSub.h * transform.scale,
+      };
+
+      onStockHover?.(
+        foundStock ? foundStock.stock : null,
+        clientX,
+        clientY,
+        {
+          sector: foundSub.sector,
+          subsector: foundSub.subsector,
+          rect: subRectInContainer,
+        }
+      );
     } else {
       onStockHover?.(null, clientX, clientY);
     }
@@ -538,6 +610,7 @@ export const CanvasTreemap = forwardRef<CanvasTreemapRef, CanvasTreemapProps>(({
   const handleMouseLeave = () => {
     isDraggingRef.current = false;
     setHoveredStockItem(null);
+    setHoveredSubsectorItem(null);
     onStockHover?.(null, 0, 0);
   };
 

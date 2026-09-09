@@ -18,7 +18,6 @@ import { fetchChineseHeaderIndices, fetchMarketData } from './services/api';
 import { HeaderBar, DEFAULT_INDICES } from './components/HeaderBar';
 import { Sidebar } from './components/Sidebar';
 import { CanvasTreemap, CanvasTreemapRef } from './components/CanvasTreemap';
-import { IndustryDrawer } from './components/IndustryDrawer';
 import { StockHoverTooltip } from './components/StockHoverTooltip';
 import { FooterBar } from './components/FooterBar';
 import { ScreenshotModal } from './components/ScreenshotModal';
@@ -26,6 +25,7 @@ import { HistoryCalendarModal } from './components/HistoryCalendarModal';
 
 export function App() {
   const treemapRef = useRef<CanvasTreemapRef>(null);
+  const mainContainerRef = useRef<HTMLElement>(null);
 
   // 1. Core State
   const [allStocks, setAllStocks] = useState<Stock[]>(() =>
@@ -46,16 +46,16 @@ export function App() {
   const [selectedDateStr, setSelectedDateStr] = useState<string>('');
   const [isHistoricalDate, setIsHistoricalDate] = useState<boolean>(false);
 
-  // Hover & Drawer Selection State
-  const [hoveredStock, setHoveredStock] = useState<Stock | null>(null);
-  const [hoverPos, setHoverPos] = useState<{ x: number; y: number } | null>(null);
-  const [hoverSectorInfo, setHoverSectorInfo] = useState<{ sector: string; subsector: string } | undefined>(undefined);
-
-  const [selectedSubsector, setSelectedSubsector] = useState<{
+  // Hover & Industry Panel State
+  const [hoverState, setHoverState] = useState<{
+    stock: Stock;
     sector: string;
     subsector: string;
-    stock?: Stock;
+    rect: { x: number; y: number; w: number; h: number };
+    clientX: number;
   } | null>(null);
+  const [isOverTooltip, setIsOverTooltip] = useState(false);
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Modals
   const [screenshotUrl, setScreenshotUrl] = useState<string | null>(null);
@@ -119,35 +119,87 @@ export function App() {
     return calculateMarketBreadth(displayStocks);
   }, [displayStocks]);
 
-  // 6. Component stocks for open subsector drawer
-  const subsectorStocks = useMemo(() => {
-    if (!selectedSubsector) return [];
+  // 6. Component stocks for active hovered/selected subsector
+  const activeSubsectorStocks = useMemo(() => {
+    if (!hoverState) return [];
     return allStocks.filter(
-      s =>
-        s.sector === selectedSubsector.sector &&
-        (s.subsector === selectedSubsector.subsector || !selectedSubsector.subsector)
+      s => s.sector === hoverState.sector && s.subsector === hoverState.subsector
     );
-  }, [allStocks, selectedSubsector]);
+  }, [allStocks, hoverState]);
 
   // Handlers
   const handleStockHover = (
     stock: Stock | null,
-    x: number,
-    y: number,
-    info?: { sector: string; subsector: string }
+    clientX: number,
+    _clientY: number,
+    info?: {
+      sector: string;
+      subsector: string;
+      rect: { x: number; y: number; w: number; h: number };
+    }
   ) => {
-    setHoveredStock(stock);
-    if (stock) {
-      setHoverPos({ x, y });
-      setHoverSectorInfo(info);
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+
+    if (info) {
+      // If stock is null (hovering over subsector header/padding), find highest marketCap stock
+      let targetStock = stock;
+      if (!targetStock) {
+        const matching = allStocks.filter(
+          s => s.sector === info.sector && s.subsector === info.subsector
+        );
+        targetStock = matching[0] || allStocks[0];
+      }
+
+      if (targetStock) {
+        setHoverState({
+          stock: targetStock,
+          sector: info.sector,
+          subsector: info.subsector,
+          rect: info.rect,
+          clientX,
+        });
+      }
     } else {
-      setHoverPos(null);
-      setHoverSectorInfo(undefined);
+      // Mouse left canvas; give a grace period so user can move into the tooltip
+      hoverTimeoutRef.current = setTimeout(() => {
+        if (!isOverTooltip) {
+          setHoverState(null);
+        }
+      }, 180);
     }
   };
 
+  const handleMouseEnterTooltip = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+    setIsOverTooltip(true);
+  };
+
+  const handleMouseLeaveTooltip = () => {
+    setIsOverTooltip(false);
+    setHoverState(null);
+  };
+
   const handleSubsectorClick = (sector: string, subsector: string, stock?: Stock) => {
-    setSelectedSubsector({ sector, subsector, stock });
+    const matching = allStocks.filter(
+      s => s.sector === sector && s.subsector === subsector
+    );
+    const targetStock = stock || matching[0] || allStocks[0];
+    if (targetStock) {
+      setHoverState({
+        stock: targetStock,
+        sector,
+        subsector,
+        rect: hoverState?.rect || { x: 300, y: 0, w: 200, h: 200 },
+        clientX: hoverState?.clientX || 400,
+      });
+      setIsOverTooltip(true);
+    }
   };
 
   const handleStockDoubleClick = (stock: Stock) => {
@@ -209,36 +261,38 @@ export function App() {
         />
 
         {/* Center Canvas Treemap */}
-        <main className="flex-1 min-w-0 relative h-full">
+        <main ref={mainContainerRef} className="flex-1 min-w-0 relative h-full">
           <CanvasTreemap
             ref={treemapRef}
             stocks={displayStocks}
             scope={selectedScope}
             searchQuery={searchQuery}
+            externalHoveredSubsector={
+              isOverTooltip && hoverState
+                ? { sector: hoverState.sector, subsector: hoverState.subsector }
+                : null
+            }
             onStockHover={handleStockHover}
             onSubsectorClick={handleSubsectorClick}
             onStockDoubleClick={handleStockDoubleClick}
           />
 
-          {/* Industry Component Stocks Drawer */}
-          {selectedSubsector && (
-            <IndustryDrawer
-              sector={selectedSubsector.sector}
-              subsector={selectedSubsector.subsector}
-              stocks={subsectorStocks}
-              initialStock={selectedSubsector.stock}
-              onClose={() => setSelectedSubsector(null)}
-              onStockDoubleClick={handleStockDoubleClick}
-            />
-          )}
-
-          {/* Hover Tooltip */}
-          {hoveredStock && hoverPos && !selectedSubsector && (
+          {/* Hover Overview Panel - Exact 52etf.site Replica */}
+          {hoverState && (
             <StockHoverTooltip
-              stock={hoveredStock}
-              x={hoverPos.x}
-              y={hoverPos.y}
-              sectorInfo={hoverSectorInfo}
+              stock={hoverState.stock}
+              sector={hoverState.sector}
+              subsector={hoverState.subsector}
+              subsectorStocks={activeSubsectorStocks}
+              subsectorRect={hoverState.rect}
+              containerWidth={mainContainerRef.current?.clientWidth || 1282}
+              cursorX={
+                hoverState.clientX -
+                (mainContainerRef.current?.getBoundingClientRect().left || 158)
+              }
+              onStockDoubleClick={handleStockDoubleClick}
+              onMouseEnterTooltip={handleMouseEnterTooltip}
+              onMouseLeaveTooltip={handleMouseLeaveTooltip}
             />
           )}
         </main>
