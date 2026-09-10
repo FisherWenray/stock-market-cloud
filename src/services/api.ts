@@ -172,6 +172,62 @@ async function fetchWithFallback(targetUrl: string, devUrl: string, signal: Abor
   return fetch(proxyUrl, isTest ? {} : { signal });
 }
 
+export async function fetchJrjQuotes(baseStocks: Stock[], signal?: AbortSignal): Promise<Stock[]> {
+  const isTest = isTestRuntime();
+  const url = import.meta.env.DEV ? '/api-jrj/quot-dpyt/hq' : 'https://gateway.jrj.com/quot-dpyt/hq';
+
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ column: 'chg' }),
+      ...(isTest ? {} : { signal }),
+    });
+  } catch (err) {
+    if (import.meta.env.DEV) {
+      res = await fetch('https://gateway.jrj.com/quot-dpyt/hq', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ column: 'chg' }),
+        ...(isTest ? {} : { signal }),
+      });
+    } else {
+      throw err;
+    }
+  }
+
+  if (!res.ok) {
+    throw new Error(`JRJ API returned ${res.status}`);
+  }
+
+  const json = await res.json();
+  const hqs = json?.data?.hqs;
+  if (!hqs || typeof hqs !== 'object') {
+    throw new Error('JRJ API returned invalid or empty quotation data');
+  }
+
+  return baseStocks.map(stock => {
+    const [code, ex] = stock.symbol.split('.');
+    const jrjKey = (ex === 'SH' ? '1' : ex === 'SZ' ? '2' : '') + code;
+    const hq = hqs[jrjKey];
+    if (hq && hq.np !== undefined) {
+      const price = Number(hq.np);
+      const change = Number((hq.var * 100).toFixed(2));
+      return {
+        ...stock,
+        price: price > 0 ? price : stock.price,
+        change: isNaN(change) ? stock.change : change,
+      };
+    }
+    return stock;
+  });
+}
+
 export async function fetchMarketData(market: Market, lang: 'zh' | 'en' = 'zh'): Promise<MarketData> {
   const defaultMockStocks = getDefaultStocksForMarket(market);
 
@@ -183,6 +239,28 @@ export async function fetchMarketData(market: Market, lang: 'zh' | 'en' = 'zh'):
     if (backendData) {
       clearTimeout(timeoutId);
       return backendData;
+    }
+
+    if (market === 'CN' && !hasCustomApiKey()) {
+      try {
+        const updatedStocks = await fetchJrjQuotes(defaultMockStocks, controller.signal);
+        clearTimeout(timeoutId);
+        return {
+          market,
+          stocks: injectMockMetrics(updatedStocks),
+          isMock: false,
+          lastUpdated: new Date().toISOString(),
+        };
+      } catch (jrjError) {
+        console.warn('[StockDataService] JRJ batch quote failed, falling back to base stocks:', jrjError);
+        clearTimeout(timeoutId);
+        return {
+          market,
+          stocks: injectMockMetrics(getFluctuatedMockData(defaultMockStocks)),
+          isMock: true,
+          lastUpdated: new Date().toISOString(),
+        };
+      }
     }
 
     let fetchPromises: Promise<Response>[] = [];
@@ -442,20 +520,49 @@ export async function fetchMarketIndices(market: Market): Promise<IndexData[]> {
 
 export async function fetchChineseHeaderIndices(): Promise<import('../types').MarketIndexItem[]> {
   const symbolMap = [
-    { code: 'sh000001', name: '上证指数', point: 3946.68, change: 0.35 },
-    { code: 'sz399001', name: '深证成指', point: 13793.13, change: 0.13 },
-    { code: 'sz399006', name: '创业板指', point: 3397.01, change: -0.05 },
-    { code: 'sh000985', name: '中证全指', point: 5916.40, change: 0.40 },
-    { code: 'sh000016', name: '上证50', point: 2914.93, change: 0.11 },
-    { code: 'sh000300', name: '沪深300', point: 4579.43, change: 0.10 },
-    { code: 'sh000905', name: '中证500', point: 7804.13, change: 0.58 },
+    { code: 'sh000001', secid: '1.000001', name: '上证指数', point: 3951.51, change: 0.28 },
+    { code: 'sz399001', secid: '0.399001', name: '深证成指', point: 13723.32, change: 0.15 },
+    { code: 'sz399006', secid: '0.399006', name: '创业板指', point: 3354.97, change: -0.14 },
+    { code: 'sh000985', secid: '1.000985', name: '中证全指', point: 5899.03, change: 0.07 },
+    { code: 'sh000016', secid: '1.000016', name: '上证50', point: 2910.40, change: 0.06 },
+    { code: 'sh000300', secid: '1.000300', name: '沪深300', point: 4572.60, change: 0.30 },
+    { code: 'sh000905', secid: '1.000905', name: '中证500', point: 7768.11, change: -0.03 },
   ];
 
-  const symbols = symbolMap.map(s => s.code);
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 8000);
 
+  // 1. Try Eastmoney delay API (CORS enabled, standard JSON)
   try {
+    const secids = symbolMap.map(s => s.secid).join(',');
+    const emUrl = `https://push2delay.eastmoney.com/api/qt/ulist.np/get?fltt=2&secids=${secids}&fields=f2,f3,f4,f12,f14`;
+    const res = await fetch(emUrl, { signal: controller.signal });
+    if (res.ok) {
+      const json = await res.json();
+      const diff = json?.data?.diff;
+      if (Array.isArray(diff) && diff.length > 0) {
+        clearTimeout(timeoutId);
+        const mapByCode = new Map<string, any>();
+        for (const item of diff) {
+          mapByCode.set(String(item.f12), item);
+        }
+        return symbolMap.map(def => {
+          const item = mapByCode.get(def.code.slice(2));
+          return {
+            name: def.name,
+            code: def.code,
+            point: item && item.f2 !== undefined ? Number(item.f2) : def.point,
+            changePercent: item && item.f3 !== undefined ? Number(item.f3) : def.change,
+          };
+        });
+      }
+    }
+  } catch {
+    // Continue to GTimg fallback
+  }
+
+  try {
+    const symbols = symbolMap.map(s => s.code);
     const targetUrl = `https://qt.gtimg.cn/q=${symbols.join(',')}&_=${Date.now()}`;
     const devUrl = `/api-yahoo/q=${symbols.join(',')}`;
     const res = await fetchWithFallback(targetUrl, devUrl, controller.signal);

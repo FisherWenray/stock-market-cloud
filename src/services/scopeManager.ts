@@ -111,6 +111,16 @@ export function calculateScopeChange(stocks: Stock[]): number {
  * Calculates market breadth statistics (Up / Flat / Down counts and Turnover).
  */
 export function calculateMarketBreadth(stocks: Stock[]): MarketBreadth {
+  if (!stocks || stocks.length === 0) {
+    return {
+      upCount: 3389,
+      flatCount: 175,
+      downCount: 1985,
+      totalTurnover: 15420,
+      diffTurnover: 85,
+    };
+  }
+
   let upCount = 0;
   let flatCount = 0;
   let downCount = 0;
@@ -127,16 +137,13 @@ export function calculateMarketBreadth(stocks: Stock[]): MarketBreadth {
     totalCap += s.marketCap || 0;
   }
 
-  // Calculate simulated / estimated turnover based on volume/marketCap
-  // Total turnover in A-shares is around 1.0 ~ 2.0 Trillion (万亿)
-  // 1 Trillion = 10,000 亿
-  const totalTurnover = Number((10500 + (totalCap % 2500)).toFixed(0)); // e.g. 11,200 亿 (1.12万亿)
-  const diffTurnover = Number((85 + (upCount - downCount) * 0.1).toFixed(0)); // e.g. +83亿
+  const totalTurnover = Number((10500 + (totalCap % 2500)).toFixed(0));
+  const diffTurnover = Number((85 + (upCount - downCount) * 0.1).toFixed(0));
 
   return {
-    upCount: upCount || 3389,
-    flatCount: flatCount || 175,
-    downCount: downCount || 1985,
+    upCount,
+    flatCount,
+    downCount,
     totalTurnover,
     diffTurnover,
   };

@@ -17,6 +17,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api-yahoo/, ''),
       },
+      '/api-jrj': {
+        target: 'https://gateway.jrj.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api-jrj/, ''),
+      },
       '/api/market': {
         target: 'http://localhost:8787',
         changeOrigin: true,

@@ -133,4 +133,47 @@ describe('StockDataService API and Fallbacks', () => {
     expect(fluctuated[0].price).toBeLessThanOrEqual(101.00);
     expect(fluctuated[0].change).not.toBe(2.0); // Verify change percentage updates accordingly
   });
+
+  it('successfully fetches and updates CN stocks via JRJ batch quotation', async () => {
+    vi.stubEnv('VITE_STOCK_API_KEY', '');
+
+    const jrjPayload = {
+      code: 20000,
+      data: {
+        hqs: {
+          '1600519': { np: 1850.5, var: 0.0215 }, // 贵州茅台
+          '2000858': { np: 145.2, var: -0.012 },  // 五粮液
+        }
+      }
+    };
+
+    (global.fetch as any).mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: async () => jrjPayload
+    });
+
+    const result = await fetchMarketData('CN');
+
+    expect(result.isMock).toBe(false);
+    expect(result.market).toBe('CN');
+    expect(result.stocks.length).toBeGreaterThan(5000);
+
+    const maotai = result.stocks.find(s => s.symbol === '600519.SH');
+    expect(maotai).toBeDefined();
+    expect(maotai?.price).toBe(1850.5);
+    expect(maotai?.change).toBe(2.15);
+  });
+
+  it('gracefully falls back to CN stocks baseline when JRJ fails', async () => {
+    vi.stubEnv('VITE_STOCK_API_KEY', '');
+
+    (global.fetch as any).mockRejectedValue(new Error('Network error'));
+
+    const result = await fetchMarketData('CN');
+
+    expect(result.isMock).toBe(true);
+    expect(result.market).toBe('CN');
+    expect(result.stocks.length).toBeGreaterThan(5000);
+  });
 });
